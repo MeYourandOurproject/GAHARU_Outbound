@@ -9,7 +9,7 @@
             <div id="carouselExampleIndicators" class="carousel slide">
               <div class="carousel-indicators">
                 <button
-                  v-for="(item, index) in latest3Item"
+                  v-for="(item, index) in latestItem"
                   :key="index"
                   type="button"
                   :data-bs-target="'#carouselExampleIndicators'"
@@ -21,7 +21,7 @@
               </div>
               <div class="carousel-inner">
                 <div
-                  v-for="(item, index) in latest3Item"
+                  v-for="(item, index) in latestItem"
                   :key="item.id"
                   :class="['carousel-item', { active: index === 0 }]"
                 >
@@ -32,11 +32,10 @@
                   />
                   <div class="carousel-caption d-none d-md-block">
                     <div class="bg">
-                      <span class="title">{{ item.title }}</span>
-                      <br />
                       <span class="costumer">
-                        {{ item.costumer }}
-                      </span>
+                        {{ item.title }} </span
+                      ><br />
+                      <span class="title">{{ item.costumer }}</span>
                     </div>
                   </div>
                 </div>
@@ -102,7 +101,7 @@ import { ref, onMounted } from "vue";
 export default {
   setup() {
     const latestItem = ref([]);
-    const latest3Item = ref([]);
+    // const latest3Item = ref([]);
 
     const fetchData = async () => {
       try {
@@ -119,7 +118,7 @@ export default {
         );
 
         latestItem.value = data;
-        latest3Item.value = data.slice(0, 3); // Get the latest three items
+        // latest3Item.value = data.slice(0, 3); // Get the latest three items
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -131,7 +130,7 @@ export default {
 
     return {
       latestItem,
-      latest3Item,
+      // latest3Item,
     };
   },
 };

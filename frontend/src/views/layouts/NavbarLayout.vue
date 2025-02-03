@@ -1,28 +1,35 @@
 <template>
   <nav class="fixed-top">
-    <div class="container p-1">
+    <div class="container-fluid p-1">
       <div
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-center mt-5 mb-4 gap-3 n"
       >
-        <div class="col-md-4 mb-2 mb-md-0">
+        <div class="col-md-3 mb-2 mb-md-0">
           <router-link to="/" class="link-body-emphasis text-decoration-none">
-            <img
-              alt="Logo"
-              height="40px"
-              class="d-inline-block align-text-center me-2"
-              src="../../assets/logo.png"
-            />
-            <img
+            <div
+              class="row d-flex align-items-center justify-content-center gap-2"
+            >
+              <div class="col-auto p-0 m-0">
+                <img
+                  alt="Logo"
+                  class="d-inline-block align-text-center logo-brand"
+                  src="../../assets/logo.png"
+                />
+              </div>
+              <div class="col-auto text-brand">GAHARU</div>
+            </div>
+
+            <!-- <img
               alt="Logo"
               width="130px"
               class="d-inline-block align-text-center"
               src="../../assets/pesonalinggarjati.png"
-            />
+            /> -->
           </router-link>
         </div>
 
         <ul
-          class="nav col-12 col-md-5 justify-content-center mb-md-0 fs-3 text-decoration-none"
+          class="nav col-12 col-md-6 justify-content-center mb-md-0 fs-3 text-decoration-none"
         >
           <li>
             <router-link
@@ -34,27 +41,49 @@
           </li>
           <li class="dropdown">
             <router-link
-              to="/paket-tour"
+              to=""
               class="nav-link pc-3 small-text dropdown-toggle"
               :class="{
-                active: isActive('PaketTour', 'PaketTourDetail'),
+                active: isActive('CostumPackage'),
               }"
-              >Paket Tour</router-link
-            >
+              >Price List
+            </router-link>
             <ul class="dropdown-menu border-radius-2 small-text">
               <li>
-                <router-link to="/paket-tour" class="dropdown-item"
-                  >Domestik</router-link
+                <router-link
+                  to="/fun-activity-package-page"
+                  class="dropdown-item"
+                >
+                  Fun Activity</router-link
                 >
               </li>
               <li>
-                <router-link to="/paket-tour" class="dropdown-item"
-                  >Internasional</router-link
+                <router-link
+                  to="/best-destination-package-page"
+                  class="dropdown-item"
+                >
+                  Best Destination</router-link
                 >
               </li>
               <li>
-                <router-link to="/paket-tour" class="dropdown-item"
-                  >Ziarah</router-link
+                <router-link
+                  to="/cozy-staycation-package-page"
+                  class="dropdown-item"
+                >
+                  Cozy Staycation</router-link
+                >
+              </li>
+              <li>
+                <router-link to="/all-package" class="dropdown-item disabled">
+                  All Package</router-link
+                >
+              </li>
+              <li>
+                <router-link
+                  to="/costum-package-page"
+                  class="dropdown-item disabled"
+                >
+                  Costum Package</router-link
                 >
               </li>
             </ul>
@@ -62,19 +91,27 @@
           <li>
             <router-link
               to="/galery"
-              class="nav-link pc-3 small-text"
+              class="nav-link pc-3 small-text unactived"
               :class="{ active: $route.name === 'Galery' }"
-              >Galery</router-link
+              >Galeri</router-link
             >
           </li>
           <li>
+            <router-link
+              to="/artikel"
+              class="nav-link pc-3 small-text"
+              :class="{ active: $route.name === 'Artikel' }"
+              >Artikel</router-link
+            >
+          </li>
+          <!-- <li>
             <router-link
               to="/about-us"
               class="nav-link pc-3 small-text"
               :class="{ active: $route.name === 'AboutUs' }"
               >About Us</router-link
             >
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
@@ -100,9 +137,25 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap");
 
+.logo-brand {
+  margin: 0;
+  padding: 0;
+  height: 60px;
+}
+
+.text-brand {
+  margin: 0;
+  margin-left: 2px;
+  padding: 0;
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+}
+
 .small-text {
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: bold;
 }
 
 .nav-link {
@@ -176,10 +229,21 @@ export default {
   background-color: #f8f9fa;
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.9; /* Biar terlihat tidak aktif */
+}
+
 @media (max-width: 767px) {
   .n {
     border-radius: 20px;
     padding: 20px;
+  }
+
+  .small-text {
+    font-size: 0.7rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: bold;
   }
 }
 </style>

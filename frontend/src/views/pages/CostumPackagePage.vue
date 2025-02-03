@@ -1,6 +1,10 @@
 <template>
   <div class="container-fluid paket-tour-heroes">
     <div class="container content">
+      <!-- TITLE PAGE -->
+      <div class="container title-page-costum mb-3">
+        <h1>Costum Package</h1>
+      </div>
       <div class="row rounded-1 search-bar">
         <div class="col-12 col-md">
           <select class="form-select">
@@ -135,9 +139,18 @@ export default {
   display: flex;
 }
 
-.content {
-  margin-top: 170px;
+.title-page-costum {
+  color: #fff;
+  font-family: "Poppins", sans-serif; /* Poppins font for the title */
+  margin-top: 160px;
+  font-weight: bold;
+  letter-spacing: 5px;
 }
+
+/* .content {
+  margin-top: 5px;
+  background-color: aqua;
+} */
 
 .search-bar {
   background-color: rgba(255, 255, 255, 0.3);
@@ -213,6 +226,10 @@ export default {
 
   .search-bar .col-12 {
     margin-bottom: 5px;
+  }
+
+  .title-page-costum {
+    margin-top: 20px;
   }
 }
 </style>

@@ -4,7 +4,8 @@ module.exports = defineConfig({
   transpileDependencies: true,
   chainWebpack: (config) => {
     config.plugin("html").tap((args) => {
-      args[0].title = "Pangalengan Adventure"; // Ganti title di sini
+      args[0].title =
+        "Gaharu Bandung Adventure | Outbond, Rafting, Jeep Offroad, Outdoor Activity"; // Ganti title di sini
       return args;
     });
   },

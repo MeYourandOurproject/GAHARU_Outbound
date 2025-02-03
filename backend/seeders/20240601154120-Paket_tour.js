@@ -6,7 +6,7 @@ module.exports = {
     await queryInterface.bulkInsert("Paket_tours", [
       {
         name: "Sapan Menyala",
-        picture: "e",
+        picture: "https://placehold.co/600x400",
         price: 250000,
         country: "Indonesia",
         city: "Bandung Regency",

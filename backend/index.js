@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:8081");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE"
@@ -23,7 +23,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cors({ origin: "http://localhost:8081" }));
+app.use(cors({ origin: "http://localhost:8080" }));
 app.use("/api", router);
 
 app.use(errorHandler);
