@@ -2,9 +2,9 @@
   <nav class="fixed-top">
     <div class="container-fluid p-1">
       <div
-        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-center mt-5 mb-4 gap-3 n"
+        class="row d-flex align-items-center justify-content-center justify-content-md-center mt-5 mb-4 gap-3 n row-cols-1 row-cols-lg-3"
       >
-        <div class="col-md-3 mb-2 mb-md-0">
+        <div class="col">
           <router-link to="/" class="link-body-emphasis text-decoration-none">
             <div
               class="row d-flex align-items-center justify-content-center gap-2"
@@ -28,83 +28,90 @@
           </router-link>
         </div>
 
-        <ul
-          class="nav col-12 col-md-6 justify-content-center mb-md-0 fs-3 text-decoration-none"
-        >
-          <li>
-            <router-link
-              to="/"
-              class="nav-link pc-3 small-text"
-              :class="{ active: $route.name === 'Home' }"
-              >Home</router-link
-            >
-          </li>
-          <li class="dropdown">
-            <router-link
-              to=""
-              class="nav-link pc-3 small-text dropdown-toggle"
-              :class="{
-                active: isActive('CostumPackage'),
-              }"
-              >Price List
-            </router-link>
-            <ul class="dropdown-menu border-radius-2 small-text">
-              <li>
-                <router-link
-                  to="/fun-activity-package-page"
-                  class="dropdown-item"
-                >
-                  Fun Activity</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  to="/best-destination-package-page"
-                  class="dropdown-item"
-                >
-                  Best Destination</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  to="/cozy-staycation-package-page"
-                  class="dropdown-item"
-                >
-                  Cozy Staycation</router-link
-                >
-              </li>
-              <li>
-                <router-link to="/all-package" class="dropdown-item disabled">
-                  All Package</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  to="/costum-package-page"
-                  class="dropdown-item disabled"
-                >
-                  Costum Package</router-link
-                >
-              </li>
-            </ul>
-          </li>
-          <li>
-            <router-link
-              to="/galery"
-              class="nav-link pc-3 small-text unactived"
-              :class="{ active: $route.name === 'Galery' }"
-              >Galeri</router-link
-            >
-          </li>
-          <li>
-            <router-link
-              to="/artikel"
-              class="nav-link pc-3 small-text"
-              :class="{ active: $route.name === 'Artikel' }"
-              >Artikel</router-link
-            >
-          </li>
-          <!-- <li>
+        <div class="col">
+          <ul
+            class="nav justify-content-center mb-md-0 fs-3 text-decoration-none"
+          >
+            <li>
+              <router-link
+                to="/"
+                class="nav-link pc-3 small-text"
+                :class="{ active: $route.name === 'Home' }"
+                >Home</router-link
+              >
+            </li>
+            <li class="dropdown">
+              <router-link
+                to=""
+                class="nav-link pc-3 small-text dropdown-toggle"
+                :class="{
+                  active: isActive(
+                    'FunActivity',
+                    'BestDestination',
+                    'CozyStaycation',
+                    'AllPackage',
+                    'CostumPage'
+                  ),
+                }"
+                >Price List
+              </router-link>
+              <ul class="dropdown-menu border-radius-2 small-text">
+                <li>
+                  <router-link
+                    to="/fun-activity-package-page"
+                    class="dropdown-item"
+                  >
+                    Fun Activity</router-link
+                  >
+                </li>
+                <li>
+                  <router-link
+                    to="/best-destination-package-page"
+                    class="dropdown-item"
+                  >
+                    Best Destination</router-link
+                  >
+                </li>
+                <li>
+                  <router-link
+                    to="/cozy-staycation-package-page"
+                    class="dropdown-item"
+                  >
+                    Cozy Staycation</router-link
+                  >
+                </li>
+                <li>
+                  <router-link to="/all-package" class="dropdown-item disabled">
+                    All Package</router-link
+                  >
+                </li>
+                <li>
+                  <router-link
+                    to="/costum-package-page"
+                    class="dropdown-item disabled"
+                  >
+                    Costum Package</router-link
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <router-link
+                to="/galery"
+                class="nav-link pc-3 small-text unactived"
+                :class="{ active: $route.name === 'Galery' }"
+                >Galeri</router-link
+              >
+            </li>
+            <li>
+              <router-link
+                to="/artikel"
+                class="nav-link pc-3 small-text"
+                :class="{ active: $route.name === 'Artikel' }"
+                >Artikel</router-link
+              >
+            </li>
+            <!-- <li>
             <router-link
               to="/about-us"
               class="nav-link pc-3 small-text"
@@ -112,7 +119,8 @@
               >About Us</router-link
             >
           </li> -->
-        </ul>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>
