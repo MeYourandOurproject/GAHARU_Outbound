@@ -36,7 +36,10 @@
             </a>
 
             <a href="#layanan" class="btn text-decoration-none rounded-3">
-              <button type="button" class="btn btn-galeri btn-primary btn-lg">
+              <button
+                type="button"
+                class="btn btn-galeri btn-outline-light btn-lg"
+              >
                 Lihat Paket<i
                   class="bi bi-arrow-right-circle-fill ms-2"
                 ></i></button
@@ -607,7 +610,7 @@
     url("../../assets/rafting_hd.webp");
   display: flex;
   background-size: cover;
-  /* background-position: bottom; */
+  background-position: bottom;
 }
 
 .heroes-content {
