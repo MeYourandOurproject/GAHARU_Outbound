@@ -97,20 +97,21 @@
 
 <script>
 import { ref } from "vue";
-import raftingImg from "@/assets/rafting.jpg";
-// import atvImg from "@/assets/atv.jpg";
-// import offRoadImg from "@/assets/offroad.jpg";
-// import paintballImg from "@/assets/paintball.jpg";
-// import flyingfoxImg from "@/assets/flyingfox.jpg";
-// import teamBuildingImg from "@/assets/team_building.jpg";
-// import tourDanauImg from "@/assets/tour_danau.jpg";
+import situCileuncaImg from "@/assets/situ-cileunca.jpg";
+import tamanLangitImg from "@/assets/taman_langit.jpg";
+import riungGunungImg from "@/assets/riung_gunung.jpg";
+import nimoImg from "@/assets/nimo.jpg";
+import penakaran_rusaImg from "@/assets/rusa.jpg";
+import tehJangkungImg from "@/assets/teh_jangkung.jpg";
+import cibolangHotSpringImg from "@/assets/cibolang_hot_spring.png";
+import caritaAlamImg from "@/assets/carita_alam.jpg";
 
 export default {
   setup() {
     const datas = ref([
       {
         name: "Situ Cileunca",
-        picture: raftingImg,
+        picture: situCileuncaImg,
         deskripsi:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ipsa nesciunt, voluptas ad eligendi accusamus quia repellendus ab, laudantium veritatis beatae architecto dolorem quis possimus quos incidunt animi et quo!",
         price: 15000,
@@ -121,7 +122,7 @@ export default {
       },
       {
         name: "Taman Langit",
-        picture: raftingImg,
+        picture: tamanLangitImg,
         deskripsi:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ipsa nesciunt, voluptas ad eligendi accusamus quia repellendus ab, laudantium veritatis beatae architecto dolorem quis possimus quos incidunt animi et quo!",
         price: 10000,
@@ -132,7 +133,7 @@ export default {
       },
       {
         name: "Riung Gunung",
-        picture: raftingImg,
+        picture: riungGunungImg,
         deskripsi:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ipsa nesciunt, voluptas ad eligendi accusamus quia repellendus ab, laudantium veritatis beatae architecto dolorem quis possimus quos incidunt animi et quo!",
         price: 10000,
@@ -143,7 +144,7 @@ export default {
       },
       {
         name: "Nimo Highland",
-        picture: raftingImg,
+        picture: nimoImg,
         deskripsi:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ipsa nesciunt, voluptas ad eligendi accusamus quia repellendus ab, laudantium veritatis beatae architecto dolorem quis possimus quos incidunt animi et quo!",
         price: 30000,
@@ -154,7 +155,7 @@ export default {
       },
       {
         name: "Teh Jangkung",
-        picture: raftingImg,
+        picture: tehJangkungImg,
         deskripsi:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ipsa nesciunt, voluptas ad eligendi accusamus quia repellendus ab, laudantium veritatis beatae architecto dolorem quis possimus quos incidunt animi et quo!",
         price: 20000,
@@ -165,7 +166,7 @@ export default {
       },
       {
         name: "Cibolang Hotspring",
-        picture: raftingImg,
+        picture: cibolangHotSpringImg,
         deskripsi:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ipsa nesciunt, voluptas ad eligendi accusamus quia repellendus ab, laudantium veritatis beatae architecto dolorem quis possimus quos incidunt animi et quo!",
         price: 15000,
@@ -176,7 +177,7 @@ export default {
       },
       {
         name: "Penakaran Rusa",
-        picture: raftingImg,
+        picture: penakaran_rusaImg,
         deskripsi:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ipsa nesciunt, voluptas ad eligendi accusamus quia repellendus ab, laudantium veritatis beatae architecto dolorem quis possimus quos incidunt animi et quo!",
         price: 15000,
@@ -187,7 +188,7 @@ export default {
       },
       {
         name: "Cerita Alam Hotspring",
-        picture: raftingImg,
+        picture: caritaAlamImg,
         deskripsi:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione ipsa nesciunt, voluptas ad eligendi accusamus quia repellendus ab, laudantium veritatis beatae architecto dolorem quis possimus quos incidunt animi et quo!",
         price: 25000,
@@ -255,9 +256,11 @@ export default {
 /* HEROES STYLE */
 .best-destination-heroes {
   height: 50vh;
-  background-image: url("../../assets/hero.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url("../../assets/teh_jangkung.jpg");
   background-size: cover;
   display: flex;
+  background-position: center;
 }
 
 .title-page {

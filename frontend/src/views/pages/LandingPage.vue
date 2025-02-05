@@ -74,8 +74,7 @@
                 </div>
                 <div class="border border-2 m-1 mt-3 p-3 rounded-3">
                   <p class="card-text">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Magnam rerum accusamus, iste consequatur eius velit!
+                    Serunya berbagai aktivitas menantang dan menyenangkan.
                   </p>
                 </div>
                 <div
@@ -124,8 +123,7 @@
                 </div>
                 <div class="border border-2 m-1 mt-3 p-3 rounded-3">
                   <p class="card-text">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Magnam rerum accusamus, iste consequatur eius velit!
+                    Jelajahi tempat terbaik dengan itinerary eksklusif.
                   </p>
                 </div>
                 <div
@@ -174,8 +172,7 @@
                 </div>
                 <div class="border border-2 m-1 mt-3 p-3 rounded-3">
                   <p class="card-text">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Magnam rerum accusamus, iste consequatur eius velit!
+                    Nikmati staycation nyaman dengan fasilitas lengkap.
                   </p>
                 </div>
                 <div
@@ -224,8 +221,7 @@
                 </div>
                 <div class="border border-2 m-1 mt-3 p-3 rounded-3">
                   <p class="card-text">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Magnam rerum accusamus, iste consequatur eius velit!
+                    Liburan tanpa ribet dengan paket lengkap perjalanan.
                   </p>
                 </div>
                 <div
@@ -274,8 +270,7 @@
                 </div>
                 <div class="border border-2 m-1 mt-3 p-3 rounded-3">
                   <p class="card-text">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Magnam rerum accusamus, iste consequatur eius velit!
+                    Sesuaikan liburan sesuai keinginan dan kebutuhan.
                   </p>
                 </div>
                 <div
@@ -524,7 +519,7 @@
     <div class="container pt-5 pb-5">
       <div class="pb-md-4 mx-auto text-center">
         <p class="fs-5">Kenapa Liburanmu Harus Bersama</p>
-        <h1 class="title-facility-section fw-bold">Gaharu Adventure</h1>
+        <h1 class="title-facility-section fw-bold">Gaharu Outbound</h1>
       </div>
       <div class="row row-cols-1 row-cols-lg-2 bg-facility">
         <div class="col mt-5">
@@ -535,9 +530,9 @@
             <div class="col-8 text-start">
               <div class="fw-bold fasiliti-name">Proses Mudah dan Cepat</div>
               <div class="deskripsi-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. A, in.
-                Illo et optio non sequi cum vitae cupiditate maxime mollitia
-                adipisci. Ipsam a eaque neque iure. Inventore quia id libero.
+                Nikmati kemudahan dalam pemesanan dan perencanaan aktivitas
+                outbound. Dengan sistem yang terorganisir, kamu bisa memulai
+                petualangan seru tanpa ribet dan tanpa menunggu lama.
               </div>
             </div>
           </div>
@@ -550,9 +545,10 @@
             <div class="col-8 text-start">
               <div class="fw-bold fasiliti-name">Terbaik Dikelasnya</div>
               <div class="deskripsi-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. A, in.
-                Illo et optio non sequi cum vitae cupiditate maxime mollitia
-                adipisci.
+                Kami menghadirkan pengalaman outbound terbaik dengan fasilitas
+                unggulan dan pelayanan profesional. Setiap kegiatan dirancang
+                untuk memberikan keseruan maksimal dan kepuasan terbaik bagi
+                peserta.
               </div>
             </div>
           </div>
@@ -567,9 +563,10 @@
                 Fasilitator Tersertifikasi
               </div>
               <div class="deskripsi-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. A, in.
-                Illo et optio non sequi cum vitae cupiditate maxime mollitia
-                adipisci.
+                Tim kami terdiri dari instruktur berpengalaman yang telah
+                memiliki sertifikasi di bidang outbound dan kegiatan luar
+                ruangan. Keamanan dan kenyamanan peserta adalah prioritas utama
+                kami.
               </div>
             </div>
           </div>
@@ -582,9 +579,10 @@
             <div class="col-8 text-start">
               <div class="fw-bold fasiliti-name">Berpengalaman</div>
               <div class="deskripsi-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. A, in.
-                Illo et optio non sequi cum vitae cupiditate maxime mollitia
-                adipisci.
+                Dengan pengalaman bertahun-tahun, kami telah menyelenggarakan
+                berbagai program outbound untuk individu, kelompok, dan
+                perusahaan. Kepercayaan pelanggan adalah bukti dari layanan
+                berkualitas yang kami berikan.
               </div>
             </div>
           </div>
@@ -605,11 +603,11 @@
 
 .heroes {
   height: 100vh;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../../assets/heroadv.jpeg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+    url("../../assets/rafting_hd.webp");
   display: flex;
   background-size: cover;
-  background-position: bottom;
+  /* background-position: bottom; */
 }
 
 .heroes-content {
@@ -622,7 +620,7 @@
   text-align: center;
   color: rgb(255, 255, 255, 0.9);
   letter-spacing: 3px;
-  background-color: rgba(0, 0, 0, 0.3);
+  /* background-color: rgba(0, 0, 0, 0.3); */
   border-radius: 20px;
   padding: 30px;
 }
@@ -856,6 +854,14 @@
 
   .spaced-heading br {
     margin-top: 20px; /* Adjust this value for mobile */
+  }
+
+  .btn-wa {
+    font-size: 15px;
+  }
+
+  .btn-galeri {
+    font-size: 15px;
   }
 
   .btn-paket {

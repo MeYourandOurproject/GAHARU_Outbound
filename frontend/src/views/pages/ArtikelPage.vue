@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid artikel-heroes"></div>
-  <div class="container content">
+  <div class="container content mt-5 mb-5">
     <div
       class="row rows-cols-1 row-cols-md-3 align-items-center justify-content-center"
     >
@@ -50,7 +50,6 @@
 .content {
   margin-top: 20px;
   padding: 20px;
-  height: 100vh;
   color: black;
   font-family: "Poppins", sans-serif; /* Poppins font for the title */
   /* margin-top: 220px; */

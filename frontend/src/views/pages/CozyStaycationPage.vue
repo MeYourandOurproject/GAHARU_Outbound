@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid cozy-staycation-heroes">
     <div class="container title-page">
-      <h1>Best Destination Package</h1>
+      <h1>Cozy Staycation Package</h1>
     </div>
   </div>
 
@@ -102,20 +102,22 @@
 
 <script>
 import { ref } from "vue";
-import raftingImg from "@/assets/rafting.jpg";
-// import atvImg from "@/assets/atv.jpg";
-// import offRoadImg from "@/assets/offroad.jpg";
-// import paintballImg from "@/assets/paintball.jpg";
-// import flyingfoxImg from "@/assets/flyingfox.jpg";
-// import teamBuildingImg from "@/assets/team_building.jpg";
-// import tourDanauImg from "@/assets/tour_danau.jpg";
+import bumiSaddamImg from "@/assets/bumi-saddam-palayangan.jpeg";
+import btsImg from "@/assets/bts.webp";
+import villaPalayanganImg from "@/assets/palayangan.webp";
+import familiy1Img from "@/assets/family1.webp";
+import familiy2Img from "@/assets/family2.webp";
+import familiy3Img from "@/assets/family3.webp";
+import zaydImg from "@/assets/zayd.webp";
+import wanteaImg from "@/assets/wantea.webp";
+import hiraImg from "@/assets/hira.webp";
 
 export default {
   setup() {
     const datas = ref([
       {
         name: "Bumi Saddam Palayangan",
-        picture: raftingImg,
+        picture: bumiSaddamImg,
         deskripsi:
           "Satu-satunya penginapan bernuansa traditional sunda di Pangalengan dengan pemandangan yang langsung dihadapkan dengan danau Situ Cileunca.",
         price: 500000,
@@ -128,7 +130,7 @@ export default {
       },
       {
         name: "Homestay Arture BTS",
-        picture: raftingImg,
+        picture: btsImg,
         deskripsi:
           "Homestay modern dengan fasilitas lengkap ini sangat cocok untuk keluarga dan kelompok yang ingin berlibur di Pangalengan dengan nyaman.",
         price: 2000000,
@@ -141,7 +143,7 @@ export default {
       },
       {
         name: "Villa Bumi Palayangan",
-        picture: raftingImg,
+        picture: villaPalayanganImg,
         deskripsi:
           "Villa bergaya arsitektur tradisional dengan kapasitas besar ini berhadapan langsung dengan danau Situ Cileunca. Sangat cocok untuk korporasi dan keluarga!",
         price: 2000000,
@@ -154,7 +156,7 @@ export default {
       },
       {
         name: "Villa Family 1",
-        picture: raftingImg,
+        picture: familiy1Img,
         deskripsi:
           "Villa Family ini merupakan komplek villa terdiri dari 3 homestay yang saling berdekatan satu sama lainnya dan berpemandangan Situ Cileunca.",
         price: 2000000,
@@ -167,7 +169,7 @@ export default {
       },
       {
         name: "Villa Family 2",
-        picture: raftingImg,
+        picture: familiy2Img,
         deskripsi:
           "Villa Family ini merupakan komplek villa terdiri dari 3 homestay yang saling berdekatan satu sama lainnya dan berpemandangan Situ Cileunca.",
         price: 2000000,
@@ -180,7 +182,7 @@ export default {
       },
       {
         name: "Villa Family 3",
-        picture: raftingImg,
+        picture: familiy3Img,
         deskripsi:
           "Villa Family ini merupakan komplek villa terdiri dari 3 homestay yang saling berdekatan satu sama lainnya dan berpemandangan Situ Cileunca.",
         price: 2500000,
@@ -193,7 +195,7 @@ export default {
       },
       {
         name: "Villa Zayd",
-        picture: raftingImg,
+        picture: zaydImg,
         deskripsi:
           "Villa bergaya arsitektur modern ini dilengkapi dengan kamar-kamar serta fasilitas lengkap yang bisa digunakan selama menginap",
         price: 2000000,
@@ -205,8 +207,8 @@ export default {
         updatedAt: new Date(),
       },
       {
-        name: "Villa Wamtea",
-        picture: raftingImg,
+        name: "Villa Wantea",
+        picture: wanteaImg,
         deskripsi:
           "Villa Wantea merupakan villa yang memadukan gaya arsitektur belanda dan modern. Kapasitas yang luas menjadikannya cocok untuk keluarga.",
         price: 3000000,
@@ -219,7 +221,7 @@ export default {
       },
       {
         name: "Villa Hira",
-        picture: raftingImg,
+        picture: hiraImg,
         deskripsi:
           "Villa satu ini memiliki ukuran yang luas sehingga bisa digunakan untuk berbagai macam aktifitas yang dilengkapi fasilitas lengkap!",
         price: 2500000,
@@ -268,9 +270,11 @@ export default {
 /* HEROES STYLE */
 .cozy-staycation-heroes {
   height: 50vh;
-  background-image: url("../../assets/hero.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+    url("../../assets/camping.jpg");
   background-size: cover;
   display: flex;
+  background-position: bottom;
 }
 
 .title-page {

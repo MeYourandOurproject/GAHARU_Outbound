@@ -300,9 +300,11 @@ export default {
 /* HEROES STYLE */
 .fun-activity-heroes {
   height: 50vh;
-  background-image: url("../../assets/hero.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+    url("../../assets/rafting_hd.webp");
   background-size: cover;
   display: flex;
+  background-position: center;
 }
 
 .title-page {

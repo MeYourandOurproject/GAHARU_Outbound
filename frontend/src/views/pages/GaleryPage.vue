@@ -32,9 +32,7 @@
                   />
                   <div class="carousel-caption d-none d-md-block">
                     <div class="bg">
-                      <span class="costumer">
-                        {{ item.title }} </span
-                      ><br />
+                      <span class="costumer"> {{ item.title }} </span><br />
                       <span class="title">{{ item.costumer }}</span>
                     </div>
                   </div>
@@ -139,7 +137,8 @@ export default {
 <style>
 .galery-heroes {
   height: 25vh;
-  background-image: url("../../assets/hero.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+    url("../../assets/hero.png");
   background-size: cover;
   display: flex;
 }

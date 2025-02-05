@@ -16,7 +16,7 @@
                   src="../../assets/logo.png"
                 />
               </div>
-              <div class="col-auto text-brand">GAHARU</div>
+              <div class="col-auto text-brand">Gaharu Outbound</div>
             </div>
 
             <!-- <img
