@@ -611,14 +611,14 @@
 }
 
 .heroes-content {
-  margin-top: 250px;
+  margin-top: 230px;
 }
 
 .brand {
   font-size: 50px;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
-  color: rgb(255, 255, 255, 0.9);
+  color: rgb(255, 255, 255, 0.5);
   letter-spacing: 3px;
   /* background-color: rgba(0, 0, 0, 0.3); */
   border-radius: 20px;

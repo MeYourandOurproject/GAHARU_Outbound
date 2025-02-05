@@ -2,14 +2,12 @@
   <div class="cotainer-fluid back-img">
     <div class="container align-items-center">
       <div
-        class="row row-cols-1 row-cols-md-3 align-items-ceter justify-content-between pt-5 pb-5"
+        class="row row-cols-1 row-cols-md-3 align-items-center justify-content-between pt-5 pb-5"
       >
-        <div class="col-4 justify-content-center">
+        <div class="col r justify-content-center align-items-center">
           <router-link to="/" class="link-body-emphasis text-decoration-none">
-            <div
-              class="row d-flex align-items-center justify-content-center gap-2"
-            >
-              <div class="col-auto p-0 m-0">
+            <div class="row align-items-center justify-content-center">
+              <div class="col-auto">
                 <img
                   alt="Logo"
                   class="d-inline-block align-text-center logo-brand"
@@ -26,9 +24,10 @@
               src="../../assets/pesonalinggarjati.png"
             /> -->
           </router-link>
-
-          <div class="col border-top mt-2">
-            <div class="row d-flex justify-content-center mt-4">
+        </div>
+        <div class="col text-white">
+          <div class="col">
+            <div class="row d-flex justify-content-center">
               <div class="col-auto">
                 <a
                   href="#facebook"
@@ -77,18 +76,7 @@
             </div>
           </div>
         </div>
-
-        <!-- <div class="col text-white"> -->
-        <!-- <h5 class="text-white fw-bold mb-2">Contact Us.</h5>
-          <div class="row">
-            <div class="col"><i class="bi bi-telephone-fill me-2"></i></div>
-            <div class="col">
-              <div class="col">Ruly Abdul Rasyid</div>
-              <div class="col">0877 0897 2304</div>
-            </div>
-          </div> -->
-        <!-- </div> -->
-        <div class="col-4 asita mt-4">
+        <div class="col asita">
           <!-- <p class="text-white">Bagian Dari:</p> -->
           <div class="row align-items-center justify-content-center">
             <div class="col-3">
