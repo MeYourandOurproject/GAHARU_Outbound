@@ -11,7 +11,7 @@
         class="row row-cols-1 row-cols-md-3 card-paket-tour g-3 justify-content-center"
       >
         <div class="col" v-for="item in datas" :key="item.id">
-          <div class="card text-center shadow-lg">
+          <div class="card h-100 text-center shadow-lg">
             <div class="card-body">
               <img :src="item.picture" alt="" class="card-img-top" />
               <h5 class="card-title mt-2">{{ item.name }}</h5>

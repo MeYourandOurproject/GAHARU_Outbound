@@ -79,17 +79,17 @@
         <div class="col asita">
           <!-- <p class="text-white">Bagian Dari:</p> -->
           <div class="row align-items-center justify-content-center">
-            <div class="col-3">
+            <div
+              class="col-9 text-white align-items-center justify-content-right fw-bold text-end"
+            >
+              Association of The Indonesian Tours & Travel Agencies
+            </div>
+            <div class="col-2">
               <img
                 src="../../assets/asita.png"
                 alt=""
                 class="align-text-center asita-brand"
               />
-            </div>
-            <div
-              class="col-8 text-white align-items-center justify-content-center fw-bold"
-            >
-              Association of The Indonesian Tours & Travel Agencies
             </div>
           </div>
         </div>
