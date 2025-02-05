@@ -1,6 +1,6 @@
 <template>
   <nav class="fixed-top">
-    <div class="container-fluid p-1">
+    <div class="container-fluid">
       <div
         class="row d-flex align-items-center justify-content-center justify-content-md-center mt-5 mb-4 gap-3 n row-cols-1 row-cols-lg-3"
       >

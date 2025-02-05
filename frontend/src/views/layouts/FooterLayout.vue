@@ -1,10 +1,8 @@
 <template>
   <div class="cotainer-fluid back-img">
     <div class="container align-items-center">
-      <div
-        class="row row-cols-1 row-cols-md-3 align-items-center justify-content-between pt-5 pb-5"
-      >
-        <div class="col r justify-content-center align-items-center">
+      <div class="row row-cols-1 row-cols-md-3 align-items-center pt-5 pb-5">
+        <div class="col justify-content-center align-items-center">
           <router-link to="/" class="link-body-emphasis text-decoration-none">
             <div class="row align-items-center justify-content-center">
               <div class="col-auto">
@@ -77,7 +75,6 @@
           </div>
         </div>
         <div class="col asita">
-          <!-- <p class="text-white">Bagian Dari:</p> -->
           <div class="row align-items-center justify-content-center">
             <div
               class="col-9 text-white align-items-center justify-content-right fw-bold text-end"
