@@ -7,9 +7,7 @@
 
   <div class="container-fluid paket-tours">
     <div class="container pt-5 pb-5">
-      <div
-        class="row row-cols-1 row-cols-md-3 card-paket-tour g-3 justify-content-center"
-      >
+      <div class="row row-cols-1 row-cols-md-3 g-3 justify-content-center">
         <div class="col" v-for="item in datas" :key="item.id">
           <div class="card text-center shadow-lg">
             <div class="card-body">
