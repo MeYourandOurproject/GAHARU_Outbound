@@ -104,7 +104,7 @@ export default {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://api.gaharuoutbound.com/api/galery"
+          "https://api.gaharuoutbound.com/api/galery"
         );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
