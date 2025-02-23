@@ -4,7 +4,7 @@ class GaleryController {
   static async create(req, res, next) {
     const { destination_id, title, costumer, description } = req.body;
     // const picturePath = `https://localhost:${process.env.PORT}/${req.file.path}`;
-    const picturePath = `https://${process.env.HOST}:${process.env.PORT}/${req.file.path}`;
+    const picturePath = `https://${process.env.HOST}/${req.file.path}`;
 
     try {
       const galery = await Galery.create({
@@ -70,7 +70,7 @@ class GaleryController {
     const { destination_id, title, costumer, description } = req.body;
 
     const picturePath = req.file
-      ? `https://${process.env.HOST}:${process.env.PORT}/${req.file.path}`
+      ? `https://${process.env.HOST}/${req.file.path}`
       : null;
 
     if (

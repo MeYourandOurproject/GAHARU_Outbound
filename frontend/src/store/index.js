@@ -44,13 +44,16 @@ const store = createStore({
   actions: {
     async login({ commit }, credentials) {
       try {
-        const response = await fetch("http://localhost:3001/api/users/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentials),
-        });
+        const response = await fetch(
+          "https://api.gaharuoutbound.com/api/users/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(credentials),
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();

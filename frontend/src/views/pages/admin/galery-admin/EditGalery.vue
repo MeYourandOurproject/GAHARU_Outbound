@@ -146,11 +146,14 @@ export default {
 
     const fetchDestinations = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/destination/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          "https://api.gaharuoutbound.com/api/destination/",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         const result = await response.json();
         // console.log("Fetched destinations:", result);
         destinations.value = result.data || result;
@@ -177,7 +180,7 @@ export default {
 
       try {
         const response = await fetch(
-          "http://localhost:3001/api/galery/create",
+          "https://api.gaharuoutbound.com/api/galery/create",
           {
             method: "POST",
             body: formData,

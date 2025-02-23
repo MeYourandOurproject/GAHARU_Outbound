@@ -12,16 +12,14 @@ import GaleryPage from "@/views/pages/GaleryPage.vue";
 import ContactPage from "@/views/pages/ContactPage.vue";
 import ArtikelPage from "@/views/pages/ArtikelPage.vue";
 import PaketTourDetailPage from "@/views/pages/PaketTourDetailPage.vue";
+
 import LoginPage from "@/views/pages/admin/LoginPage.vue";
 import DashboardAdmin from "@/views/pages/admin/DashboardAdmin.vue";
-
 import HomeAdmin from "@/views/pages/admin/home-admin/HomeAdmin.vue";
-
 import PaketTourAdmin from "@/views/pages/admin/paket-tour-admin/PaketTourAdmin.vue";
 import ReadPaketTour from "@/views/pages/admin/paket-tour-admin/ReadPaketTour.vue";
 import EditPaketTour from "@/views/pages/admin/paket-tour-admin/EditPaketTour.vue";
 import CreatePaketTour from "@/views/pages/admin/paket-tour-admin/CreatePaketTour.vue";
-
 import GaleryAdmin from "@/views/pages/admin/galery-admin/GaleryAdmin.vue";
 import ReadGalery from "@/views/pages/admin/galery-admin/ReadGalery.vue";
 import EditGalery from "@/views/pages/admin/galery-admin/EditGalery.vue";

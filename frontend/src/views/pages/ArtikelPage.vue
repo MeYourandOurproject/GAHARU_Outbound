@@ -1,15 +1,15 @@
 <template>
   <div class="container-fluid artikel-heroes"></div>
   <div class="container-fluid">
-    <div class="container content pt-5 pb-5 mb-5">
+    <div class="container content pt-5 pb-5">
       <div
-        class="row rows-cols-1 row-cols-md-3 justify-content-center align-items-center"
+        class="row rows-cols-1 row-cols-md-3 justify-content-center align-items-center g-3"
       >
         <div v-for="(artikel, index) in articles" :key="index" class="col">
-          <div class="card text-start shadow-lg artikel-card mt-5">
+          <div class="card text-start shadow-lg artikel-card">
             <div class="card-body">
-              <img :src="artikel.image" alt="" class="card-img-top mb-2" />
-              <p class="title-artikel">
+              <img :src="artikel.image" alt="" class="card-img-top" />
+              <p class="title-artikel mt-2">
                 {{ artikel.title }}
               </p>
               <p class="penulis">{{ artikel.author }}</p>
@@ -75,6 +75,13 @@ p {
 .artikel-card {
   min-height: 420px;
   /* margin-top: 50px; */
+}
+
+.card-img-top {
+  width: 100%;
+  height: 200px; /* Tetapkan tinggi gambar */
+  object-fit: cover; /* Agar gambar tetap proporsional dan mengisi seluruh area tanpa distorsi */
+  border-radius: 10px 10px 0 0;
 }
 </style>
 

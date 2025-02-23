@@ -94,7 +94,7 @@ export default {
       try {
         const slug = route.params.slug;
         const response = await fetch(
-          `http://localhost:3001/api/paket-tour/${slug}`
+          `https://api.gaharuoutbound.com/api/paket-tour/${slug}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
