@@ -1,10 +1,11 @@
 require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const port = process.env.PORT;
 const router = require("./routes");
 const { sequelize } = require("./models");
-const errorHandler = require("./middlewares/errorhandler");
+const errorHandler = require("./middlewares/errorHandler");
 const path = require("path");
 const cors = require("cors");
 
@@ -14,7 +15,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    // "http://localhost:3001"
+    "https://gaharuoutbound.com"
+  );
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE"
@@ -23,8 +28,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cors({ origin: "http://localhost:8080" }));
+app.use(cors({ origin: "https://gaharuoutbound.com" }));
+// app.use(cors({ origin: "http://localhost:3001" }));
 app.use("/api", router);
+
+app.get("/", (req, res) => {
+  res.send("Hello World!, I'm backend from Gaharu Outbound Website");
+});
 
 app.use(errorHandler);
 

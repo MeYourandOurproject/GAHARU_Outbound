@@ -490,7 +490,7 @@ export default {
       // Submit the data to backend using fetch
       try {
         const response = await fetch(
-          "http://localhost:3001/api/paket-tour/create",
+          "https://api.gaharuoutbound.com/api/paket-tour/create",
           {
             method: "POST",
             body: formData,

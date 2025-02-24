@@ -33,7 +33,9 @@ export default {
     const fetchGalery = async () => {
       try {
         const id = route.params.id;
-        const response = await fetch(`http://localhost:3001/api/galery/${id}`);
+        const response = await fetch(
+          `https://api.gaharuoutbound.com/api/galery/${id}`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }

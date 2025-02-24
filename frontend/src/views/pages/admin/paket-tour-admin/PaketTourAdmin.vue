@@ -166,7 +166,9 @@ export default {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/paket-tour");
+        const response = await fetch(
+          "https://api.gaharuoutbound.com/api/paket-tour"
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
@@ -190,7 +192,7 @@ export default {
       // const token = localStorage.getItem("token");
       try {
         const response = await fetch(
-          `http://localhost:3001/api/paket-tour/${id}`,
+          `https://api.gaharuoutbound.com/api/paket-tour/${id}`,
           {
             method: "DELETE",
             headers: {
