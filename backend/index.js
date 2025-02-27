@@ -14,12 +14,30 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Allowed origins
+const allowedOrigins = ["https://gaharuoutbound.com", "http://localhost:8080"];
+
+// CORS configuration
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: "GET, POST, PUT, PATCH, DELETE",
+    allowedHeaders: "Content-Type, Authorization",
+  })
+);
+
+// Manual CORS headers for non-simple requests
 app.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    // "http://localhost:3001"
-    "https://gaharuoutbound.com"
-  );
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE"
@@ -28,8 +46,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(cors({ origin: "https://gaharuoutbound.com" }));
-// app.use(cors({ origin: "http://localhost:3001" }));
 app.use("/api", router);
 
 app.get("/", (req, res) => {
@@ -42,8 +58,8 @@ app.listen(port, async () => {
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
-    console.log(`Example app listen on port ${port}`);
+    console.log(`Example app listening on port ${port}`);
   } catch (error) {
-    console.error("Unable to connect to the database");
+    console.error("Unable to connect to the database", error);
   }
 });

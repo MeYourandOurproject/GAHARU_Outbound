@@ -16,8 +16,8 @@ class GaleryController {
       });
       res.status(200).json(galery);
     } catch (err) {
-      // next(err);
-      console.log(err);
+      next(err);
+      // console.log(err);
     }
   }
 

@@ -11,6 +11,7 @@ const contactSocialMediaRouter = require("./contactSocialMediaRouter");
 const paketTourRouter = require("./paketTourRouter");
 const destinationRouter = require("./destinationRouter");
 const galeryRouter = require("./galeryRouter");
+const artikelRouter = require("./artikelRouter");
 
 router.use("/users", userRouter);
 router.use("/company-profile", companyProfileRouter);
@@ -22,5 +23,6 @@ router.use("/contact-social-media", contactSocialMediaRouter);
 router.use("/paket-tour", paketTourRouter);
 router.use("/destination", destinationRouter);
 router.use("/galery", galeryRouter);
+router.use("/artikel", artikelRouter);
 
 module.exports = router;

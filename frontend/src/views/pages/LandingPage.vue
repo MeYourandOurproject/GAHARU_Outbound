@@ -845,8 +845,8 @@
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     color: rgb(255, 255, 255, 0.9);
-    /* letter-spacing: 3px; */
-    background-color: rgba(0, 0, 0, 0.3);
+    letter-spacing: 3px;
+    /* background-color: rgba(0, 0, 0, 0.3); */
     border-radius: 10px;
     padding: 20px;
   }
