@@ -1,27 +1,29 @@
 <template>
   <div class="container-fluid artikel-heroes"></div>
   <div class="container-fluid">
-    <div class="container content pt-5 pb-5">
+    <div class="container content mt-5 mb-5">
       <div
-        class="row rows-cols-1 row-cols-md-3 justify-content-center align-items-center g-3"
+        class="row rows-cols-1 row-cols-md-3 justify-content-center align-items-stretch g-3"
       >
         <div v-for="(artikel, index) in articles" :key="index" class="col">
-          <div class="card text-start shadow-lg artikel-card">
-            <div class="card-body">
-              <img :src="artikel.image" alt="" class="card-img-top" />
+          <div
+            class="card text-start shadow-lg artikel-card d-flex flex-column h-100"
+          >
+            <div class="card-body d-flex flex-column">
+              <img :src="artikel.thumbnail" alt="" class="card-img-top" />
               <p class="title-artikel mt-2">
                 {{ artikel.title }}
               </p>
-              <p class="penulis">{{ artikel.author }}</p>
-              <p class="isi">
-                {{ artikel.truncatedText }}
-                <router-link
-                  to="/galery"
-                  class="btn btn-sm text-decoration-none"
-                >
-                </router-link>
+              <p class="penulis mt-1">
+                {{ artikel.author }}, {{ formatDate(artikel.updatedAt) }}
               </p>
-              <router-link to="/galery" class="text-decoration-none">
+              <p class="isi flex-grow-1">
+                {{ artikel.content.split(" ").slice(0, 15).join(" ") }}...
+              </p>
+              <router-link
+                :to="`/artikel/${artikel.slug}`"
+                class="text-decoration-none mt-auto"
+              >
                 <button
                   type="button"
                   class="btn btn-primary btn-sm justify-content-end"
@@ -55,6 +57,10 @@
 .title-artikel {
   letter-spacing: 0px;
   margin: 0px;
+  font-size: 14px;
+  font-weight: bold;
+  max-height: 3em; /* Batasi tinggi agar seragam */
+  /* overflow: hidden; */
 }
 
 p {
@@ -70,65 +76,75 @@ p {
   font-size: 12px;
   font-weight: lighter;
   text-align: justify;
+  flex-grow: 1; /* Mengisi ruang kosong */
 }
 
 .artikel-card {
   min-height: 420px;
-  /* margin-top: 50px; */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .card-img-top {
   width: 100%;
   height: 200px; /* Tetapkan tinggi gambar */
-  object-fit: cover; /* Agar gambar tetap proporsional dan mengisi seluruh area tanpa distorsi */
+  object-fit: cover; /* Agar gambar tetap proporsional */
   border-radius: 10px 10px 0 0;
+}
+
+.btn {
+  align-self: flex-end;
 }
 </style>
 
 <script>
-import situCileuncaImg from "@/assets/situ-cileunca.jpg";
+import { ref, onMounted } from "vue";
 
 export default {
-  data() {
+  setup() {
+    const articles = ref([]);
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/artikel");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        let data = await response.json();
+        data = data.sort(
+          (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+        );
+
+        articles.value = data;
+      } catch (error) {
+        console.log("Error fetching data:", error);
+      }
+    };
+
+    // Format bulan & tahun
+    const formatDate = (dateString) => {
+      const date = new Date(dateString);
+      return new Intl.DateTimeFormat("id-ID", {
+        month: "short",
+        year: "numeric",
+      })
+        .format(date)
+        .replace(".", ""); // Menghapus titik jika ada
+    };
+
+    onMounted(() => {
+      fetchData();
+    });
+
     return {
-      articles: [
-        {
-          title: "Fakta-Fakta Situ Cileunca, Pangalengan",
-          author: "Gaharu Admin, Januari 2025",
-          image: situCileuncaImg,
-          fullText: `Situ Cileunca adalah salah satu destinasi wisata alam yang terletak di Pangalengan, Kabupaten Bandung...`,
-        },
-        {
-          title: "Menikmati Keindahan Ranca Upas, Ciwidey",
-          author: "Gaharu Admin, Februari 2025",
-          image: situCileuncaImg,
-          fullText: `Ranca Upas adalah tempat camping favorit yang menawarkan udara segar dan pemandangan indah...`,
-        },
-        {
-          title: "Eksplorasi Kawah Putih, Ciwidey",
-          author: "Gaharu Admin, Maret 2025",
-          image: situCileuncaImg,
-          fullText: `Kawah Putih adalah kawah vulkanik dengan air berwarna putih kehijauan yang sangat eksotis...`,
-        },
-        {
-          title: "Pesona Gunung Tangkuban Perahu",
-          author: "Gaharu Admin, April 2025",
-          image: situCileuncaImg,
-          fullText: `Gunung Tangkuban Perahu terkenal dengan legenda Sangkuriang dan memiliki pemandangan kawah yang memukau...`,
-        },
-        {
-          title: "Menjelajahi Keindahan Curug Malela",
-          author: "Gaharu Admin, Mei 2025",
-          image: situCileuncaImg,
-          fullText: `Curug Malela sering disebut sebagai 'Niagara Mini' di Bandung Barat, dengan air terjun bertingkat yang indah...`,
-        },
-      ].map((article) => ({
-        ...article,
-        truncatedText:
-          article.fullText.length > 200
-            ? article.fullText.substring(0, 200) + "..."
-            : article.fullText,
-      })),
+      articles,
+      formatDate,
     };
   },
 };

@@ -8,8 +8,8 @@ class ArtikelController {
     try {
       const picturePaths = req.files
         ? req.files.map(
-            // (file) => `http://localhost:${process.env.PORT}/${file.path}`
-            (file) => `https://${process.env.HOST}/${file.path}`
+            (file) => `http://localhost:${process.env.PORT}/${file.path}`
+            // (file) => `https://${process.env.HOST}/${file.path}`
           )
         : [];
 
@@ -52,15 +52,34 @@ class ArtikelController {
     }
   }
 
-  static async getById(req, res, next) {
-    try {
-      const { id } = req.params;
-      const data = await Artikel.findOne({ where: { id } });
+  // static async getById(req, res, next) {
+  //   try {
+  //     const { id } = req.params;
+  //     const data = await Artikel.findOne({ where: { id } });
 
+  //     if (!data) {
+  //       throw { name: "ErrorNotFound" };
+  //     }
+
+  //     // Ubah picture dari string JSON ke array jika tidak null
+  //     const formattedData = {
+  //       ...data.toJSON(),
+  //       picture: data.picture ? JSON.parse(data.picture) : [],
+  //     };
+
+  //     res.status(200).json(formattedData);
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // }
+
+  static async getBySlug(req, res, next) {
+    try {
+      const { slug } = req.params;
+      const data = await Artikel.findOne({ where: { slug } });
       if (!data) {
         throw { name: "ErrorNotFound" };
       }
-
       // Ubah picture dari string JSON ke array jika tidak null
       const formattedData = {
         ...data.toJSON(),
@@ -80,8 +99,8 @@ class ArtikelController {
     try {
       const picturePaths = req.files
         ? req.files.map(
-            // (file) => `http://localhost:${process.env.PORT}/${file.path}`
-            (file) => `https://${process.env.HOST}/${file.path}`
+            (file) => `http://localhost:${process.env.PORT}/${file.path}`
+            // (file) => `https://${process.env.HOST}/${file.path}`
           )
         : [];
 
