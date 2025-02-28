@@ -32,7 +32,8 @@ router.post(
 );
 
 router.get("/", ArtikelController.getAll);
-router.get("/:id", ArtikelController.getById);
+// router.get("/:id", ArtikelController.getById);
+router.get("/:slug", ArtikelController.getBySlug);
 router.put(
   "/:id",
   (req, res, next) => {

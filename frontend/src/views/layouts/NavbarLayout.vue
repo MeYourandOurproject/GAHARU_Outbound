@@ -107,7 +107,7 @@
               <router-link
                 to="/artikel"
                 class="nav-link pc-3 small-text"
-                :class="{ active: $route.name === 'Artikel' }"
+                :class="{ active: isActive('Artikel', 'ArtikelDetail') }"
                 >Artikel</router-link
               >
             </li>
