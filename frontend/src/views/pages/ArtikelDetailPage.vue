@@ -18,9 +18,13 @@
             <h1 class="text-start">{{ article.title }}</h1>
             <p class="text-start">Ditulis oleh: {{ article.author }}</p>
             <img :src="article.thumbnail" alt="" class="thumbnail mb-3" />
-            <div class="col text-justify">
+            <!-- <div class="col text-justify">
               <p>{{ article.content }}</p>
-            </div>
+            </div> -->
+            <div
+              v-html="article.content"
+              class="col text-justify formatted-content"
+            ></div>
           </div>
 
           <div v-else class="text-center mt-5">
@@ -36,7 +40,7 @@
             class="text-start"
           >
             <div class="card m-1 shadow-sm">
-              <div class="card-body m-0 p-2 align-items-center">
+              <div class="card-body m-0 p-2">
                 <img
                   :src="artikel.thumbnail"
                   alt=""
@@ -50,10 +54,13 @@
                 >
                   {{ artikel.title }}
                 </router-link>
-
-                <p class="mb-0">
+                <div
+                  v-html="artikel.content.split(' ').slice(0, 15).join(' ')"
+                  class="col formatted-content"
+                ></div>
+                <!-- <p class="mb-0">
                   {{ artikel.content.split(" ").slice(0, 15).join(" ") }}...
-                </p>
+                </p> -->
               </div>
             </div>
           </div>
@@ -97,6 +104,14 @@
 .thumbnail {
   height: 250px;
   width: 50px;
+}
+
+.formatted-content img {
+  max-width: 100%; /* Mengatur lebar maksimal gambar sesuai dengan parent */
+  height: auto; /* Menjaga rasio gambar */
+  border-radius: 8px; /* Opsional: membuat gambar memiliki sudut membulat */
+  margin: 10px 0; /* Opsional: memberi jarak atas dan bawah pada gambar */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Opsional: menambah efek bayangan */
 }
 </style>
 

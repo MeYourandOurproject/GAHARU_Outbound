@@ -17,11 +17,6 @@
           />
         </div>
         <div v-html="article.content"></div>
-        <img
-          :src="article.picture[1]"
-          alt="Paket Tour Image"
-          class="img-fluid"
-        />
       </div>
       <div v-else>
         <p>Loading...</p>

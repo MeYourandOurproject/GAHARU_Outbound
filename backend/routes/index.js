@@ -12,6 +12,7 @@ const paketTourRouter = require("./paketTourRouter");
 const destinationRouter = require("./destinationRouter");
 const galeryRouter = require("./galeryRouter");
 const artikelRouter = require("./artikelRouter");
+const uploadRouter = require("./uploadRouter");
 
 router.use("/users", userRouter);
 router.use("/company-profile", companyProfileRouter);
@@ -24,5 +25,6 @@ router.use("/paket-tour", paketTourRouter);
 router.use("/destination", destinationRouter);
 router.use("/galery", galeryRouter);
 router.use("/artikel", artikelRouter);
+router.use("/upload", uploadRouter);
 
 module.exports = router;

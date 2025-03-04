@@ -17,9 +17,10 @@
               <p class="penulis mt-1">
                 {{ artikel.author }}, {{ formatDate(artikel.updatedAt) }}
               </p>
-              <p class="isi flex-grow-1">
-                {{ artikel.content.split(" ").slice(0, 15).join(" ") }}...
-              </p>
+              <div
+                v-html="artikel.content.split(' ').slice(0, 30).join(' ')"
+                class="col isi flex-grow-1"
+              ></div>
               <router-link
                 :to="`/artikel/${artikel.slug}`"
                 class="text-decoration-none mt-auto"
