@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid artikel-heroes"></div>
-  <div class="container-fluid">
+  <div class="container-fluid page">
     <div class="container content mt-5 mb-5">
       <div
         class="row rows-cols-1 row-cols-md-3 justify-content-center align-items-stretch g-3"
@@ -43,9 +43,13 @@
 <style>
 .artikel-heroes {
   min-height: 30vh;
-  background-image: url("../../assets/hero.png");
+  background-image: url("../../assets/rafting_hd.webp");
   background-size: cover;
   display: flex;
+}
+
+.page {
+  min-height: 100vh;
 }
 
 .content {
@@ -112,7 +116,10 @@ export default {
     const articles = ref([]);
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/artikel");
+        // const response = await fetch("http://localhost:3001/api/artikel");
+        const response = await fetch(
+          "https://api.gaharuoutbound.com/api/artikel"
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }

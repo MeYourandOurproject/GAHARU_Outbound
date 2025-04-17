@@ -103,7 +103,9 @@ export default {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("https://api.gaharuoutbound.com/api/galery");
+        const response = await fetch(
+          "https://api.gaharuoutbound.com/api/galery"
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
@@ -138,7 +140,7 @@ export default {
 .galery-heroes {
   height: 25vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-    url("../../assets/hero.png");
+    url("../../assets/rafting_hd.webp");
   background-size: cover;
   display: flex;
 }

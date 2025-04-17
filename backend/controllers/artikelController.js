@@ -8,8 +8,8 @@ class ArtikelController {
     try {
       const picturePaths = req.files
         ? req.files.map(
-            (file) => `http://localhost:${process.env.PORT}/${file.path}`
-            // (file) => `https://${process.env.HOST}/${file.path}`
+            // (file) => `http://localhost:${process.env.PORT}/${file.path}`
+            (file) => `https://${process.env.HOST}/${file.path}`
           )
         : [];
 
@@ -99,8 +99,8 @@ class ArtikelController {
     try {
       const picturePaths = req.files
         ? req.files.map(
-            (file) => `http://localhost:${process.env.PORT}/${file.path}`
-            // (file) => `https://${process.env.HOST}/${file.path}`
+            // (file) => `http://localhost:${process.env.PORT}/${file.path}`
+            (file) => `https://${process.env.HOST}/${file.path}`
           )
         : [];
 
@@ -155,8 +155,8 @@ class ArtikelController {
           const filePath = path.join(
             __dirname,
             "..",
-            // fileUrl.replace(`https://${process.env.HOST}/`, "") // deploy
-            fileUrl.replace(`http://localhost:${process.env.PORT}/`, "") //local
+            fileUrl.replace(`https://${process.env.HOST}/`, "") // deploy
+            // fileUrl.replace(`http://localhost:${process.env.PORT}/`, "") //local
           );
           if (fs.existsSync(filePath)) {
             fs.unlinkSync(filePath); // Hapus file gambar

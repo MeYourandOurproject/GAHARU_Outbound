@@ -134,7 +134,7 @@ export default {
 /* HEROES STYLE */
 .paket-tour-heroes {
   height: 50vh;
-  background-image: url("../../assets/hero.png");
+  background-image: url("../../assets/rafting_hd.webp");
   background-size: cover;
   display: flex;
 }

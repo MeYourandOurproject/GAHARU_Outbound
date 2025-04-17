@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid artikel-detail-heroes"></div>
-  <div class="container-fluid">
+  <div class="container-fluid page">
     <div class="container mt-5 mb-5">
       <div class="row d-flex flex-column flex-md-row">
         <!-- Artikel Utama -->
@@ -78,9 +78,13 @@
 <style>
 .artikel-detail-heroes {
   min-height: 30vh;
-  background-image: url("../../assets/hero.png");
+  background-image: url("../../assets/rafting_hd.webp");
   background-size: cover;
   display: flex;
+}
+
+.page {
+  min-height: 100vh;
 }
 
 .text-justify {
@@ -103,7 +107,8 @@
 
 .thumbnail {
   height: 250px;
-  width: 50px;
+  width: 100%; /* Ubah jadi 100% supaya memenuhi kolom */
+  object-fit: cover; /* Biar gambar proporsional */
 }
 
 .formatted-content img {
@@ -132,7 +137,9 @@ export default {
     // Fungsi mengambil daftar artikel
     const fetchArticles = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/artikel");
+        const response = await fetch(
+          "https://api.gaharuoutbound.com/api/artikel"
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
@@ -154,7 +161,7 @@ export default {
 
       try {
         const response = await fetch(
-          `http://localhost:3001/api/artikel/${slug}`
+          `https://api.gaharuoutbound.com/api/artikel/${slug}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch data");

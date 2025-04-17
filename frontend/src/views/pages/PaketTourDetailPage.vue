@@ -99,7 +99,7 @@ export default {
 
 <style>
 .paket-tour-detail-heroes {
-  background-image: url("../../assets/hero-galery.jpg");
+  background-image: url("../../assets/rafting_hd.webp");
   background-size: cover;
   min-height: 25vh;
   display: flex;

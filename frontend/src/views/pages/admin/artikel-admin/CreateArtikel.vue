@@ -144,10 +144,13 @@ const insertImage = async () => {
     const formData = new FormData();
     formData.append("image", file);
     try {
-      const response = await fetch("http://localhost:3001/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://api.gaharuoutbound.com/api/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -204,13 +207,16 @@ const handleSubmit = async () => {
   });
 
   try {
-    const response = await fetch("http://localhost:3001/api/artikel/create", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      "https://api.gaharuoutbound.com/api/artikel/create",
+      {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (response.ok) {
       showSuccessAlert.value = true;

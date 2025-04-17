@@ -18,7 +18,7 @@ const upload = multer({ storage: storage });
 
 router.post("/", upload.single("image"), (req, res) => {
   if (req.file) {
-    const imageUrl = `http://localhost:3001/uploads/${req.file.filename}`;
+    const imageUrl = `https://api.gaharuoutbound.com/uploads/${req.file.filename}`;
     res.json({ url: imageUrl });
   } else {
     res.status(400).send("Gagal mengunggah gambar.");
