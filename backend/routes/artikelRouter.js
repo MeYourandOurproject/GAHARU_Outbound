@@ -19,6 +19,7 @@ const upload = multer({ storage: storage });
 
 router.post(
   "/create",
+  auth,
   (req, res, next) => {
     const upload = multer({ storage }).array("picture");
     upload(req, res, (err) => {
@@ -36,6 +37,7 @@ router.get("/", ArtikelController.getAll);
 router.get("/:slug", ArtikelController.getBySlug);
 router.put(
   "/:id",
+  auth,
   (req, res, next) => {
     const upload = multer({ storage }).array("picture");
     upload(req, res, (err) => {
@@ -47,6 +49,6 @@ router.put(
   },
   ArtikelController.update
 );
-router.delete("/:id", ArtikelController.delete);
+router.delete("/:id", auth, ArtikelController.delete);
 
 module.exports = router;

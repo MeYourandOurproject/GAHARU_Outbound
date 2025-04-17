@@ -143,7 +143,9 @@ const fetchArticle = async () => {
   loading.value = true;
   try {
     const slug = route.params.slug;
-    const response = await fetch(`http://localhost:3001/api/artikel/${slug}`);
+    const response = await fetch(
+      `https://api.gaharuoutbound.com/api/artikel/${slug}`
+    );
     if (!response.ok) throw new Error("Failed to fetch data");
 
     const data = await response.json();
@@ -189,10 +191,13 @@ const insertImage = async () => {
     const formData = new FormData();
     formData.append("image", file);
     try {
-      const response = await fetch("http://localhost:3001/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://api.gaharuoutbound.com/api/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -260,13 +265,16 @@ const handleSubmit = async () => {
   // }
 
   try {
-    const response = await fetch(`http://localhost:3001/api/artikel/${id}`, {
-      method: "PUT",
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `https://api.gaharuoutbound.com/api/artikel/${id}`,
+      {
+        method: "PUT",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const result = await response.json();
     console.log("Response from server:", result);

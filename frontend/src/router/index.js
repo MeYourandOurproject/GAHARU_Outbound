@@ -1,7 +1,10 @@
+/* global gtag */
+
 import { createRouter, createWebHistory } from "vue-router";
 import store from "@/store";
 import MainLayout from "@/views/layouts/MainLayout.vue";
 import AdminLayout from "@/views/layouts/AdminLayout.vue";
+import BioPage from "@/views/pages/BioPage.vue";
 import LandingPage from "@/views/pages/LandingPage.vue";
 import BestDestinationPage from "@/views/pages/BestDestinationPage.vue";
 import CozyStaycationPage from "@/views/pages/CozyStaycationPage.vue";
@@ -39,12 +42,15 @@ import EditArtikel from "@/views/pages/admin/artikel-admin/EditArtikel.vue";
 import CreateArtikel from "@/views/pages/admin/artikel-admin/CreateArtikel.vue";
 
 import ContactAdmin from "@/views/pages/admin/contact-admin/ContactAdmin.vue";
+// import BioPageVue from "@/views/pages/BioPage.vue";
 
 const routes = [
+  { path: "/bio", component: BioPage, meta: { title: "Bio" } },
   {
     path: "/",
     component: MainLayout,
     children: [
+      // { path: "", name: "bio", component: BioPage, meta: { title: "bio" } },
       {
         path: "",
         name: "Home",
@@ -246,6 +252,15 @@ router.beforeEach((to, from, next) => {
   } else {
     store.dispatch("updateTitle", to.meta.title || "Home");
     next();
+  }
+});
+
+// Tracking Navigasi di Vue Router
+router.afterEach((to) => {
+  if (typeof gtag === "function") {
+    gtag("event", "page_view", {
+      page_path: to.fullPath,
+    });
   }
 });
 

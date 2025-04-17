@@ -42,7 +42,7 @@ export default {
 
       try {
         const response = await fetch(
-          `http://localhost:3001/api/artikel/${slug}`
+          `https://api.gaharuoutbound.com/api/artikel/${slug}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch data");

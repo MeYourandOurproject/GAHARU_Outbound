@@ -39,14 +39,14 @@
               <div>
                 <img src="../../../assets/logo.png" alt="Logo" width="120" />
               </div>
-              <div>
+              <!-- <div>
                 <img
                   alt="Pesona Linggarjati"
                   width="130px"
                   class="d-inline-block align-text-center"
                   src="../../../assets/pesonalinggarjati.png"
                 />
-              </div>
+              </div> -->
             </div>
 
             <div class="form-floating">
@@ -147,13 +147,13 @@ export default {
 <style>
 .login-page-heroes {
   height: 20vh;
-  background-image: url("../../../assets/hero-galery.jpg");
+  background-image: url("../../../assets/rafting_hd.webp");
   background-size: cover;
   display: flex;
 }
 
 .logos {
-  background-image: url("../../../assets/hero-galery.jpg");
+  background-image: url("../../../assets/rafting_hd.webp");
   padding: 20px;
   border-radius: 10px;
 }
