@@ -27,24 +27,14 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-    methods: "GET, POST, PUT, PATCH, DELETE",
-    allowedHeaders: "Content-Type, Authorization",
+    methods: ["GET, POST, PUT, PATCH, DELETE"],
+    allowedHeaders: ["Content-Type, Authorization"],
+    credentials: true,
   })
 );
 
-// Manual CORS headers for non-simple requests
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, PATCH, DELETE"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  next();
-});
+// Handle preflight (OPTIONS) request
+app.options("*", cors());
 
 app.use("/api", router);
 

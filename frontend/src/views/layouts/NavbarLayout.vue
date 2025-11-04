@@ -16,15 +16,8 @@
                   src="../../assets/logo.png"
                 />
               </div>
-              <div class="col-auto text-brand">Gaharu Outbound</div>
+              <div class="col-auto text-brand ms-3">GAHARU Outbound</div>
             </div>
-
-            <!-- <img
-              alt="Logo"
-              width="130px"
-              class="d-inline-block align-text-center"
-              src="../../assets/pesonalinggarjati.png"
-            /> -->
           </router-link>
         </div>
 

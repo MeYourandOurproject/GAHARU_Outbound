@@ -1,62 +1,64 @@
 <template>
   <div class="container-fluid artikel-heroes"></div>
-  <div class="container-fluid page">
-    <div class="container content mt-5 mb-5">
-      <div
-        class="row rows-cols-1 row-cols-md-3 justify-content-center align-items-stretch g-3"
-      >
-        <div v-for="(artikel, index) in articles" :key="index" class="col">
-          <div
-            class="card text-start shadow-lg artikel-card d-flex flex-column h-100"
-          >
-            <div class="card-body d-flex flex-column">
-              <img :src="artikel.thumbnail" alt="" class="card-img-top" />
-              <p class="title-artikel mt-2">
-                {{ artikel.title }}
-              </p>
-              <p class="penulis mt-1">
-                {{ artikel.author }}, {{ formatDate(artikel.updatedAt) }}
-              </p>
-              <div
-                v-html="artikel.content.split(' ').slice(0, 30).join(' ')"
-                class="col isi flex-grow-1"
-              ></div>
-              <router-link
-                :to="`/artikel/${artikel.slug}`"
-                class="text-decoration-none mt-auto"
+  <!-- <div class="container-fluid page"> -->
+  <div class="container content my-5">
+    <div
+      class="row rows-cols-1 row-cols-md-3 justify-content-center align-items-stretch g-3"
+    >
+      <div v-for="(artikel, index) in articles" :key="index" class="col">
+        <div
+          class="card text-start shadow-lg artikel-card d-flex flex-column h-100"
+        >
+          <div class="card-body d-flex flex-column">
+            <img :src="artikel.thumbnail" alt="" class="card-img-top" />
+            <p class="title-artikel mt-2">
+              {{ artikel.title }}
+            </p>
+            <p class="penulis mt-1">
+              {{ artikel.author }}, {{ formatDate(artikel.updatedAt) }}
+            </p>
+            <div
+              v-html="artikel.content.split(' ').slice(0, 30).join(' ')"
+              class="col isi flex-grow-1"
+            ></div>
+            <router-link
+              :to="`/artikel/${artikel.slug}`"
+              class="text-decoration-none mt-auto"
+            >
+              <button
+                type="button"
+                class="btn btn-primary btn-sm justify-content-end"
               >
-                <button
-                  type="button"
-                  class="btn btn-primary btn-sm justify-content-end"
-                >
-                  See More<i class="bi bi-arrow-right-circle-fill ms-2"></i>
-                </button>
-              </router-link>
-            </div>
+                See More<i class="bi bi-arrow-right-circle-fill ms-2"></i>
+              </button>
+            </router-link>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <!-- </div> -->
 </template>
 
 <style>
 .artikel-heroes {
   min-height: 30vh;
-  background-image: url("../../assets/rafting_hd.webp");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+    url("../../assets/rafting_hd.webp");
   background-size: cover;
   display: flex;
 }
 
-.page {
-  min-height: 100vh;
-}
+/* .page {
+  min-height: 80vh;
+} */
 
 .content {
   color: black;
   font-family: "Poppins", sans-serif;
   font-weight: bold;
   letter-spacing: 5px;
+  min-height: 80vh;
 }
 
 .title-artikel {
