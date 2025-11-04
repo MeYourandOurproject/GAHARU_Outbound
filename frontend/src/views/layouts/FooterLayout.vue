@@ -15,7 +15,7 @@
                   src="../../assets/logo.png"
                 />
               </div>
-              <div class="col-auto text-brand">Gaharu Outbound</div>
+              <div class="col-auto text-brand">GAHARU Outbound</div>
             </div>
           </router-link>
         </div>
@@ -26,7 +26,7 @@
             <div class="row d-flex justify-content-center">
               <div class="col-auto">
                 <a
-                  href="#facebook"
+                  href="https://www.facebook.com/profile.php?id=61574137567777&locale=id_ID"
                   class="text-decoration-none text-white sosmed-item"
                 >
                   <i class="bi bi-facebook footer-icon"></i>
@@ -34,7 +34,7 @@
               </div>
               <div class="col-auto">
                 <a
-                  href="#instagram"
+                  href="https://www.instagram.com/gaharuoutbound/"
                   class="text-decoration-none text-white sosmed-item"
                 >
                   <i class="bi bi-instagram footer-icon"></i>
@@ -42,28 +42,28 @@
               </div>
               <div class="col-auto">
                 <a
-                  href="#twitter"
+                  href="https://wa.me/6285802956931"
                   class="text-decoration-none text-white sosmed-item"
                 >
-                  <i class="bi bi-twitter-x footer-icon"></i>
+                  <i class="bi bi-whatsapp footer-icon"></i>
                 </a>
               </div>
-              <div class="col-auto">
+              <!-- <div class="col-auto">
                 <a
                   href="#youtube"
                   class="text-decoration-none text-white sosmed-item"
                 >
                   <i class="bi bi-youtube footer-icon"></i>
                 </a>
-              </div>
-              <div class="col-auto">
+              </div> -->
+              <!-- <div class="col-auto">
                 <a
                   href="#linkedin"
                   class="text-decoration-none text-white sosmed-item"
                 >
                   <i class="bi bi-linkedin footer-icon"></i>
                 </a>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

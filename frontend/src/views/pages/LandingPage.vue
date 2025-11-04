@@ -1,51 +1,160 @@
 <template>
-  <div class="container-fluid heroes">
-    <div class="container heroes-content p-lg-5">
-      <div class="row d-flex align-items-center">
-        <div class="col-lg-12 text-left">
-          <h1 class="brand fw-bold lh-1 spaced-heading shadow-text">
-            <!-- Become<br />
-            a Traveller<br />
-            Today  -->
-            "Nikmati Liburan Sempurna: <br />
-            Aktivitas Seru, Destinasi Memikat, <br />dan Penginapan Nyaman"
-          </h1>
-          <!-- <p class="lead-1 text-white shadow-text mt-4">
-            "Nikmati Liburan Sempurna: <br />
-            Aktivitas Seru, Destinasi Memikat, <br />dan Penginapan Nyaman"
-          </p> -->
-          <!-- <p class="lead text-white shadow-text">
-            Outbond, Rafting, Jeep Offroad, Outdor Activity, Camping, Penginapan
-            dan Hotel
-          </p> -->
-
-          <div
-            class="d-flex justify-content-center align-items-center mt-3 gap-1"
-          >
-            <a
-              href="https://wa.me/6287708972304"
-              class="text-decoration-none me-2"
-            >
-              <button
-                class="btn btn-lg btn-wa"
-                style="background-color: #198754; color: #fff"
-              >
-                <i class="bi bi-whatsapp me-2"></i> Konsultasikan
-                <div class="popup-wa">Tanya Admin di WhatsApp!</div>
-              </button>
-            </a>
-
-            <a href="#layanan" class="btn text-decoration-none rounded-3">
-              <button
-                type="button"
-                class="btn btn-galeri btn-outline-light btn-lg"
-              >
-                Lihat Paket<i
-                  class="bi bi-arrow-right-circle-fill ms-2"
-                ></i></button
-            ></a>
+  <!-- <div class="container-fluid heroes">
+    <div
+      class="container align-items-center justify-content-center text-center heroes-content my-5 bg-dark"
+    >
+      <div class="col-lg-12 text-left">
+        <div class="row row-cols-5 d-flex align-items-center">
+          <div class="col">
+            <div class="card">
+              <img src="../../assets/offroad.jpg" alt="" />
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <img src="../../assets/rafting.jpg" alt="" />
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <img src="../../assets/team_building.jpg" alt="" />
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <img src="../../assets/flyingfox.jpg" alt="" />
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <img src="../../assets/camping.jpg" alt="" />
+            </div>
           </div>
         </div>
+        <h1 class="brand fw-bold lh-1 spaced-heading shadow-text">
+          "Nikmati Liburan Sempurna: Aktivitas Seru, Destinasi Memikat, dan
+          Penginapan Nyaman"
+        </h1>
+
+        <div
+          class="d-flex justify-content-center align-items-center mt-3 gap-1"
+        >
+          <a
+            href="https://wa.me/6285802956931"
+            class="text-decoration-none me-2"
+          >
+            <button
+              class="btn btn-lg btn-wa"
+              style="background-color: #198754; color: #fff"
+            >
+              <i class="bi bi-whatsapp me-2"></i> Konsultasikan
+              <div class="popup-wa">Tanya Admin di WhatsApp!</div>
+            </button>
+          </a>
+
+          <a href="#layanan" class="btn text-decoration-none rounded-3">
+            <button
+              type="button"
+              class="btn btn-galeri btn-outline-light btn-lg"
+            >
+              Lihat Paket<i
+                class="bi bi-arrow-right-circle-fill ms-2"
+              ></i></button
+          ></a>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="container-fluid heroes">
+    <div
+      class="container d-flex align-items-center justify-content-center text-center"
+    >
+      <div class="row pt-5 mt-5 text-center justify-content-center">
+        <!-- <img
+          alt="Logo"
+          class="justify-content-center"
+          src="../../assets/logo.png"
+          style="height: 100%; width: 120px; object-fit: cover"
+        /> -->
+        <h1 class="display-3 fw-bold text-white">GAHARU Outbound</h1>
+        <h3 class="text-white fw-light fst-italic">
+          Fun games, Team Building, Rafting, Fun offroad, Paint ball, Flying fox
+        </h3>
+
+        <!-- <div class="row row-cols-5 d-flex align-items-center">
+          <div class="col">
+            <img
+              src="../../assets/offroad.jpg"
+              alt=""
+              style="height: 120px; width: 100%; object-fit: cover"
+              class="rounded-2"
+            />
+          </div>
+          <div class="col">
+            <img
+              src="../../assets/rafting.jpg"
+              alt=""
+              style="height: 120px; width: 100%; object-fit: cover"
+              class="rounded-2"
+            />
+          </div>
+          <div class="col">
+            <img
+              src="../../assets/team_building.jpg"
+              alt=""
+              style="height: 120px; width: 100%; object-fit: cover"
+              class="rounded-2"
+            />
+          </div>
+          <div class="col">
+            <img
+              src="../../assets/flyingfox.jpg"
+              alt=""
+              style="height: 120px; width: 100%; object-fit: cover"
+              class="rounded-2"
+            />
+          </div>
+          <div class="col">
+            <img
+              src="../../assets/camping.jpg"
+              alt=""
+              style="height: 120px; width: 100%; object-fit: cover"
+              class="rounded-2"
+            />
+          </div>
+        </div> -->
+        <p class="lead fw-light text-white">
+          Petualangan seru & pengalaman tak terlupakan menantimu! Dari aktivitas
+          penuh adrenalin hingga staycation yang nyaman, temukan paket wisata
+          terbaik hanya di Gaharu Outbound.
+        </p>
+        <div class="d-flex justify-content-center align-items-center gap-1">
+          <a
+            href="https://wa.me/6285802956931"
+            class="text-decoration-none me-2"
+          >
+            <button
+              class="btn btn-lg btn-wa"
+              style="background-color: #198754; color: #fff"
+            >
+              <i class="bi bi-whatsapp me-2"></i> Konsultasikan
+              <div class="popup-wa">Tanya Admin di WhatsApp!</div>
+            </button>
+          </a>
+
+          <a href="#layanan" class="btn text-decoration-none rounded-3">
+            <button
+              type="button"
+              class="btn btn-galeri btn-outline-light btn-lg"
+            >
+              Lihat Paket<i
+                class="bi bi-arrow-right-circle-fill ms-2"
+              ></i></button
+          ></a>
+        </div>
+        <!-- <a href="#layanan" class="btn btn-success btn-lg mt-3"
+          >Lihat Paket Wisata</a
+        > -->
       </div>
     </div>
   </div>
@@ -84,7 +193,7 @@
                   class="d-flex justify-content-center align-items-center mt-3 gap-1"
                 >
                   <a
-                    href="https://wa.me/6287708972304"
+                    href="https://wa.me/6285802956931"
                     class="text-decoration-none me-2"
                   >
                     <button
@@ -133,7 +242,7 @@
                   class="d-flex justify-content-center align-items-center mt-3 gap-1"
                 >
                   <a
-                    href="https://wa.me/6287708972304"
+                    href="https://wa.me/6285802956931"
                     class="text-decoration-none me-2"
                   >
                     <button
@@ -182,7 +291,7 @@
                   class="d-flex justify-content-center align-items-center mt-3 gap-1"
                 >
                   <a
-                    href="https://wa.me/6287708972304"
+                    href="https://wa.me/6285802956931"
                     class="text-decoration-none me-2"
                   >
                     <button
@@ -231,7 +340,7 @@
                   class="d-flex justify-content-center align-items-center mt-3 gap-1"
                 >
                   <a
-                    href="https://wa.me/6287708972304"
+                    href="https://wa.me/6285802956931"
                     class="text-decoration-none me-2"
                   >
                     <button
@@ -280,7 +389,7 @@
                   class="d-flex justify-content-center align-items-center mt-3 gap-1"
                 >
                   <a
-                    href="https://wa.me/6287708972304"
+                    href="https://wa.me/6285802956931"
                     class="text-decoration-none me-2"
                   >
                     <button
@@ -594,18 +703,18 @@
     </div>
   </div>
 
-  <div class="container-fluid">
+  <!-- <div class="container-fluid">
     <div class="container mt-5 mb-5">
       <TestimoniLayout />
     </div>
-  </div>
+  </div> -->
 </template>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap");
 
 .heroes {
-  height: 100vh;
+  min-height: 100vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
     url("../../assets/rafting_hd.webp");
   display: flex;
@@ -613,19 +722,25 @@
   background-position: bottom;
 }
 
-.heroes-content {
+/* .heroes-content {
   margin-top: 230px;
+} */
+
+.display-3 {
+  letter-spacing: 5px;
+  font-size: 3.5rem;
 }
 
 .brand {
-  font-size: 50px;
+  font-size: 25px;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   color: rgb(255, 255, 255, 0.5);
   letter-spacing: 3px;
   /* background-color: rgba(0, 0, 0, 0.3); */
-  border-radius: 20px;
-  padding: 30px;
+  /* border-radius: 20px; */
+  /* padding: 30px; */
+  font-style: italic;
 }
 
 .title-section {
@@ -661,12 +776,14 @@
 }
 
 .lead {
-  font-size: 1.5rem; /* Larger font size */
-  font-family: "Nunito", sans-serif; /* Nunito font for the paragraph */
+  font-size: 1.2rem; /* Larger font size */
+  /* font-family: "Nunito", sans-serif; Nunito font for the paragraph */
   text-align: center;
   /* text-transform: lowercase; */
-  letter-spacing: 2px;
-  font-weight: bold;
+  /* letter-spacing: 2px; */
+  /* font-weight: bold; */
+  /* font-style: italic; */
+  font-weight: lighter;
 }
 
 .lead-1 {
@@ -852,7 +969,12 @@
   }
 
   .lead {
-    font-size: 1.3rem; /* Adjusted font size for mobile */
+    font-size: 0.8rem; /* Adjusted font size for mobile */
+  }
+
+  .display-3 {
+    letter-spacing: 5px;
+    font-size: 2.7rem;
   }
 
   .spaced-heading br {
@@ -966,12 +1088,12 @@
 </style>
 
 <script>
-import TestimoniLayout from "../layouts/TestimoniLayout.vue";
+/* import TestimoniLayout from "../layouts/TestimoniLayout.vue"; */
 
 export default {
   name: "HomePage",
   components: {
-    TestimoniLayout,
+    /* TestimoniLayout, */
   },
 };
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
