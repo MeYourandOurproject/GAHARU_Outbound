@@ -125,11 +125,11 @@
             >
           </li>
         </ul>
-        <a href="https://wa.me/6285924333088" class="text-decoration-none">
+        <!-- <a href="https://wa.me/6285924333088" class="text-decoration-none">
           <button class="btn btn-success btn-sm w-75">
             <i class="bi bi-whatsapp me-2"></i>WhatsApp
           </button>
-        </a>
+        </a> -->
       </div>
     </div>
   </nav>
@@ -198,7 +198,7 @@ export default {
 
 /* Hamburger button */
 .custom-toggler {
-  border: none;
+  /* border: none; */
   background: none;
   padding: 6px;
 }
@@ -206,7 +206,7 @@ export default {
 .custom-toggler .navbar-toggler-icon {
   width: 25px;
   height: 2px;
-  background-color: white;
+  background-color: rgb(0, 0, 0);
   position: relative;
   transition: all 0.3s;
 }
@@ -218,7 +218,7 @@ export default {
   width: 25px;
   height: 2px;
   left: 0;
-  background-color: white;
+  background-color: rgb(0, 0, 0);
   transition: all 0.3s;
 }
 
@@ -231,8 +231,8 @@ export default {
 
 /* Mobile dropdown */
 .mobile-menu {
-  background-color: rgba(0, 0, 0, 0.9);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.8);
+  /* border-top: 1px solid rgba(255, 255, 255, 0.1); */
   animation: fadeIn 0.3s ease;
 }
 
