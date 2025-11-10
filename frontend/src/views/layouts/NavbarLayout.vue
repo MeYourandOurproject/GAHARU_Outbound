@@ -1,7 +1,7 @@
 <template>
   <nav class="fixed-top">
     <div class="container-fluid bg-cst">
-      <div class="row d-flex align-items-center justify-content-between py-1">
+      <div class="row d-flex align-items-center justify-content-between py-2">
         <!-- Logo -->
         <div class="col-4">
           <router-link to="/" class="link-body-emphasis text-decoration-none">
@@ -12,7 +12,7 @@
                 <img
                   alt="Logo"
                   class="d-inline-block align-text-center logo-brand"
-                  src="../../assets/logo_gaharu.png"
+                  src="../../assets/logo_gaharu_black.png"
                 />
               </div>
             </div>
@@ -63,9 +63,12 @@
 
         <!-- Tombol WA (desktop) -->
         <div class="col-3 d-none d-md-block">
-          <a href="https://wa.me/6285924333088" class="text-decoration-none">
-            <button class="btn btn-md btn-success">
-              <i class="bi bi-whatsapp me-2"></i>WhatsApp
+          <a
+            href="https://wa.me/6285924333088"
+            class="text-decoration-none text-white"
+          >
+            <button class="btn btn-md btn-outline-dark">
+              <i class="bi bi-whatsapp me-2"></i> WhatsApp
             </button>
           </a>
         </div>
@@ -161,7 +164,7 @@ export default {
 }
 
 .bg-cst {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .small-text {
@@ -171,7 +174,7 @@ export default {
 }
 
 .nav-link {
-  color: #ffffff;
+  color: #000000;
   text-decoration: none;
   margin: 1px;
   border-radius: 5px;
@@ -180,11 +183,17 @@ export default {
 }
 
 .nav-link:hover {
-  color: #00ff66;
+  scale: 1.2;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
 }
 
 .nav-link.active {
-  color: #00ff66;
+  /* scale: 1.2; */
+  color: rgb(255, 255, 255);
+  background-color: black;
+  font-weight: bold;
+  border-radius: 10px;
 }
 
 /* Hamburger button */
