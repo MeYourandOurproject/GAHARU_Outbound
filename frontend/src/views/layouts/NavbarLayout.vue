@@ -1,9 +1,7 @@
 <template>
   <nav class="fixed-top">
     <div class="container-fluid bg-cst">
-      <div
-        class="row d-flex align-items-center justify-content-between py-2 px-3"
-      >
+      <div class="row d-flex align-items-center justify-content-between py-1">
         <!-- Logo -->
         <div class="col-4">
           <router-link to="/" class="link-body-emphasis text-decoration-none">
@@ -22,8 +20,8 @@
         </div>
 
         <!-- Menu (desktop) -->
-        <div class="col-6 d-none d-md-block">
-          <div class="row fst-italic">
+        <div class="col-5 d-none d-md-block">
+          <div class="row">
             <ul
               class="nav d-flex align-items-center justify-content-center gap-3"
             >
@@ -64,11 +62,8 @@
         </div>
 
         <!-- Tombol WA (desktop) -->
-        <div class="col-2 d-none d-md-block">
-          <a
-            href="https://wa.me/6285924333088"
-            class="text-decoration-none"
-          >
+        <div class="col-3 d-none d-md-block">
+          <a href="https://wa.me/6285924333088" class="text-decoration-none">
             <button class="btn btn-md btn-success">
               <i class="bi bi-whatsapp me-2"></i>WhatsApp
             </button>
@@ -128,7 +123,7 @@
           </li>
         </ul>
         <a href="https://wa.me/6285924333088" class="text-decoration-none">
-          <button class="btn btn-success w-75">
+          <button class="btn btn-success btn-sm w-75">
             <i class="bi bi-whatsapp me-2"></i>WhatsApp
           </button>
         </a>

@@ -1,4 +1,4 @@
- <template>
+<template>
   <nav class="fixed-top">
     <div class="container-fluid bg-cst">
       <div
@@ -22,19 +22,19 @@
         </div>
 
         <div class="col-4">
-          <div class="row fst-italic">
-          <ul
-            class="nav d-flex align-items-center justify-content-center gap-3"
-          >
-            <li>
-              <router-link
-                to="/"
-                class="nav-link pc-3 small-text"
-                :class="{ active: $route.name === 'Home' }"
-                >Home</router-link
-              >
-            </li>
-            <!-- <li class="dropdown">
+          <div class="row">
+            <ul
+              class="nav d-flex align-items-center justify-content-center gap-3"
+            >
+              <li>
+                <router-link
+                  to="/"
+                  class="nav-link pc-3 small-text"
+                  :class="{ active: $route.name === 'Home' }"
+                  >Home</router-link
+                >
+              </li>
+              <!-- <li class="dropdown">
               <router-link
                 to=""
                 class="nav-link pc-3 small-text dropdown-toggle"
@@ -89,43 +89,40 @@
                 </li>
               </ul>
             </li> -->
-            <li>
-              <router-link
-                to="/galery"
-                class="nav-link pc-3 small-text unactived"
-                :class="{ active: $route.name === 'Galery' }"
-                >Galeri</router-link
-              >
-            </li>
-            <li>
-              <router-link
-                to="/artikel"
-                class="nav-link pc-3 small-text"
-                :class="{ active: isActive('Artikel', 'ArtikelDetail') }"
-                >Artikel</router-link
-              >
-            </li>
-            <li>
-            <router-link
-              to="/about-us"
-              class="nav-link pc-3 small-text"
-              :class="{ active: $route.name === 'AboutUs' }"
-              >About Us</router-link
-            >
-            </li>
-          </ul>
+              <li>
+                <router-link
+                  to="/galery"
+                  class="nav-link pc-3 small-text unactived"
+                  :class="{ active: $route.name === 'Galery' }"
+                  >Galeri</router-link
+                >
+              </li>
+              <li>
+                <router-link
+                  to="/artikel"
+                  class="nav-link pc-3 small-text"
+                  :class="{ active: isActive('Artikel', 'ArtikelDetail') }"
+                  >Artikel</router-link
+                >
+              </li>
+              <li>
+                <router-link
+                  to="/about-us"
+                  class="nav-link pc-3 small-text"
+                  :class="{ active: $route.name === 'AboutUs' }"
+                  >About Us</router-link
+                >
+              </li>
+            </ul>
           </div>
         </div>
 
         <div class="col-3">
-              <a
-                href="https://wa.me/6285924333088"
-                class="text-decoration-none"
-              >
-                <button class="btn btn-md btn-success">
-                  <i class="bi bi-whatsapp me-2"></i>WhatsApp
-                </button>
-              </a>
+          <a href="https://wa.me/6285924333088" class="text-decoration-none">
+            <button class="btn btn-md btn-success">
+              <i class="bi bi-whatsapp me-2"></i>Whats
+            </button>
+          </a>
         </div>
       </div>
     </div>
@@ -157,8 +154,8 @@ export default {
   height: 60px;
 }
 
-.bg-cst{
-  background-color: rgba(0, 0, 0, 0.8);
+.bg-cst {
+  background-color: rgba(0, 0, 0, 0.95);
 }
 
 .text-brand {

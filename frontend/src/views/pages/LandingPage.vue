@@ -70,59 +70,12 @@
       class="container d-flex align-items-center justify-content-center text-center"
     >
       <div class="row pt-5 mt-5 text-center justify-content-center">
-        <!-- <img
-          alt="Logo"
-          class="justify-content-center"
-          src="../../assets/logo.png"
-          style="height: 100%; width: 120px; object-fit: cover"
-        /> -->
         <h1 class="display-3 fw-bold text-white">GAHARU Outbound</h1>
+        s
         <h3 class="text-white fw-light fst-italic">
           Fun games, Team Building, Rafting, Fun offroad, Paint ball, Flying fox
         </h3>
 
-        <!-- <div class="row row-cols-5 d-flex align-items-center">
-          <div class="col">
-            <img
-              src="../../assets/offroad.jpg"
-              alt=""
-              style="height: 120px; width: 100%; object-fit: cover"
-              class="rounded-2"
-            />
-          </div>
-          <div class="col">
-            <img
-              src="../../assets/rafting.jpg"
-              alt=""
-              style="height: 120px; width: 100%; object-fit: cover"
-              class="rounded-2"
-            />
-          </div>
-          <div class="col">
-            <img
-              src="../../assets/team_building.jpg"
-              alt=""
-              style="height: 120px; width: 100%; object-fit: cover"
-              class="rounded-2"
-            />
-          </div>
-          <div class="col">
-            <img
-              src="../../assets/flyingfox.jpg"
-              alt=""
-              style="height: 120px; width: 100%; object-fit: cover"
-              class="rounded-2"
-            />
-          </div>
-          <div class="col">
-            <img
-              src="../../assets/camping.jpg"
-              alt=""
-              style="height: 120px; width: 100%; object-fit: cover"
-              class="rounded-2"
-            />
-          </div>
-        </div> -->
         <p class="lead fw-light text-white">
           Petualangan seru & pengalaman tak terlupakan menantimu! Dari aktivitas
           penuh adrenalin hingga staycation yang nyaman, temukan paket wisata
@@ -161,7 +114,11 @@
 
   <div id="layanan" class="container-fluid layanan">
     <div class="container py-5">
-      <img src="../../assets/pl_gaharuoutbound.png" alt="" style="width: 100%;">
+      <img
+        src="../../assets/pl_gaharuoutbound.png"
+        alt=""
+        style="width: 100%"
+      />
     </div>
   </div>
 
