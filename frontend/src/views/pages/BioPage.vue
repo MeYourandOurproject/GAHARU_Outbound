@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid bio-page">
     <div
-      class="container d-flex align-items-center justify-content-center text-center my-5 py-5"
+      class="container d-flex align-items-center justify-content-center text-center bg-img"
     >
       <div class="row row-cols-1 g-5">
         <div class="col">
@@ -11,7 +11,7 @@
             class="my-3"
             style="max-width: 100px"
           />
-          <div class="display-1 fs-1 fw-bold brand">GAHARU Outbound</div>
+          <div class="display-1 fs-1 fw-bold brand ">GAHARU Outbound</div>
           <div class="fs-5 sub-brand">
             Fun games, Team Building, Rafting, Fun offroad, Paint ball, Flying
             fox
@@ -50,11 +50,17 @@
   /* background-color: #000000;yyy */
 }
 
+.bg-img{
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+    url("../../assets/rafting.jpg");
+}
 .brand {
   letter-spacing: 2px;
+  color: white;
 }
 
 .sub-brand {
   font-style: italic;
+  color: white;
 }
 </style>

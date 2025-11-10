@@ -22,9 +22,9 @@ export default {
 </script>
 
 <style>
-#navbar {
-  position: absolute;
-  top: 0;
-  z-index: 999;
-}
+/* #navbar { */
+  /* position: absolute; */
+  /* top: 0; */
+  /* z-index: 999; */
+/* } */
 </style>
