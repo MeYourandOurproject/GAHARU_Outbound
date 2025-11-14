@@ -43,7 +43,7 @@
               </li>
               <li>
                 <router-link
-                  to="/galery"
+                  to="/"
                   class="nav-link pc-3 small-text"
                   :class="{ active: $route.name === 'Galery' }"
                   >Galeri</router-link
@@ -51,7 +51,7 @@
               </li>
               <li>
                 <router-link
-                  to="/artikel"
+                  to="/"
                   class="nav-link pc-3 small-text"
                   :class="{ active: isActive('Artikel', 'ArtikelDetail') }"
                   >Artikel</router-link
@@ -59,7 +59,7 @@
               </li>
               <li>
                 <router-link
-                  to="/about-us"
+                  to="/"
                   class="nav-link pc-3 small-text"
                   :class="{ active: $route.name === 'AboutUs' }"
                   >About Us</router-link
@@ -72,7 +72,7 @@
         <!-- Tombol WA (desktop) -->
         <div class="col-3 d-none d-md-block">
           <a
-            href="https://wa.me/6285924333088"
+            href="https://wa.me/6285802956931"
             class="text-decoration-none"
           >
             <img src="../../assets/wa_icon.png" alt="WhatsApp" class="wa-icon" />
@@ -105,7 +105,7 @@
           </li>
           <li>
             <router-link
-              to="/galery"
+              to="/"
               class="nav-link small-text"
               @click="toggleMenu"
               :class="{ active: $route.name === 'Galery' }"
@@ -114,7 +114,7 @@
           </li>
           <li>
             <router-link
-              to="/artikel"
+              to="/"
               class="nav-link small-text"
               @click="toggleMenu"
               :class="{ active: isActive('Artikel', 'ArtikelDetail') }"
@@ -123,7 +123,7 @@
           </li>
           <li>
             <router-link
-              to="/about-us"
+              to="/"
               class="nav-link small-text"
               @click="toggleMenu"
               :class="{ active: $route.name === 'AboutUs' }"

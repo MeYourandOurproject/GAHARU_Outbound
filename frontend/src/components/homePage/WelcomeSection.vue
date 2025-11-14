@@ -14,15 +14,15 @@
 
       <!-- Teks / Konten -->
       <div class="col-12 col-md-6 order-1 py-5 px-5 px-md-0 pe-md-5 order-md-2">
-        <div class="fs-3 text-start mb-3">
+        <div class="fs-3 text-center text-md-start mb-3">
              Selamat Datang di <br><span>Website </span><span class="fw-bold text-success fs-2">GAHARU Outbound</span> 👋 
         </div>
-        <p class="lead mb-4 text-justify">
+        <p class="lead mb-4 text-justify text-md-start">
         Nikmati sensasi seru rafting di arus deras, menjelajah alam dengan Jeep Land Rover dan ATV, hingga adu ketangkasan lewat paintball dan flying fox!
 
         Bersama pemandu profesional dan fasilitas terbaik, kami siap menghadirkan kegiatan team building dan fun games yang mempererat kerja sama dan menciptakan momen tak terlupakan.
         </p>
-        <div class="div text-start">
+        <div class="div text-center text-md-start">
         <button class="btn btn-success fw-semibold wa-icon ">
           <a
             href="https://wa.me/6285924333088"

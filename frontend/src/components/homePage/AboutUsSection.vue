@@ -22,7 +22,7 @@
         <a href="https://wa.me/6285802956931">
           <button class="btn btn-success btn-lg fw-semibold wa-icon btn-animate-arrow mb-3">
             <i class="bi bi-whatsapp arrow-move"></i>
-            <span class="fw-light">WhatsApp</span>
+            <span class="fw-light ms-2">WhatsApp</span>
           </button>
         </a>
 

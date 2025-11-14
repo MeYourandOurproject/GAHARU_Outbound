@@ -1,42 +1,64 @@
 <template>
   <div class="container-fluid bio-page">
-    <div
-      class="container d-flex align-items-center justify-content-center text-center bg-img"
-    >
-      <div class="row row-cols-1 g-5">
-        <div class="col">
-          <img
-            src="../../assets/logo_black.png"
-            alt=""
-            class="my-3"
-            style="max-width: 100px"
-          />
-          <div class="display-1 fs-1 fw-bold brand ">GAHARU Outbound</div>
-          <div class="fs-5 sub-brand">
-            Fun games, Team Building, Rafting, Fun offroad, Paint ball, Flying
-            fox
+    <div class="mobile-wrapper">
+      <div
+        class="container d-flex align-items-center justify-content-center text-center bg-img"
+      >
+        <div class="row row-cols-1 g-3">
+          <div class="col pt-4 pb-3">
+            <img src="../../assets/bio_img.png" alt="" class="rounded shadow img-welcome" style="width: 350px;">
           </div>
-        </div>
-        <div class="d-grid gap-3 mt-4" style="max-width: 500px; margin: 0 auto">
-          <a href="https://gaharuoutbound.com" class="btn btn-warning fs-5">
-            <i class="bi bi-globe me-3"></i>Halaman Website
-          </a>
-
-          <a href="https://wa.me/6285802956931" class="btn btn-success fs-5"
-            ><i class="bi bi-whatsapp me-3"></i>Konsultasi Admin
-          </a>
-
-          <a
-            href="https://www.facebook.com/profile.php?id=61574137567777&locale=id_ID"
-            class="btn btn-primary fs-5"
-            ><i class="bi bi-facebook me-3"></i>Facebook
-          </a>
-
-          <a
-            href="https://www.instagram.com/gaharuoutbound/"
-            class="btn btn-danger fs-5"
-            ><i class="bi bi-instagram me-3"></i>Instagram
-          </a>
+          <div class="col">
+            <p class="text-white text-center fst-italic">
+             Contact & Follow Our Social Media
+            </p>
+            <a href="https://wa.me/6285802956931">
+              <button class="btn btn-success btn-sm fw-semibold icon-bio btn-sm btn-animate-arrow">
+                <i class="bi bi-whatsapp arrow-move me-3"></i>
+                <span class="fw-light">WhatsApp</span>
+              </button>
+            </a>
+          </div>
+          <div class="col">
+            <a href="https://gaharuoutbound.com">
+              <button class="btn btn-light fw-semibold icon-bio btn-sm btn-animate-arrow">
+                <i class="bi bi-globe arrow-move me-3"></i>
+                <span class="fw-light">Website</span>
+              </button>
+            </a>
+          </div>
+          <div class="col">
+            <a href="https://www.tiktok.com/@gaharu.outbound">
+              <button class="btn btn-dark fw-semibold icon-bio btn-sm btn-animate-arrow">
+                <i class="bi bi-tiktok arrow-move me-3"></i>
+                <span class="fw-light">Tiktok</span>
+              </button>
+            </a>
+          </div>
+          <div class="col">
+            <a href="https://www.facebook.com/profile.php?id=61574137567777&locale=id_ID">
+              <button class="btn btn-primary fw-semibold icon-bio btn-sm btn-animate-arrow">
+                <i class="bi bi-facebook arrow-move me-3"></i>
+                <span class="fw-light">Facebook</span>
+              </button>
+            </a>
+          </div>
+          <div class="col">
+            <a href="https://www.instagram.com/gaharuoutbound/">
+              <button class="btn btn-danger fw-semibold icon-bio btn-sm btn-animate-arrow">
+                <i class="bi bi-instagram arrow-move me-3"></i>
+                <span class="fw-light">Instagram</span>
+              </button>
+            </a>
+          </div>
+          <div class="col">
+            <img
+              src="../../assets/logo_gaharu_white.png"
+              alt=""
+              class="my-3"
+              style="width: 200px"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -44,16 +66,40 @@
 </template>
 
 <style>
+/* FULL PAGE */
 .bio-page {
   min-height: 100vh;
   display: flex;
-  /* background-color: #000000;yyy */
+  justify-content: center;
+  background: #000;
 }
 
-.bg-img{
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-    url("../../assets/rafting.jpg");
+/* MOBILE VIEW WRAPPER — selalu tampilan HP */
+.mobile-wrapper {
+  width: 100%;
+  max-width: 480px; /* ukuran mobile */
+  margin: 0 auto;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #000; /* opsional */
 }
+
+/* BACKGROUND IMAGE */
+.bg-img {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 30px 20px;
+
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.75)
+    ),
+    url("../../assets/mobile_hero1.png");
+}
+
+/* TEXT STYLE */
 .brand {
   letter-spacing: 2px;
   color: white;
@@ -62,5 +108,43 @@
 .sub-brand {
   font-style: italic;
   color: white;
+}
+
+.icon-bio {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  width: 250px;
+}
+
+.wa-icon:hover {
+  transform: scale(1.1);
+  opacity: 0.85;
+}
+
+.btn-animate-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.arrow-move {
+  display: inline-block;
+  animation: moveArrow 0.7s ease-in-out infinite alternate;
+  font-size: 1.1rem;
+}
+
+/* Animasi gerak panah */
+@keyframes moveArrow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(6px); }
+}
+
+/* HOVER EFFECT ICON SOSMED */
+.sosmed-icons a {
+  transition: 0.3s ease;
+}
+
+.sosmed-icons a:hover {
+  color: #198754; /* warna hijau bootstrap */
+  transform: scale(1.15);
 }
 </style>

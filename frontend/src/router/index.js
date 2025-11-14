@@ -7,16 +7,16 @@ import AdminLayout from "@/views/layouts/AdminLayout.vue";
 import BioPage from "@/views/pages/BioPage.vue";
 // import LandingPage from "@/views/pages/LandingPage.vue";
 import HomePage from "@/views/pages/main/HomePage.vue";
-import BestDestinationPage from "@/views/pages/BestDestinationPage.vue";
-import CozyStaycationPage from "@/views/pages/CozyStaycationPage.vue";
-import FunActivityPackagePage from "@/views/pages/FunActivityPackagePage.vue";
-import AllPackagePage from "@/views/pages/AllPackagePage.vue";
-import CostumPackagePage from "@/views/pages/CostumPackagePage.vue";
-import GaleryPage from "@/views/pages/GaleryPage.vue";
-import ContactPage from "@/views/pages/ContactPage.vue";
-import ArtikelPage from "@/views/pages/ArtikelPage.vue";
-import ArtikelDetailPage from "@/views/pages/ArtikelDetailPage.vue";
-import PaketTourDetailPage from "@/views/pages/PaketTourDetailPage.vue";
+// import BestDestinationPage from "@/views/pages/BestDestinationPage.vue";
+// import CozyStaycationPage from "@/views/pages/CozyStaycationPage.vue";
+// import FunActivityPackagePage from "@/views/pages/FunActivityPackagePage.vue";
+// import AllPackagePage from "@/views/pages/AllPackagePage.vue";
+// import CostumPackagePage from "@/views/pages/CostumPackagePage.vue";
+// import GaleryPage from "@/views/pages/GaleryPage.vue";
+// import ContactPage from "@/views/pages/ContactPage.vue";
+// import ArtikelPage from "@/views/pages/ArtikelPage.vue";
+// import ArtikelDetailPage from "@/views/pages/ArtikelDetailPage.vue";
+// import PaketTourDetailPage from "@/views/pages/PaketTourDetailPage.vue";
 
 import LoginPage from "@/views/pages/admin/LoginPage.vue";
 
@@ -58,66 +58,66 @@ const routes = [
         component: HomePage,
         meta: { title: "Home" },
       },
-      {
-        path: "fun-activity-package-page",
-        name: "FunActivity",
-        component: FunActivityPackagePage,
-        meta: { title: "FunActivity" },
-      },
-      {
-        path: "best-destination-package-page",
-        name: "BestDestination",
-        component: BestDestinationPage,
-        meta: { title: "BestDestination" },
-      },
-      {
-        path: "cozy-staycation-package-page",
-        name: "CozyStaycation",
-        component: CozyStaycationPage,
-        meta: { title: "CozyStaycation" },
-      },
-      {
-        path: "all-package",
-        name: "AllPackage",
-        component: AllPackagePage,
-        meta: { title: "AllPackage" },
-      },
-      {
-        path: "costum-package-page",
-        name: "CostumPage",
-        component: CostumPackagePage,
-        meta: { title: "CostumPage" },
-      },
-      {
-        path: "paket-tour/:slug",
-        name: "PaketTourDetail",
-        component: PaketTourDetailPage,
-        meta: { title: "Paket Tour Detail" },
-      },
-      {
-        path: "galery",
-        name: "Galery",
-        component: GaleryPage,
-        meta: { title: "Galery" },
-      },
-      {
-        path: "artikel",
-        name: "Artikel",
-        component: ArtikelPage,
-        meta: { title: "Artikel" },
-      },
-      {
-        path: "artikel/:slug",
-        name: "ArtikelDetail",
-        component: ArtikelDetailPage,
-        meta: { title: "Artikel Detail" },
-      },
-      {
-        path: "about-us",
-        name: "AboutUs",
-        component: ContactPage,
-        meta: { title: "About Us" },
-      },
+      // {
+      //   path: "fun-activity-package-page",
+      //   name: "FunActivity",
+      //   component: FunActivityPackagePage,
+      //   meta: { title: "FunActivity" },
+      // },
+      // {
+      //   path: "best-destination-package-page",
+      //   name: "BestDestination",
+      //   component: BestDestinationPage,
+      //   meta: { title: "BestDestination" },
+      // },
+      // {
+      //   path: "cozy-staycation-package-page",
+      //   name: "CozyStaycation",
+      //   component: CozyStaycationPage,
+      //   meta: { title: "CozyStaycation" },
+      // },
+      // {
+      //   path: "all-package",
+      //   name: "AllPackage",
+      //   component: AllPackagePage,
+      //   meta: { title: "AllPackage" },
+      // },
+      // {
+      //   path: "costum-package-page",
+      //   name: "CostumPage",
+      //   component: CostumPackagePage,
+      //   meta: { title: "CostumPage" },
+      // },
+      // {
+      //   path: "paket-tour/:slug",
+      //   name: "PaketTourDetail",
+      //   component: PaketTourDetailPage,
+      //   meta: { title: "Paket Tour Detail" },
+      // },
+      // {
+      //   path: "galery",
+      //   name: "Galery",
+      //   component: GaleryPage,
+      //   meta: { title: "Galery" },
+      // },
+      // {
+      //   path: "artikel",
+      //   name: "Artikel",
+      //   component: ArtikelPage,
+      //   meta: { title: "Artikel" },
+      // },
+      // {
+      //   path: "artikel/:slug",
+      //   name: "ArtikelDetail",
+      //   component: ArtikelDetailPage,
+      //   meta: { title: "Artikel Detail" },
+      // },
+      // {
+      //   path: "about-us",
+      //   name: "AboutUs",
+      //   component: ContactPage,
+      //   meta: { title: "About Us" },
+      // },
     ],
   },
   {
