@@ -5,7 +5,8 @@ import store from "@/store";
 import MainLayout from "@/views/layouts/MainLayout.vue";
 import AdminLayout from "@/views/layouts/AdminLayout.vue";
 import BioPage from "@/views/pages/BioPage.vue";
-import LandingPage from "@/views/pages/LandingPage.vue";
+// import LandingPage from "@/views/pages/LandingPage.vue";
+import HomePage from "@/views/pages/main/HomePage.vue";
 import BestDestinationPage from "@/views/pages/BestDestinationPage.vue";
 import CozyStaycationPage from "@/views/pages/CozyStaycationPage.vue";
 import FunActivityPackagePage from "@/views/pages/FunActivityPackagePage.vue";
@@ -54,7 +55,7 @@ const routes = [
       {
         path: "",
         name: "Home",
-        component: LandingPage,
+        component: HomePage,
         meta: { title: "Home" },
       },
       {

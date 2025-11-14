@@ -66,7 +66,7 @@
     </div>
   </div> -->
   <div class="container-fluid heroes">
-    <div
+    <!-- <div
       class="container d-flex align-items-center justify-content-center text-center"
     >
       <div class="row pt-5 mt-5 text-center justify-content-center">
@@ -105,11 +105,8 @@
               ></i></button
           ></a>
         </div>
-        <!-- <a href="#layanan" class="btn btn-success btn-lg mt-3"
-          >Lihat Paket Wisata</a
-        > -->
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div id="layanan" class="container-fluid layanan">
@@ -209,12 +206,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap");
 
 .heroes {
-  min-height: 100vh;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-    url("../../assets/rafting_hd.webp");
+  height: 100vh;
+  background-image:url("../../assets/dekstop_hero2.png");
   display: flex;
   background-size: cover;
-  background-position: bottom;
+  background-position: top;
 }
 
 /* .heroes-content {
@@ -448,6 +444,14 @@
 }
 
 @media (max-width: 767px) {
+  /* .heroes {
+    height: 100vh;
+    background-image:url("../../assets/mobile_hero2.png");
+    display: flex;
+    background-size: cover;
+    background-position: center;
+  } */
+
   .heroes-content {
     margin-top: 400px;
   }
