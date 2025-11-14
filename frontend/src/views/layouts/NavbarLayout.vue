@@ -35,6 +35,14 @@
               </li>
               <li>
                 <router-link
+                  to="/"
+                  class="nav-link pc-3 small-text"
+                  :class="{ active: $route.name === 'Price List' }"
+                  >Price List</router-link
+                >
+              </li>
+              <li>
+                <router-link
                   to="/galery"
                   class="nav-link pc-3 small-text"
                   :class="{ active: $route.name === 'Galery' }"
@@ -65,11 +73,9 @@
         <div class="col-3 d-none d-md-block">
           <a
             href="https://wa.me/6285924333088"
-            class="text-decoration-none text-white"
+            class="text-decoration-none"
           >
-            <button class="btn btn-md btn-outline-dark">
-              <i class="bi bi-whatsapp me-2"></i> WhatsApp
-            </button>
+            <img src="../../assets/wa_icon.png" alt="WhatsApp" class="wa-icon" />
           </a>
         </div>
 
@@ -239,6 +245,28 @@ export default {
 .mobile-menu .nav-link {
   display: block;
   padding: 8px 0;
+}
+
+.wa-icon {
+  width: 100px;   /* Ukuran default */
+  height: auto;  /* Biar proporsional */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.wa-icon:hover {
+  transform: scale(1.1);
+  opacity: 0.85;
+  background-color: #FF409C;
+  border-radius: 10px;
+  padding: 10px;
+  filter: invert(1); /* membalik warna jadi putih kalau dasarnya hitam */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .wa-icon {
+    width: 32px;
+  }
 }
 
 @keyframes fadeIn {

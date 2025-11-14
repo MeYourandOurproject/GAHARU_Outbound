@@ -9,25 +9,20 @@
               class="row align-items-center justify-content-center logo-container"
             >
               <div class="col-auto">
-                <img
-                  alt="Logo"
-                  class="d-inline-block align-text-center logo-brand"
-                  src="../../assets/logo.png"
-                />
-              </div>
-              <div class="col-auto text-brand">GAHARU Outbound</div>
+                <img src="../../assets/logo_gaharu_black.png" alt="" class="logo-brand">
+            </div>
             </div>
           </router-link>
         </div>
 
         <!-- Sosmed -->
-        <div class="col text-white p-4">
+        <div class="col text-dark p-4">
           <div class="col">
             <div class="row d-flex justify-content-center">
               <div class="col-auto">
                 <a
                   href="https://www.facebook.com/profile.php?id=61574137567777&locale=id_ID"
-                  class="text-decoration-none text-white sosmed-item"
+                  class="text-decoration-none text-dark sosmed-item"
                 >
                   <i class="bi bi-facebook footer-icon"></i>
                 </a>
@@ -35,7 +30,7 @@
               <div class="col-auto">
                 <a
                   href="https://www.instagram.com/gaharuoutbound/"
-                  class="text-decoration-none text-white sosmed-item"
+                  class="text-decoration-none text-dark sosmed-item"
                 >
                   <i class="bi bi-instagram footer-icon"></i>
                 </a>
@@ -43,7 +38,7 @@
               <div class="col-auto">
                 <a
                   href="https://wa.me/6285802956931"
-                  class="text-decoration-none text-white sosmed-item"
+                  class="text-decoration-none text-dark sosmed-item"
                 >
                   <i class="bi bi-whatsapp footer-icon"></i>
                 </a>
@@ -72,7 +67,7 @@
         <div class="col asita">
           <div class="row align-items-center justify-content-center">
             <div
-              class="col-9 text-white align-items-center justify-content-right fw-bold text-end"
+              class="col-9 text-dark align-items-center justify-content-right fw-bold text-end"
             >
               Association of The Indonesian Tours & Travel Agencies
             </div>
@@ -94,15 +89,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap");
 
 .back-img {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
-    url("../../assets/rafting_hd.webp");
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
+    url("../../assets/rafting_hd.webp"); */
+  background-color: #00bf63;
   display: flex;
   background-size: cover;
   background-position: center;
 }
 
 .logo-brand {
-  height: 60px;
+  height: 70px;
 }
 
 .text-brand {
@@ -114,7 +110,7 @@
 }
 
 .footer-icon {
-  border: 1px solid white;
+  /* border: 1px solid rgb(0, 0, 0); */
   padding: 10px;
   border-radius: 100%;
 }
@@ -123,6 +119,7 @@
   display: inline-block;
   text-align: center;
   transition: transform 0.3s ease-in-out;
+  font-size: 30px;
 }
 
 .sosmed-item:hover {
