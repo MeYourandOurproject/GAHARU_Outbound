@@ -1,7 +1,8 @@
 <template>
     <div class="home-page">
-        <HeroSection/>
+        <!-- <HeroSection/> -->
         <div class="bg-home">
+            <HeroSection/>
             <WelcomeSection/>
             <PackageSection/>
             <GalerySection/>
@@ -11,11 +12,11 @@
 </template>
 
 <script>
-import HeroSection from '@/components/homePage/HeroSection.vue';
-import WelcomeSection from '@/components/homePage/WelcomeSection.vue';
-import PackageSection from '@/components/homePage/PackageSection.vue';
-import GalerySection from '@/components/homePage/GalerySection.vue';
-import AboutUsSection from '@/components/homePage/AboutUsSection.vue';
+import HeroSection from '@/components/main/home/HeroSection.vue';
+import WelcomeSection from '@/components/main/home/WelcomeSection.vue';
+import PackageSection from '@/components/main/home/PackageSection.vue';
+import GalerySection from '@/components/main/home/GalerySection.vue';
+import AboutUsSection from '@/components/main/home/AboutUsSection.vue';
 
 export default {
     name: "HomePage",

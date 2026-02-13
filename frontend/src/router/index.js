@@ -2,9 +2,9 @@
 
 import { createRouter, createWebHistory } from "vue-router";
 import store from "@/store";
-import MainLayout from "@/views/layouts/MainLayout.vue";
-import AdminLayout from "@/views/layouts/AdminLayout.vue";
-import BioPage from "@/views/pages/BioPage.vue";
+import MainLayout from "@/views/layouts/main/MainLayout.vue";
+import AdminLayout from "@/views/layouts/admin/AdminLayout.vue";
+import BioPage from "@/views/pages/bio/BioPage.vue";
 // import LandingPage from "@/views/pages/LandingPage.vue";
 import HomePage from "@/views/pages/main/HomePage.vue";
 // import BestDestinationPage from "@/views/pages/BestDestinationPage.vue";

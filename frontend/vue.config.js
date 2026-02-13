@@ -5,7 +5,7 @@ module.exports = defineConfig({
   chainWebpack: (config) => {
     config.plugin("html").tap((args) => {
       args[0].title =
-        "Gaharu Outbound | Outbond, Rafting, Jeep Offroad, Outdoor Activity"; // Ganti title di sini
+        "GAHARU Outbound | Outbond, Rafting, Jeep Offroad, Outdoor Activity"; // Ganti title di sini
       return args;
     });
   },
