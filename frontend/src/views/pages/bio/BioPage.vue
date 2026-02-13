@@ -98,7 +98,7 @@
       rgba(0, 0, 0, 0.55),
       rgba(0, 0, 0, 0.75)
     ),
-    url("@/assets/mobile_hero1.png");
+    url("@/assets/mobile_hero1.webp");
 }
 
 /* TEXT STYLE */

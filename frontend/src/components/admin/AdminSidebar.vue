@@ -51,7 +51,7 @@
         alt="Logo"
         height="30px"
         class="d-inline-block align-text-center me-2"
-        src="../../assets/logo.png"
+        src="../../assets/logo_gaharu.png"
       />
       <span class="text-white fw-bold"> Gaharu Outbound</span>
     </router-link>

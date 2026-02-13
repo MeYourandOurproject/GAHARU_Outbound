@@ -4,7 +4,7 @@
       <div class="fs-1 py-5 fw-bold text-success">Pilihan Paket</div>
       <div class="row pb-5">
         <div class="col-12 px-md-5">
-          <img src="@/assets/pl_home.png" alt="Gaharu Outbound" class="pl-img rounded shadow-lg" />
+          <img src="@/assets/pl_home.webp" alt="Gaharu Outbound" class="pl-img rounded shadow-lg" />
         </div>
       </div>
       <div class="div text-center">

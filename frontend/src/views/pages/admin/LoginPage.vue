@@ -37,7 +37,7 @@
           <form @submit.prevent="handleSubmit">
             <div class="d-flex flex-column mb-4 logos">
               <div>
-                <img src="../../../assets/logo.png" alt="Logo" width="120" />
+                <img src="../../../assets/logo_gaharu.png" alt="Logo" width="120" />
               </div>
               <!-- <div>
                 <img

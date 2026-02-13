@@ -6,7 +6,7 @@
         <div class="col-12 col-md-6 order-2 order-md-1">
           <div class="card border-0 bg-transparent text-center p-3 p-md-5">
             <img
-              src="@/assets/welcome_img.png"
+              src="@/assets/welcome_img.webp"
               alt="Welcome"
               class="img-fluid rounded shadow-lg"
             />

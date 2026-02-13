@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid py-5 px-5">
+  <div class="container-fluid py-5">
     <div class="container-xxl">
       <h2 class="text-center fw-bold mb-4">Galeri Kegiatan <br>
           <span class="text-success fs-1">GAHARU Outbound </span>
@@ -47,16 +47,16 @@ export default {
   data() {
     return {
       gallery: [
-        require("@/assets/paintball.jpg"),
-        require("@/assets/rusa.jpg"),
-        require("@/assets/team_building.jpg"),
-        require("@/assets/rafting.jpg"),
-        require("@/assets/camping.jpg"),
-        require("@/assets/situ-cileunca.jpg"),
-        require("@/assets/offroad.jpg"),
-        require("@/assets/riung_gunung.jpg"),
-        require("@/assets/palayangan.webp"),
-        require("@/assets/carita_alam.jpg"),
+        // require("@/assets/paintball.jpg"),
+        // require("@/assets/rusa.jpg"),
+        // require("@/assets/team_building.jpg"),
+        // require("@/assets/rafting.jpg"),
+        // require("@/assets/camping.jpg"),
+        // require("@/assets/situ-cileunca.jpg"),
+        // require("@/assets/offroad.jpg"),
+        // require("@/assets/riung_gunung.jpg"),
+        // require("@/assets/palayangan.webp"),
+        // require("@/assets/carita_alam.jpg"),
       ]
     };
   }

@@ -37,7 +37,7 @@ export default {
 }
 
 .bg-home {
-    background-image: url("../../../assets/bg-home.png");
+    background-image: url("../../../assets/bg-home.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
