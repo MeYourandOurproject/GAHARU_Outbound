@@ -3,51 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 class UserController {
-  static async create(req, res, next) {
-    try {
-      const { firstname, lastname, role, username, email, password } = req.body;
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const user = await User.create({
-        firstname,
-        lastname,
-        role,
-        username,
-        email,
-        password: hashedPassword,
-      });
-      res.status(200).json(user);
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  static async login(req, res, next) {
-    try {
-      const { email, password } = req.body;
-      const user = await User.findOne({ where: { email } });
-      if (!user) {
-        throw { name: "InvalidCredential" };
-      }
-      const passwordMatch = await bcrypt.compare(password, user.password);
-      if (!passwordMatch) {
-        throw { name: "InvalidCredential" };
-      }
-      const token = jwt.sign(
-        {
-          id: user.id,
-          email: user.email,
-        },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: "1d",
-        }
-      );
-      res.status(200).json({ token });
-    } catch (err) {
-      next(err);
-    }
-  }
-
   static async getAll(req, res, next) {
     try {
       const data = await User.findAll();
@@ -70,40 +25,76 @@ class UserController {
     }
   }
 
+  static async create(req, res, next) {
+    try {
+      const { name, email, password, role, avatar } = req.body;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const user = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+        role,
+        avatar,
+      });
+      res.status(201).json(user);
+    } catch (err) {
+      next(err);
+    }
+  }
+
   static async update(req, res, next) {
     try {
       const { id } = req.params;
-      const { firstname, lastname, role, username, email, password } = req.body;
+      const { name, email, password, role, avatar } = req.body;
 
-      if (
-        !id ||
-        !firstname ||
-        !lastname ||
-        !role ||
-        !username ||
-        !email ||
-        !password
-      ) {
+      if (!id || !name || !email || !password || !role) {
         return res.status(400).json({ message: "All fields are required" });
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
       const [updateRowsCount] = await User.update(
         {
-          firstname,
-          lastname,
-          role,
-          username,
+          name,
           email,
           password: hashedPassword,
+          role,
+          avatar,
         },
-        { where: { id } }
+        { where: { id } },
       );
       if (updateRowsCount !== 1) {
         throw { name: "ErrorUpdate" };
       }
       const updatedUser = await User.findOne({ where: { id } });
       res.status(200).json(updatedUser);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async login(req, res, next) {
+    try {
+      const { email, password } = req.body;
+      const user = await User.findOne({ where: { email } });
+      if (!user) {
+        throw { name: "InvalidCredential" };
+      }
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch) {
+        throw { name: "InvalidCredential" };
+      }
+      const token = jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+          role: user.role,
+        },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "1d",
+        },
+      );
+      res.status(200).json({ token });
     } catch (err) {
       next(err);
     }

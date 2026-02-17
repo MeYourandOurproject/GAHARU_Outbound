@@ -1,30 +1,12 @@
-const { Galery, Destination } = require("../models");
+const { Galery, Service } = require("../models");
+
+const BASE_URL = process.env.BASE_URL;
 
 class GaleryController {
-  static async create(req, res, next) {
-    const { destination_id, title, costumer, description } = req.body;
-    // const picturePath = `https://localhost:${process.env.PORT}/${req.file.path}`;
-    const picturePath = `https://${process.env.HOST}/${req.file.path}`;
-
-    try {
-      const galery = await Galery.create({
-        destination_id,
-        title,
-        picture: picturePath,
-        costumer,
-        description,
-      });
-      res.status(200).json(galery);
-    } catch (err) {
-      next(err);
-      // console.log(err);
-    }
-  }
-
   static async getAll(req, res, next) {
     try {
       const data = await Galery.findAll({
-        include: [{ model: Destination, attributes: ["nama", "alamat"] }],
+        include: { model: Service, as: "services" },
       });
       res.status(200).json(data);
     } catch (err) {
@@ -32,67 +14,35 @@ class GaleryController {
     }
   }
 
-  static async getById(req, res, next) {
+  static async create(req, res, next) {
     try {
-      const { id } = req.params;
-      const data = await Galery.findOne({
-        where: { id },
-        include: [{ model: Destination, attributes: ["nama", "alamat"] }],
-      });
-      if (!data) {
-        throw { name: "ErrorNotFound" };
+      const { title, description, service_id, location, date } = req.body;
+
+      if (!title || !description || !service_id || !location || !date) {
+        return res.status(400).json({
+          message:
+            "Title, Description, Service, Location and Date are required",
+        });
       }
 
-      res.status(200).json(data);
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  static async getByTitle(req, res, next) {
-    try {
-      const { title } = req.params;
-      const data = await Galery.findOne({
-        where: { title },
-      });
-
-      if (!data) {
-        throw { name: "ErrorNotFound" };
-      }
-      res.status(200).json(data);
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  static async update(req, res, next) {
-    const { id } = req.params;
-    const { destination_id, title, costumer, description } = req.body;
-
-    const picturePath = req.file
-      ? `https://${process.env.HOST}/${req.file.path}`
-      : null;
-
-    if (
-      !destination_id ||
-      !title ||
-      !costumer ||
-      !description ||
-      !picturePath
-    ) {
-      return res.status(400).json({ messag: "All fields are required" });
-    }
-
-    try {
-      const [updateRowsCount] = await Galery.update(
-        { destination_id, title, pictur: picturePath, costumer, description },
-        { where: { id } }
+      const imgFiles = req.files?.img_url || [];
+      const imgPaths = imgFiles.map(
+        (file) => `${BASE_URL}/${file.path.replace(/\\/g, "/")}`,
       );
-      if (updateRowsCount !== 1) {
-        throw { name: "ErrorNotFound" };
-      }
-      const updateGalery = await Galery.findOne({ where: { id } });
-      res.status(200).json(updateGalery);
+
+      const galery = await Galery.create({
+        img_url: imgPaths,
+        title,
+        description,
+        service_id,
+        location,
+        date,
+      });
+
+      res.status(201).json({
+        message: "Galery created successfully",
+        data: galery,
+      });
     } catch (err) {
       next(err);
     }
@@ -101,11 +51,63 @@ class GaleryController {
   static async delete(req, res, next) {
     try {
       const { id } = req.params;
-      const deleteRowsCount = await Galery.destroy({ where: { id } });
-      if (deleteRowsCount === 0) {
-        throw { name: "ErrorNotFound" };
+
+      const galery = await Galery.findByPk(id);
+
+      if (!galery) {
+        return res.status(404).json({
+          message: "Galery not found",
+        });
       }
-      res.status(200).json({ message: "Data has been deleted" });
+
+      await galery.destroy();
+
+      res.status(200).json({
+        message: "Galery deleted successfully",
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async deleteImage(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { imageUrl } = req.body; // kirim URL yg mau dihapus
+
+      const galery = await Galery.findByPk(id);
+
+      if (!galery) {
+        return res.status(404).json({
+          message: "Galery not found",
+        });
+      }
+
+      // parse JSON kalau masih string
+      let images = galery.img_url;
+
+      if (typeof images === "string") {
+        images = JSON.parse(images);
+      }
+
+      // filter hapus image tertentu
+      const updatedImages = images.filter((img) => img !== imageUrl);
+
+      // kalau semua gambar terhapus?
+      if (updatedImages.length === 0) {
+        return res.status(400).json({
+          message: "Cannot delete all images. At least one image required.",
+        });
+      }
+
+      await galery.update({
+        img_url: updatedImages,
+      });
+
+      res.status(200).json({
+        message: "Image deleted successfully",
+        data: galery,
+      });
     } catch (err) {
       next(err);
     }

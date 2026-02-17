@@ -1,5 +1,7 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -8,46 +10,63 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.hasMany(models.Artikel, {
+        foreignKey: "author_id",
+        as: "artikels",
+        onDelete: "SET NULL"
+      })
     }
   }
-  User.init(
-    {
-      firstname: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: { notEmpty: true },
-      },
-      lastname: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: { notEmpty: true },
-      },
-      role: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: { notEmpty: true },
-      },
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: { notEmpty: true },
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: { notEmpty: true },
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: { notEmpty: true },
-      },
+  User.init({
+    name: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      validate: { notEmpty: true }
     },
-    {
-      sequelize,
-      modelName: "User",
-    }
-  );
+    email: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      unique: true,
+      validate: {
+        notEmpty: true,
+        isEmail: true
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: { notEmpty: true }
+    },
+    role: {
+      type: DataTypes.ENUM(
+        "super_admin",
+        "admin",
+        "editor",
+        "author",
+        "subscribe",
+        "user"
+      ),
+      allowNull: false,
+      defaultValue: "user"
+    },
+    avatar: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    },
+    last_login: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+  }, {
+    sequelize,
+    modelName: 'User',
+    tableName: "Users",
+    freezeTableName: true
+  });
   return User;
 };

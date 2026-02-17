@@ -2,29 +2,19 @@ const express = require("express");
 const router = express.Router();
 
 const userRouter = require("./userRouter");
-const companyProfileRouter = require("./companyProfileRouter");
-const legalitasRouter = require("./legalitasRouter");
-const contactRouter = require("./contactRouter");
-const phoneRouter = require("./phoneRouter");
-const socialMediaRouter = require("./socialMediaRouter");
-const contactSocialMediaRouter = require("./contactSocialMediaRouter");
-const paketTourRouter = require("./paketTourRouter");
-const destinationRouter = require("./destinationRouter");
 const galeryRouter = require("./galeryRouter");
 const artikelRouter = require("./artikelRouter");
+const serviceRouter = require("./serviceRouter");
+const categoryRouter = require("./categoryRouter");
 const uploadRouter = require("./uploadRouter");
+const pricelistRouter = require("./priceListRouter");
 
 router.use("/users", userRouter);
-router.use("/company-profile", companyProfileRouter);
-router.use("/legalitas", legalitasRouter);
-router.use("/contact", contactRouter);
-router.use("/phone", phoneRouter);
-router.use("/social-media", socialMediaRouter);
-router.use("/contact-social-media", contactSocialMediaRouter);
-router.use("/paket-tour", paketTourRouter);
-router.use("/destination", destinationRouter);
-router.use("/galery", galeryRouter);
-router.use("/artikel", artikelRouter);
-router.use("/upload", uploadRouter);
+router.use("/galeries", galeryRouter);
+router.use("/artikels", artikelRouter);
+router.use("/services", serviceRouter);
+router.use("/categories", categoryRouter);
+router.use("/price-lists", pricelistRouter);
+router.use("/uploads", uploadRouter);
 
 module.exports = router;
