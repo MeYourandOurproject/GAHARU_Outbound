@@ -1,54 +1,49 @@
 const express = require("express");
 const router = express.Router();
 const ArtikelController = require("../controllers/artikelController");
-const auth = require("../middlewares/auth");
-const multer = require("multer");
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./uploads");
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix =
-      Date.now() + "-" + file.originalname.toLowerCase().split(" ").join("-");
-    cb(null, file.fieldname + "-" + uniqueSuffix);
-  },
-});
+const authen = require("../middlewares/authenticationHandler");
+const author = require("../middlewares/authorizationHandler");
 
-const upload = multer({ storage: storage });
+const upload = require("../middlewares/upload");
 
+// ADMIN
+router.get(
+  "/admin",
+  authen,
+  author("super_admin", "admin", "author"),
+  ArtikelController.getAllAdmin,
+);
+router.get(
+  "/slug/:slug",
+  authen,
+  author("super_admin", "admin", "author"),
+  ArtikelController.getBySlugAdmin,
+);
 router.post(
-  "/create",
-  auth,
-  (req, res, next) => {
-    const upload = multer({ storage }).array("picture");
-    upload(req, res, (err) => {
-      if (err) {
-        return res.status(400).json({ error: err.message });
-      }
-      next();
-    });
-  },
-  ArtikelController.create
+  "/admin",
+  authen,
+  author("super_admin", "admin", "author"),
+  upload.fields([
+    { name: "thumbnail", maxCount: 1 },
+    { name: "pictures", maxCount: 20 },
+  ]),
+  ArtikelController.create,
 );
-
-router.get("/", ArtikelController.getAll);
-// router.get("/:id", ArtikelController.getById);
-router.get("/:slug", ArtikelController.getBySlug);
 router.put(
-  "/:id",
-  auth,
-  (req, res, next) => {
-    const upload = multer({ storage }).array("picture");
-    upload(req, res, (err) => {
-      if (err) {
-        return res.status(400).json({ error: err.message });
-      }
-      next();
-    });
-  },
-  ArtikelController.update
+  "/admin/:id",
+  authen,
+  author("super_admin", "admin", "author"),
+  upload.fields([
+    { name: "thumbnail", maxCount: 1 },
+    { name: "pictures", maxCount: 20 },
+  ]),
+  ArtikelController.update,
 );
-router.delete("/:id", auth, ArtikelController.delete);
+router.delete("/:id", authen, author("super_admin"), ArtikelController.delete);
+
+// PUBLIC
+router.get("/", ArtikelController.getAllPublic);
+router.get("/:slug", ArtikelController.getBySlugPublic);
 
 module.exports = router;

@@ -8,13 +8,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Galery.belongsTo(models.Destination, { foreignKey: "destination_id" });
+      Galery.belongsTo(models.Service, {
+        foreignKey: "service_id",
+        as: "services",
+      });
     }
   }
   Galery.init(
     {
-      destination_id: {
-        type: DataTypes.INTEGER,
+      img_url: {
+        type: DataTypes.JSON,
         allowNull: false,
         validate: { notEmpty: true },
       },
@@ -23,26 +26,36 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: { notEmpty: true },
       },
-      picture: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: { notEmpty: true },
-      },
-      costumer: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: { notEmpty: true },
-      },
       description: {
         type: DataTypes.TEXT,
-        allowNull: false,
-        validate: { notEmpty: true },
+        allowNull: true,
+      },
+      service_id: {
+        type: DataTypes.BIGINT.UNSIGNED,
+        allowNull: true,
+        references: {
+          model: "Services",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+      },
+      location: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+
+      date: {
+        type: DataTypes.DATEONLY,
+        allowNull: true,
       },
     },
     {
       sequelize,
       modelName: "Galery",
-    }
+      tableName: "Galeries",
+      freezeTableName: true,
+    },
   );
   return Galery;
 };
