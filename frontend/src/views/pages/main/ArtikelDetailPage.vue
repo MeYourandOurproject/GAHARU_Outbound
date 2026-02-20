@@ -1,8 +1,8 @@
 <template>
   <!-- HERO -->
-  <div class="container-fluid artikel-detail-heroes-admin"></div>
+  <div class="container-fluid artikel-detail-heroes"></div>
 
-  <div class="container-xxl page px-5">
+  <div class="container-xxl page">
     <div class="pt-5 pb-5">
       <div class="row d-flex flex-column flex-md-row">
         <!-- ===================== -->
@@ -209,10 +209,10 @@ export default {
 
 <style>
 /* HERO */
-.artikel-detail-heroes-admin {
-  height: 100px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-    url("../../../../assets/bg-home.webp");
+.artikel-detail-heroes {
+  height: 200px;
+  
+  background: url('../../../assets/bg-home.webp') center/cover no-repeat;
   background-size: cover; /* display: flex; */
 }
 
@@ -257,7 +257,6 @@ export default {
   font-size: 15px;
   line-height: 1.8;
   margin-top: 15px;
-  text-align: justify;
 }
 
 /* RELATED */

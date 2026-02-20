@@ -49,11 +49,11 @@
     <router-link to="/" class="link-body-emphasis text-decoration-none">
       <img
         alt="Logo"
-        height="30px"
+        height="50px"
         class="d-inline-block align-text-center me-2"
         src="../../assets/logo_gaharu.png"
       />
-      <span class="text-white fw-bold"> Gaharu Outbound</span>
+      <!-- <span class="text-white fw-bold"> Gaharu Outbound</span> -->
     </router-link>
     <hr />
 
@@ -84,14 +84,14 @@
       </li>
       <li>
         <router-link
-          to="/admin/paket-tour"
+          to="/admin/price-list"
           class="nav-link text-white"
-          :class="{ active: $route.name === 'PaketTourAdmin' }"
+          :class="{ active: $route.name === 'PriceListAdmin' }"
         >
           <svg class="bi pe-none me-2" width="16" height="16">
             <use xlink:href="#table" />
           </svg>
-          Paket Tour
+          Price List
         </router-link>
       </li>
       <li>

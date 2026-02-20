@@ -27,4 +27,7 @@ export default {
   /* top: 0; */
   /* z-index: 999; */
 /* } */
+.main-content{
+  min-height: 100vh;
+}
 </style>

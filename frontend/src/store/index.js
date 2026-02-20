@@ -44,8 +44,9 @@ const store = createStore({
   actions: {
     async login({ commit }, credentials) {
       try {
+        const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
         const response = await fetch(
-          "https://api.gaharuoutbound.com/api/users/login",
+          `${API_BASE_URL}/api/users/login`,
           {
             method: "POST",
             headers: {
