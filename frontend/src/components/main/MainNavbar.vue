@@ -36,15 +36,15 @@
                 </li>
                 <li>
                   <router-link
-                    to="/"
+                    to="/price-list"
                     class="nav-link pc-3 small-text"
-                    :class="{ active: $route.name === 'Price List' }"
+                    :class="{ active: $route.name === 'PriceList' }"
                     >Price List</router-link
                   >
                 </li>
                 <li>
                   <router-link
-                    to="/"
+                    to="/galery"
                     class="nav-link pc-3 small-text"
                     :class="{ active: $route.name === 'Galery' }"
                     >Galeri</router-link
@@ -52,7 +52,7 @@
                 </li>
                 <li>
                   <router-link
-                    to="/"
+                    to="/artikel"
                     class="nav-link pc-3 small-text"
                     :class="{ active: isActive('Artikel', 'ArtikelDetail') }"
                     >Artikel</router-link
@@ -60,10 +60,10 @@
                 </li>
                 <li>
                   <router-link
-                    to="/"
+                    to="/about-us"
                     class="nav-link pc-3 small-text"
                     :class="{ active: $route.name === 'AboutUs' }"
-                    >About Us</router-link
+                    >Tentang Kami</router-link
                   >
                 </li>
               </ul>
@@ -106,7 +106,16 @@
             </li>
             <li>
               <router-link
-                to="/"
+                to="/price-list"
+                class="nav-link small-text"
+                @click="toggleMenu"
+                :class="{ active: $route.name === 'Price List' }"
+                >Price List</router-link
+              >
+            </li>
+            <li>
+              <router-link
+                to="/galery"
                 class="nav-link small-text"
                 @click="toggleMenu"
                 :class="{ active: $route.name === 'Galery' }"
@@ -115,7 +124,7 @@
             </li>
             <li>
               <router-link
-                to="/"
+                to="/artikel"
                 class="nav-link small-text"
                 @click="toggleMenu"
                 :class="{ active: isActive('Artikel', 'ArtikelDetail') }"
@@ -124,11 +133,11 @@
             </li>
             <li>
               <router-link
-                to="/"
+                to="/about-us"
                 class="nav-link small-text"
                 @click="toggleMenu"
-                :class="{ active: $route.name === 'AboutUs' }"
-                >About Us</router-link
+                :class="{ active: $route.name === 'Contact' }"
+                >Tentang Kami</router-link
               >
             </li>
           </ul>
@@ -172,7 +181,7 @@ export default {
 }
 
 .bg-cst {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255);
 }
 
 .small-text {

@@ -4,202 +4,153 @@
       <div class="col-3">
         <router-link to="/admin/artikel/create">
           <div class="btn btn-success pt-1 pb-1">
-            <i class="bi bi-plus fs-5"></i></div></router-link
-        ><span class="fw-bold ms-2">TAMBAH ARTIKEL</span>
+            <i class="bi bi-plus fs-5"></i>
+          </div>
+        </router-link>
+        <span class="fw-bold ms-2">CREATE ARTICLE</span>
       </div>
     </div>
   </div>
+
+  <!-- ALERT -->
   <div class="container-fluid">
     <div class="container">
       <div class="row align-items-center justify-content-center">
         <div class="col-lg-6">
-          <!-- Success Alert -->
           <transition name="fade">
             <div
               v-if="showSuccessAlert"
               class="alert alert-success d-flex align-items-center"
-              role="alert"
             >
               <i class="bi bi-check-circle-fill me-3 ms-3"></i>
               <div>Article Has Been Deleted Successfully</div>
             </div>
           </transition>
 
-          <!-- Error Alert -->
           <transition name="fade">
             <div
               v-if="showErrorAlert"
               class="alert alert-danger d-flex align-items-center"
-              role="alert"
             >
               <i class="bi bi-x-circle-fill me-3 ms-3"></i>
-              <div>Delete Article failed! Please check the form.</div>
+              <div>Delete Article Failed!</div>
             </div>
           </transition>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- TABLE -->
   <div class="container mb-5">
-    <div>
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th @click="toggleSortOrder" style="cursor: pointer">
-              Created At
-              <i
-                :class="{
-                  'bi bi-arrow-down': sortOrder === 'desc',
-                  'bi bi-arrow-up': sortOrder === 'asc',
-                }"
-              ></i>
-            </th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, index) in paginatedData" :key="item.id">
-            <td>{{ index + 1 + (currentPage - 1) * itemsPerPage }}</td>
-            <td class="text-start align-items-center">{{ item.title }}</td>
-            <td class="text-start">{{ item.author }}</td>
-            <td>{{ formatDate(item.createdAt) }}</td>
-            <td>
-              <div
-                class="d-flex gap-2 align-items-center justify-content-center"
+    <table class="table table-striped table-hover">
+      <thead class="text-center">
+        <tr>
+          <th>No</th>
+          <th>Title</th>
+          <th @click="toggleSortOrder" style="cursor: pointer">
+            Created At
+            <i
+              :class="{
+                'bi bi-arrow-down': sortOrder === 'desc',
+                'bi bi-arrow-up': sortOrder === 'asc',
+              }"
+            ></i>
+          </th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr v-if="datas.length === 0">
+          <td colspan="6" class="text-center">No Data</td>
+        </tr>
+
+        <tr v-for="(item, index) in sortedData" :key="item.id">
+          <td>{{ index + 1 }}</td>
+          <td class="text-start">{{ item.title }}</td>
+          <td>{{ formatDate(item.createdAt) }}</td>
+          <td>{{ item.category?.name }}</td>
+          <td>{{ item.status }}</td>
+          <td>
+            <div class="d-flex gap-2 justify-content-center">
+              <a
+                :href="`/admin/artikel/read/${item.slug}`"
+                class="btn btn-info pt-1 pb-1 m-0 p-0"
               >
-                <router-link :to="`/admin/artikel/read/${item.slug}`">
-                  <div class="btn btn-info pt-1 pb-1 m-0 p-0">
-                    <span><i class="bi bi-eye p-2 rounded-2"></i></span>
-                  </div>
-                </router-link>
-                <router-link :to="`/admin/artikel/edit/${item.slug}`">
-                  <div class="btn btn-warning pt-1 pb-1 m-0 p-0">
-                    <span
-                      ><i class="bi bi-pencil-square p-2 rounded-2"></i
-                    ></span>
-                  </div>
-                </router-link>
-                <button
-                  @click="deleteData(item.id)"
-                  class="btn btn-danger pt-1 pb-1 m-0 p-0"
-                >
-                  <span><i class="bi bi-x-circle p-2 rounded-2"></i></span>
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <i class="bi bi-eye p-2 rounded-2"></i>
+              </a>
+              <router-link
+                :to="`/admin/artikel/edit/${item.slug}`"
+                class="btn btn-warning btn-sm"
+              >
+                <i class="bi bi-pencil-square"></i>
+              </router-link>
 
-      <div class="input-group input-group-sm">
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="inputGroup-sizing-default">
-            Items Per Page:
-          </span>
-          <input
-            type="number"
-            class="form-control"
-            v-model.number="itemsPerPage"
-            @input="updatePagination"
-            aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-lg"
-          />
-        </div>
-      </div>
-
-      <div class="pagination">
-        <div class="justify-content-start gap-2">
-          <button
-            @click="goToFirstPage"
-            :disabled="currentPage === 1"
-            class="btn btn-secondary me-2"
-          >
-            First Page
-          </button>
-          <button
-            @click="prevPage"
-            :disabled="currentPage === 1"
-            class="btn btn-secondary ms-2"
-          >
-            Previous
-          </button>
-        </div>
-        <span>Page {{ currentPage }} of {{ totalPages }}</span>
-        <div class="justify-content-end">
-          <button
-            @click="nextPage"
-            :disabled="currentPage === totalPages"
-            class="btn btn-secondary me-2"
-          >
-            Next</button
-          ><button
-            @click="goToLastPage"
-            :disabled="currentPage === totalPages"
-            class="btn btn-secondary ms-1"
-          >
-            Last Page
-          </button>
-        </div>
-      </div>
-    </div>
+              <button
+                @click="deleteData(item.id)"
+                class="btn btn-danger btn-sm"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
-import { ref, onMounted, watch, computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 
 export default {
   setup() {
     const datas = ref([]);
-    const currentPage = ref(1);
-    const totalPages = ref(1);
-    const itemsPerPage = ref(10);
     const sortOrder = ref("desc");
+
     const showSuccessAlert = ref(false);
     const showErrorAlert = ref(false);
-    // const image = ref("");
 
+    const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
+    const token = localStorage.getItem("token");
+
+    /* ================= FETCH ================= */
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://api.gaharuoutbound.com/api/artikel"
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        let data = await response.json();
-        datas.value = data;
-        totalPages.value = Math.ceil(data.length / itemsPerPage.value);
+        const response = await fetch(`${API_BASE_URL}/api/artikels/admin`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) throw new Error("Failed fetch");
+
+        const result = await response.json();
+
+        // ✅ FIX SESUAI RESPONSE API
+        datas.value = Array.isArray(result.data) ? result.data : [];
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Fetch Error:", error);
+        datas.value = [];
       }
     };
 
+    /* ================= DELETE ================= */
     const deleteData = async (id) => {
-      const token = localStorage.getItem("token");
-      // console.log({ id, token });
+      if (!confirm("Yakin hapus artikel ini?")) return;
 
-      const confirmation = confirm(
-        "Are you sure you want to delete this item?"
-      );
-      if (!confirmation) return;
-      // const token = localStorage.getItem("token");
       try {
-        const response = await fetch(
-          `https://api.gaharuoutbound.com/api/artikel/${id}`,
-          {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Failed to delete data");
-        }
+        const response = await fetch(`${API_BASE_URL}/api/artikels/${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) throw new Error("Delete failed");
 
         showSuccessAlert.value = true;
         showErrorAlert.value = false;
@@ -207,14 +158,15 @@ export default {
         setTimeout(() => {
           fetchData();
           showSuccessAlert.value = false;
-          showErrorAlert.value = false;
-        }, 2000);
+        }, 1500);
       } catch (error) {
-        console.error("Error deleting data:", error);
+        showErrorAlert.value = true;
+        showSuccessAlert.value = false;
       }
     };
 
-    const sortData = () => {
+    /* ================= SORT ================= */
+    const sortedData = computed(() => {
       return [...datas.value].sort((a, b) => {
         if (sortOrder.value === "asc") {
           return new Date(a.createdAt) - new Date(b.createdAt);
@@ -222,83 +174,26 @@ export default {
           return new Date(b.createdAt) - new Date(a.createdAt);
         }
       });
-    };
-
-    const paginatedData = computed(() => {
-      const start = (currentPage.value - 1) * itemsPerPage.value;
-      const end = start + itemsPerPage.value;
-      return sortData().slice(start, end);
     });
-
-    const goToFirstPage = () => {
-      currentPage.value = 1;
-    };
-
-    const prevPage = () => {
-      if (currentPage.value > 1) {
-        currentPage.value--;
-      }
-    };
-
-    const nextPage = () => {
-      if (currentPage.value < totalPages.value) {
-        currentPage.value++;
-      }
-    };
-
-    const goToLastPage = () => {
-      currentPage.value = totalPages.value;
-    };
-
-    const formatDate = (dateString) => {
-      const options = {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-      };
-      const date = new Date(dateString);
-      return date.toLocaleDateString("id-ID", options);
-    };
-
-    const updatePagination = () => {
-      currentPage.value = 1;
-      totalPages.value = Math.ceil(datas.value.length / itemsPerPage.value);
-    };
-
-    const updateSortOrder = () => {
-      currentPage.value = 1;
-      sortData();
-    };
 
     const toggleSortOrder = () => {
       sortOrder.value = sortOrder.value === "asc" ? "desc" : "asc";
     };
 
-    onMounted(() => {
-      fetchData();
-    });
+    /* ================= FORMAT DATE ================= */
+    const formatDate = (dateString) => {
+      return new Date(dateString).toLocaleString("id-ID");
+    };
 
-    watch(sortOrder, updateSortOrder);
-    watch(itemsPerPage, updatePagination);
+    onMounted(fetchData);
 
     return {
       datas,
-      currentPage,
-      totalPages,
-      itemsPerPage,
+      sortedData,
       sortOrder,
-      paginatedData,
-      goToFirstPage,
-      prevPage,
-      nextPage,
-      goToLastPage,
-      formatDate,
-      updatePagination,
-      updateSortOrder,
       toggleSortOrder,
       deleteData,
+      formatDate,
       showSuccessAlert,
       showErrorAlert,
     };
@@ -309,25 +204,10 @@ export default {
 <style>
 table {
   width: 100%;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  text-align: center;
-  padding: 8px;
 }
 
 .pagination {
   margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.pagination button {
-  padding: 5px 10px;
-  cursor: pointer;
 }
 
 .bi-arrow-up,

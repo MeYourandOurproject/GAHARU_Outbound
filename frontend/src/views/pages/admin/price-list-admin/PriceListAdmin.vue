@@ -2,10 +2,10 @@
   <div class="container">
     <div class="row justify-content-start">
       <div class="col-3">
-        <router-link to="/admin/paket-tour/create">
+        <router-link to="/admin/price-list/create">
           <div class="btn btn-success pt-1 pb-1">
             <i class="bi bi-plus fs-5"></i></div></router-link
-        ><span class="fw-bold ms-2">TAMBAH PAKET TOUR</span>
+        ><span class="fw-bold ms-2">TAMBAH PRICE LIST</span>
       </div>
     </div>
   </div>
@@ -21,7 +21,7 @@
               role="alert"
             >
               <i class="bi bi-check-circle-fill me-3 ms-3"></i>
-              <div>Delete Paket Tour Successfully</div>
+              <div>Price List Has Been Deleted Successfully</div>
             </div>
           </transition>
 
@@ -33,7 +33,7 @@
               role="alert"
             >
               <i class="bi bi-x-circle-fill me-3 ms-3"></i>
-              <div>Delete Paket Tour failed! Please check the form.</div>
+              <div>Delete Article failed! Please check the form.</div>
             </div>
           </transition>
         </div>
@@ -43,10 +43,10 @@
   <div class="container mb-5">
     <div>
       <table class="table table-striped table-hover">
-        <thead>
+        <thead class="text-center">
           <tr>
             <th>No</th>
-            <th>Name</th>
+            <th>Title</th>
             <th @click="toggleSortOrder" style="cursor: pointer">
               Created At
               <i
@@ -57,34 +57,33 @@
               ></i>
             </th>
             <th>Action</th>
+            <th>Active</th>
+            <th>Featured</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in paginatedData" :key="item.id">
             <td>{{ index + 1 + (currentPage - 1) * itemsPerPage }}</td>
-            <td class="text-start">{{ item.name }}</td>
+            <td class="text-start align-items-center">{{ item.title }}</td>
+
             <td>{{ formatDate(item.createdAt) }}</td>
             <td>
               <div
                 class="d-flex gap-2 align-items-center justify-content-center"
               >
-                <router-link :to="`/admin/paket-tour/read/${item.slug}`">
-                  <div class="btn btn-info pt-1 pb-1 m-0 p-0">
-                    <span>
-                      <i class="bi bi-eye p-2 rounded-2"></i
-                    ></span></div></router-link
-                ><router-link :to="`/admin/paket-tour/edit/${item.slug}`">
+                <a
+                  :href="`/admin/price-list/read/${item.slug}`"
+                  class="btn btn-info pt-1 pb-1 m-0 p-0"
+                >
+                  <i class="bi bi-eye p-2 rounded-2"></i>
+                </a>
+                <router-link :to="`/admin/price-list/edit/${item.slug}`">
                   <div class="btn btn-warning pt-1 pb-1 m-0 p-0">
                     <span
                       ><i class="bi bi-pencil-square p-2 rounded-2"></i
-                    ></span></div
-                ></router-link>
-                <!-- <router-link :to="`/admin/paket-tour/delete/${item.slug}`">
-                  <div class="btn btn-danger pt-1 pb-1 m-0 p-0">
-                    <span
-                      ><i class="bi bi-x-circle p-2 rounded-2"></i>
-                    </span></div
-                ></router-link> -->
+                    ></span>
+                  </div>
+                </router-link>
                 <button
                   @click="deleteData(item.id)"
                   class="btn btn-danger pt-1 pb-1 m-0 p-0"
@@ -92,6 +91,36 @@
                   <span><i class="bi bi-x-circle p-2 rounded-2"></i></span>
                 </button>
               </div>
+            </td>
+            <td class="text-center">
+              <button
+                class="btn btn-sm"
+                @click="toggleStatus(item, 'is_active')"
+              >
+                <i
+                  class="bi fs-5"
+                  :class="
+                    item.is_active
+                      ? 'bi-check-circle-fill text-success'
+                      : 'bi-x-circle-fill text-danger'
+                  "
+                ></i>
+              </button>
+            </td>
+            <td class="text-center">
+              <button
+                class="btn btn-sm"
+                @click="toggleStatus(item, 'is_featured')"
+              >
+                <i
+                  class="bi fs-5"
+                  :class="
+                    item.is_featured
+                      ? 'bi-star-fill text-warning'
+                      : 'bi-star text-secondary'
+                  "
+                ></i>
+              </button>
             </td>
           </tr>
         </tbody>
@@ -158,48 +187,57 @@ export default {
   setup() {
     const datas = ref([]);
     const currentPage = ref(1);
-    const totalPages = ref(1);
     const itemsPerPage = ref(10);
     const sortOrder = ref("desc");
     const showSuccessAlert = ref(false);
     const showErrorAlert = ref(false);
 
+    const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
+    const token = localStorage.getItem("token");
+
+    /* ================= FETCH DATA ================= */
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://api.gaharuoutbound.com/api/paket-tour"
-        );
+        const response = await fetch(`${API_BASE_URL}/api/price-lists/admin`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
-        let data = await response.json();
-        datas.value = data;
-        updateSortOrder();
-        totalPages.value = Math.ceil(data.length / itemsPerPage.value);
+
+        const result = await response.json();
+
+        // Karena response adalah ARRAY langsung
+        datas.value = Array.isArray(result) ? result : [];
+        currentPage.value = 1;
       } catch (error) {
         console.error("Error fetching data:", error);
+        datas.value = [];
       }
     };
 
+    /* ================= DELETE ================= */
     const deleteData = async (id) => {
-      const token = localStorage.getItem("token");
-      // console.log({ id, token });
-
       const confirmation = confirm(
-        "Are you sure you want to delete this item?"
+        "Are you sure you want to delete this item?",
       );
       if (!confirmation) return;
-      // const token = localStorage.getItem("token");
+
       try {
         const response = await fetch(
-          `https://api.gaharuoutbound.com/api/paket-tour/${id}`,
+          `${API_BASE_URL}/api/price-lists/${id}`,
           {
             method: "DELETE",
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
+
         if (!response.ok) {
           throw new Error("Failed to delete data");
         }
@@ -210,14 +248,17 @@ export default {
         setTimeout(() => {
           fetchData();
           showSuccessAlert.value = false;
-          showErrorAlert.value = false;
-        }, 2000);
+        }, 1500);
       } catch (error) {
         console.error("Error deleting data:", error);
+        showErrorAlert.value = true;
       }
     };
 
-    const sortData = () => {
+    /* ================= SORT ================= */
+    const sortedData = computed(() => {
+      if (!Array.isArray(datas.value)) return [];
+
       return [...datas.value].sort((a, b) => {
         if (sortOrder.value === "asc") {
           return new Date(a.createdAt) - new Date(b.createdAt);
@@ -225,12 +266,23 @@ export default {
           return new Date(b.createdAt) - new Date(a.createdAt);
         }
       });
+    });
+
+    const toggleSortOrder = () => {
+      sortOrder.value = sortOrder.value === "asc" ? "desc" : "asc";
+      currentPage.value = 1;
     };
+
+    /* ================= PAGINATION ================= */
+
+    const totalPages = computed(() =>
+      Math.ceil(datas.value.length / itemsPerPage.value),
+    );
 
     const paginatedData = computed(() => {
       const start = (currentPage.value - 1) * itemsPerPage.value;
       const end = start + itemsPerPage.value;
-      return sortData().slice(start, end);
+      return sortedData.value.slice(start, end);
     });
 
     const goToFirstPage = () => {
@@ -238,20 +290,22 @@ export default {
     };
 
     const prevPage = () => {
-      if (currentPage.value > 1) {
-        currentPage.value--;
-      }
+      if (currentPage.value > 1) currentPage.value--;
     };
 
     const nextPage = () => {
-      if (currentPage.value < totalPages.value) {
-        currentPage.value++;
-      }
+      if (currentPage.value < totalPages.value) currentPage.value++;
     };
 
     const goToLastPage = () => {
       currentPage.value = totalPages.value;
     };
+
+    watch(itemsPerPage, () => {
+      currentPage.value = 1;
+    });
+
+    /* ================= UTIL ================= */
 
     const formatDate = (dateString) => {
       const options = {
@@ -265,45 +319,61 @@ export default {
       return date.toLocaleDateString("id-ID", options);
     };
 
-    const updatePagination = () => {
-      currentPage.value = 1;
-      totalPages.value = Math.ceil(datas.value.length / itemsPerPage.value);
-    };
+    const toggleStatus = async (item, field) => {
+      const oldValue = item[field];
+      const newValue = !oldValue;
 
-    const updateSortOrder = () => {
-      currentPage.value = 1;
-      sortData();
-    };
+      // Optimistic UI update (langsung berubah di UI)
+      item[field] = newValue;
 
-    const toggleSortOrder = () => {
-      sortOrder.value = sortOrder.value === "asc" ? "desc" : "asc";
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/api/price-lists/admin/${item.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              [field]: newValue,
+            }),
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to update status");
+        }
+      } catch (error) {
+        console.error("Update failed:", error);
+
+        // rollback kalau gagal
+        item[field] = oldValue;
+        alert("Failed to update status");
+      }
     };
 
     onMounted(() => {
       fetchData();
     });
 
-    watch(sortOrder, updateSortOrder);
-    watch(itemsPerPage, updatePagination);
-
     return {
       datas,
       currentPage,
-      totalPages,
       itemsPerPage,
       sortOrder,
       paginatedData,
+      totalPages,
+      toggleSortOrder,
       goToFirstPage,
       prevPage,
       nextPage,
       goToLastPage,
       formatDate,
-      updatePagination,
-      updateSortOrder,
-      toggleSortOrder,
       deleteData,
       showSuccessAlert,
       showErrorAlert,
+      toggleStatus
     };
   },
 };

@@ -5,18 +5,13 @@ import store from "@/store";
 import MainLayout from "@/views/layouts/main/MainLayout.vue";
 import AdminLayout from "@/views/layouts/admin/AdminLayout.vue";
 import BioPage from "@/views/pages/bio/BioPage.vue";
-// import LandingPage from "@/views/pages/LandingPage.vue";
 import HomePage from "@/views/pages/main/HomePage.vue";
-// import BestDestinationPage from "@/views/pages/BestDestinationPage.vue";
-// import CozyStaycationPage from "@/views/pages/CozyStaycationPage.vue";
-// import FunActivityPackagePage from "@/views/pages/FunActivityPackagePage.vue";
-// import AllPackagePage from "@/views/pages/AllPackagePage.vue";
-// import CostumPackagePage from "@/views/pages/CostumPackagePage.vue";
-// import GaleryPage from "@/views/pages/GaleryPage.vue";
-// import ContactPage from "@/views/pages/ContactPage.vue";
-// import ArtikelPage from "@/views/pages/ArtikelPage.vue";
-// import ArtikelDetailPage from "@/views/pages/ArtikelDetailPage.vue";
-// import PaketTourDetailPage from "@/views/pages/PaketTourDetailPage.vue";
+
+import PriceListPage from "@/views/pages/main/PriceListPage.vue";
+import ArtikelPage from "@/views/pages/main/ArtikelPage.vue";
+import ArtikelDetailPage from "@/views/pages/main/ArtikelDetailPage.vue";
+import GaleryPage from "@/views/pages/main/GaleryPage.vue";
+import AboutUs from "@/views/pages/main/AboutUsPage.vue";
 
 import LoginPage from "@/views/pages/admin/LoginPage.vue";
 
@@ -24,11 +19,14 @@ import LoginPage from "@/views/pages/admin/LoginPage.vue";
 import DashboardAdmin from "@/views/pages/admin/DashboardAdmin.vue";
 import HomeAdmin from "@/views/pages/admin/home-admin/HomeAdmin.vue";
 
-// PAKET TOUR ADMIN
-import PaketTourAdmin from "@/views/pages/admin/paket-tour-admin/PaketTourAdmin.vue";
-import ReadPaketTour from "@/views/pages/admin/paket-tour-admin/ReadPaketTour.vue";
-import EditPaketTour from "@/views/pages/admin/paket-tour-admin/EditPaketTour.vue";
-import CreatePaketTour from "@/views/pages/admin/paket-tour-admin/CreatePaketTour.vue";
+// PRICE LIST ADMIN
+import PriceListAdmin from "@/views/pages/admin/price-list-admin/PriceListAdmin.vue";
+import ReadPriceList from "@/views/pages/admin/price-list-admin/ReadPriceList.vue";
+import EditPriceList from "@/views/pages/admin/price-list-admin/EditPriceList.vue";
+import CreatePriceList from "@/views/pages/admin/price-list-admin/CreatePriceList.vue";
+// import ReadPaketTour from "@/views/pages/admin/paket-tour-admin/ReadPaketTour.vue";
+// import EditPaketTour from "@/views/pages/admin/paket-tour-admin/EditPaketTour.vue";
+// import CreatePaketTour from "@/views/pages/admin/paket-tour-admin/CreatePaketTour.vue";
 
 // GALERY ADMIN
 import GaleryAdmin from "@/views/pages/admin/galery-admin/GaleryAdmin.vue";
@@ -58,66 +56,43 @@ const routes = [
         component: HomePage,
         meta: { title: "Home" },
       },
-      // {
-      //   path: "fun-activity-package-page",
-      //   name: "FunActivity",
-      //   component: FunActivityPackagePage,
-      //   meta: { title: "FunActivity" },
-      // },
-      // {
-      //   path: "best-destination-package-page",
-      //   name: "BestDestination",
-      //   component: BestDestinationPage,
-      //   meta: { title: "BestDestination" },
-      // },
-      // {
-      //   path: "cozy-staycation-package-page",
-      //   name: "CozyStaycation",
-      //   component: CozyStaycationPage,
-      //   meta: { title: "CozyStaycation" },
-      // },
-      // {
-      //   path: "all-package",
-      //   name: "AllPackage",
-      //   component: AllPackagePage,
-      //   meta: { title: "AllPackage" },
-      // },
-      // {
-      //   path: "costum-package-page",
-      //   name: "CostumPage",
-      //   component: CostumPackagePage,
-      //   meta: { title: "CostumPage" },
-      // },
-      // {
-      //   path: "paket-tour/:slug",
-      //   name: "PaketTourDetail",
-      //   component: PaketTourDetailPage,
-      //   meta: { title: "Paket Tour Detail" },
-      // },
-      // {
-      //   path: "galery",
-      //   name: "Galery",
-      //   component: GaleryPage,
-      //   meta: { title: "Galery" },
-      // },
+      {
+        path: "price-list",
+        name: "PriceList",
+        component: PriceListPage,
+        meta: { title: "PriceList" },
+      },
+      {
+        path: "artikel",
+        name: "Artikel",
+        component: ArtikelPage,
+        meta: { title: "ArtikelPage" },
+      },
+      {
+        path: "artikel/:slug",
+        name: "ArtikelDetail",
+        component: ArtikelDetailPage,
+        meta: { title: "Artikel Detail" },
+      },
+      {
+        path: "galery",
+        name: "Galery",
+        component: GaleryPage,
+        meta: { title: "Galery" },
+      },
       // {
       //   path: "artikel",
       //   name: "Artikel",
       //   component: ArtikelPage,
       //   meta: { title: "Artikel" },
       // },
-      // {
-      //   path: "artikel/:slug",
-      //   name: "ArtikelDetail",
-      //   component: ArtikelDetailPage,
-      //   meta: { title: "Artikel Detail" },
-      // },
-      // {
-      //   path: "about-us",
-      //   name: "AboutUs",
-      //   component: ContactPage,
-      //   meta: { title: "About Us" },
-      // },
+      //
+      {
+        path: "about-us",
+        name: "AboutUs",
+        component: AboutUs,
+        meta: { title: "About Us" },
+      },
     ],
   },
   {
@@ -128,40 +103,51 @@ const routes = [
         path: "dashboard",
         name: "DashboardAdmin",
         component: DashboardAdmin,
-        meta: { title: "DASHBOARD", requiresAuth: true },
       },
       {
         path: "home",
         name: "HomeAdmin",
         component: HomeAdmin,
-        meta: { title: "HOME MANAGEMENT", requiresAuth: true },
       },
 
-      // Paket-Tour Admin
+      // Price-List Admin
       {
-        path: "paket-tour",
-        name: "PaketTourAdmin",
-        component: PaketTourAdmin,
-        meta: { title: "PAKET TOUR MANAGEMENT", requiresAuth: true },
+        path: "price-list",
+        name: "PriceListAdmin",
+        component: PriceListAdmin,
       },
       {
-        path: "paket-tour/create",
-        name: "CreatePaketTour",
-        component: CreatePaketTour,
-        meta: { title: "CREATE PAKET TOUR", requiresAuth: true },
+        path: "price-list/read/:slug",
+        name: "ReadPriceList",
+        component: ReadPriceList,
       },
       {
-        path: "paket-tour/read/:slug",
-        name: "ReadPaketTour",
-        component: ReadPaketTour,
-        meta: { title: "READ PAKET TOUR", requiresAuth: true },
+        path: "price-list/edit/:slug",
+        name: "EditPriceList",
+        component: EditPriceList,
+      },{
+        path: "price-list/create",
+        name: "CreatePriceList",
+        component: CreatePriceList,
       },
-      {
-        path: "paket-tour/edit/:slug",
-        name: "EditPaketTour",
-        component: EditPaketTour,
-        meta: { title: "EDIT PAKET TOUR", requiresAuth: true },
-      },
+      // {
+      //   path: "paket-tour/create",
+      //   name: "CreatePaketTour",
+      //   component: CreatePaketTour,
+      //   meta: { title: "CREATE PAKET TOUR", requiresAuth: true },
+      // },
+      // {
+      //   path: "paket-tour/read/:slug",
+      //   name: "ReadPaketTour",
+      //   component: ReadPaketTour,
+      //   meta: { title: "READ PAKET TOUR", requiresAuth: true },
+      // },
+      // {
+      //   path: "paket-tour/edit/:slug",
+      //   name: "EditPaketTour",
+      //   component: EditPaketTour,
+      //   meta: { title: "EDIT PAKET TOUR", requiresAuth: true },
+      // },
       {
         path: "paket-tour/delete/:slug",
         name: "DeletePaketTour",

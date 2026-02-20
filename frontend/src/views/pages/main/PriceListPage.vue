@@ -1,7 +1,31 @@
 <template>
-  <div class="container-fluid pb-5 px-4">
-    <div class="container-xxl">
-      <div class="fs-1 py-5 fw-bold text-success">Pilihan Paket</div>
+  <div class="pricelist-page">
+    <!-- HERO -->
+    <section
+      class="price-hero d-flex align-items-end justify-content-center text-center pb-5"
+    >
+      <div class="container-xxl">
+        <div>
+          <h1 class="fw-bold title-page">Pilihan Paket Gaharu Outbound</h1>
+          <p class="lead-page text-success">Pilih paket terbaik sesuai kebutuhan Anda</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICE LIST -->
+    <div class="container-xxl py-5">
+      <!-- Loading -->
+      <div v-if="loading" class="text-center py-5">
+        <div class="spinner-border text-warning"></div>
+        <p class="mt-3">Memuat paket...</p>
+      </div>
+
+      <!-- Error -->
+      <div v-if="error" class="text-center text-danger py-5">
+        {{ error }}
+      </div>
+
+      <!-- DATA -->
       <div v-if="!loading && pricelists.length" class="row g-4">
         <div
           v-for="(pricelist, index) in pricelists"
@@ -56,13 +80,10 @@
               <div class="price-footer">
                 <div class="price-info">
                   <strong class="fs-5">
-                    <small v-if="pricelist.description">
-                      <i class="bi bi-person-bounding-box me-2"></i>
-                      {{ pricelist.description }}</small
-                    >
-                    <br />
+                    <small v-if="pricelist.description"> <i class="bi bi-person-bounding-box me-2"></i> {{ pricelist.description }}</small> <br>
                     IDR {{ formatPrice(pricelist.price) }}
                     <small v-if="pricelist.unit"> / {{ pricelist.unit }}</small>
+                    
                   </strong>
                 </div>
 
@@ -78,12 +99,10 @@
           </div>
         </div>
       </div>
-      <div class="div text-center pt-5">
-        <router-link to="/price-list">
-          <button class="btn btn-success fw-semibold wa-icon btn-animate-arrow">
-            <span class="fw-normal">Lihat Lebih Banyak</span>
-            <i class="bi bi-arrow-right-circle arrow-move ms-2"></i></button
-        ></router-link>
+
+      <!-- Jika kosong -->
+      <div v-if="!loading && !pricelists.length" class="text-center py-5">
+        <p>Belum ada paket tersedia.</p>
       </div>
     </div>
   </div>
@@ -113,13 +132,10 @@ export default {
         const result = await response.json();
         const data = result.data || result;
 
-        pricelists.value = data
-          .map((item) => ({
-            ...item,
-            facilities: item.facilities ? JSON.parse(item.facilities) : [],
-          }))
-          .filter((item) => item.is_featured) // hanya best seller
-          .slice(0, 4); // maksimal 4 saja
+        pricelists.value = data.map((item) => ({
+          ...item,
+          facilities: item.facilities ? JSON.parse(item.facilities) : [],
+        }));
       } catch (err) {
         console.error(err);
         error.value = "Terjadi kesalahan saat memuat data.";
@@ -133,7 +149,7 @@ export default {
     };
 
     const whatsappLink = (title) => {
-      const phone = "628123456789"; // GANTI dengan nomor asli
+      const phone = "6285802956931"; // GANTI dengan nomor asli
       const message = `Halo Gaharu Outbound, saya tertarik dengan paket ${title}`;
       return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     };
@@ -159,12 +175,19 @@ export default {
   position: relative;
 }
 
-.price-hero::before {
+.title-page {
+  font-size: 40px;
+}
+
+.lead-page {
+  font-size: 20px;
+}
+/* .price-hero::before {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
-}
+} */
 
 .price-hero > div {
   position: relative;
@@ -268,7 +291,7 @@ export default {
 
 /* FACILITY SCROLL */
 .feature-scroll {
-  height: 150px;
+  height: 120px;
   overflow-y: auto;
   padding-right: 6px;
   padding-bottom: 10px;
@@ -353,8 +376,22 @@ export default {
   .price-hero {
     height: 250px;
   }
-  .lead {
+  .lead{
     font-size: medium;
+  }
+  .contact-hero {
+    height: 200px;
+    /* font-size: smaller; */
+  }
+
+  .title-page {
+    /* background-color: #198754; */
+    /* margin-top: 50px; */
+    font-size: 25px;
+  }
+
+  .lead-page {
+    font-size: 9px;
   }
 }
 </style>

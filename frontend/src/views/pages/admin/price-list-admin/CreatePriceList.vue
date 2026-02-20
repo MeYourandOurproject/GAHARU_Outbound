@@ -1,12 +1,25 @@
 <template>
   <div class="container-fluid">
     <div class="container text-start">
-      <h3 class="mt-4 mb-4">Create ARTIKEL</h3>
+      <h3 class="mt-4 mb-4">Create PRICE LIST</h3>
 
       <form @submit.prevent="handleSubmit">
-
-        <!-- TITLE & CATEGORY -->
+        <!-- SERVICE ID & TITLE -->
         <div class="row mb-3">
+          <div class="col-md-4">
+            <label class="form-label">Service ID</label>
+            <select class="form-select" v-model="form.service_id" required>
+              <option value="">-- Pilih Service --</option>
+              <option
+                v-for="service in services"
+                :key="service.id"
+                :value="service.id"
+              >
+                {{ service.name }}
+              </option>
+            </select>
+          </div>
+
           <div class="col-md-8">
             <label class="form-label">Title</label>
             <input
@@ -16,47 +29,52 @@
               required
             />
           </div>
+        </div>
+
+        <!-- PRICE -->
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label class="form-label">Price</label>
+            <input
+              type="number"
+              class="form-control"
+              v-model="form.price"
+              required
+            />
+          </div>
 
           <div class="col-md-4">
-            <label class="form-label">Category</label>
-            <select
-              class="form-select"
-              v-model="form.category_id"
-              required
-            >
-              <option value="">-- Pilih Category --</option>
-              <option
-                v-for="cat in categories"
-                :key="cat.id"
-                :value="cat.id"
-              >
-                {{ cat.name }}
-              </option>
-            </select>
+            <label class="form-label">Unit</label>
+            <input type="text" class="form-control" v-model="form.unit" />
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Duration</label>
+            <input type="text" class="form-control" v-model="form.duration" />
           </div>
         </div>
 
-        <!-- EXCERPT -->
+        <!-- FACILITIES -->
         <div class="mb-3">
-          <label class="form-label">Excerpt</label>
+          <label class="form-label">Facilities (pisahkan dengan enter)</label>
+          <textarea
+            class="form-control"
+            rows="4"
+            v-model="facilitiesText"
+          ></textarea>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="mb-3">
+          <label class="form-label">Description</label>
           <textarea
             class="form-control"
             rows="3"
-            v-model="form.excerpt"
+            v-model="form.description"
           ></textarea>
         </div>
 
-        <!-- CONTENT -->
-        <div class="mb-3">
-          <label class="form-label">Content</label>
-          <textarea
-            class="form-control"
-            rows="6"
-            v-model="form.content"
-          ></textarea>
-        </div>
-
-        <!-- THUMBNAIL -->
+        <!-- IMAGE -->
         <div class="row mb-3">
           <div class="col-md-4">
             <label class="form-label">Preview Image</label>
@@ -66,7 +84,7 @@
           </div>
 
           <div class="col-md-4">
-            <label class="form-label">Upload Thumbnail</label>
+            <label class="form-label">Upload New Image</label>
             <input
               ref="fileInput"
               type="file"
@@ -75,6 +93,21 @@
               @change="handleFileChange"
             />
           </div>
+        </div>
+
+        <!-- SEO -->
+        <div class="mb-3">
+          <label class="form-label">Meta Title</label>
+          <input type="text" class="form-control" v-model="form.meta_title" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Meta Description</label>
+          <textarea
+            class="form-control"
+            rows="2"
+            v-model="form.meta_description"
+          ></textarea>
         </div>
 
         <!-- STATUS -->
@@ -98,29 +131,8 @@
           </div>
         </div>
 
-        <!-- SEO -->
-        <div class="mb-3">
-          <label class="form-label">Meta Title</label>
-          <input
-            type="text"
-            class="form-control"
-            v-model="form.meta_title"
-          />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Meta Description</label>
-          <textarea
-            class="form-control"
-            rows="2"
-            v-model="form.meta_description"
-          ></textarea>
-        </div>
-
         <!-- SUBMIT -->
-        <button type="submit" class="btn btn-success">
-          Create Artikel
-        </button>
+        <button type="submit" class="btn btn-success">Create Price List</button>
       </form>
     </div>
 
@@ -139,21 +151,23 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
+
 const token = localStorage.getItem("token");
 const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
 
 /* STATE */
 
 const form = ref({
+  service_id: "",
   title: "",
-  slug: "",
-  excerpt: "",
-  content: "",
-  category_id: "",
+  price: "",
+  unit: "",
+  duration: "",
+  description: "",
   meta_title: "",
   meta_description: "",
   is_featured: false,
@@ -161,28 +175,23 @@ const form = ref({
   image: null,
 });
 
-const categories = ref([]);
+const facilitiesText = ref("");
 const previewImage = ref(null);
 const fileInput = ref(null);
+const services = ref([]);
 
 const showToast = ref(false);
 const toastMessage = ref("");
 
-/* AUTO SLUG */
+/* FETCH SERVICES */
 
-watch(() => form.value.title, (val) => {
-  form.value.slug = val
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^\w-]+/g, "");
-});
+const fetchServices = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/services/admin`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
-/* FETCH CATEGORY */
-
-const fetchCategories = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/categories`);
   const data = await response.json();
-  categories.value = data;
+  services.value = data;
 };
 
 /* HANDLE IMAGE */
@@ -195,27 +204,35 @@ const handleFileChange = () => {
   previewImage.value = URL.createObjectURL(file);
 };
 
-/* HANDLE SUBMIT */
+/* HANDLE SUBMIT (CREATE) */
 
 const handleSubmit = async () => {
   const formData = new FormData();
 
+  formData.append("service_id", form.value.service_id);
   formData.append("title", form.value.title);
-  formData.append("slug", form.value.slug);
-  formData.append("excerpt", form.value.excerpt);
-  formData.append("content", form.value.content);
-  formData.append("category_id", form.value.category_id);
+  formData.append("price", form.value.price);
+  formData.append("unit", form.value.unit);
+  formData.append("duration", form.value.duration);
+  formData.append("description", form.value.description);
   formData.append("meta_title", form.value.meta_title);
   formData.append("meta_description", form.value.meta_description);
   formData.append("is_featured", form.value.is_featured ? 1 : 0);
   formData.append("is_active", form.value.is_active ? 1 : 0);
+
+  // convert textarea → JSON string
+  const facilitiesArray = facilitiesText.value
+    .split("\n")
+    .filter((item) => item.trim() !== "");
+
+  formData.append("facilities", JSON.stringify(facilitiesArray));
 
   if (form.value.image) {
     formData.append("image", form.value.image);
   }
 
   const response = await fetch(
-    `${API_BASE_URL}/api/artikels/admin`,
+    `${API_BASE_URL}/api/price-lists/admin`,
     {
       method: "POST",
       body: formData,
@@ -224,12 +241,12 @@ const handleSubmit = async () => {
   );
 
   if (response.ok) {
-    toastMessage.value = "Artikel berhasil dibuat";
+    toastMessage.value = "Price List berhasil dibuat";
     showToast.value = true;
 
     setTimeout(() => {
       showToast.value = false;
-      router.push("/admin/artikel");
+      router.push("/admin/price-list");
     }, 1500);
   } else {
     alert("Create gagal");
@@ -239,6 +256,7 @@ const handleSubmit = async () => {
 /* INIT */
 
 onMounted(() => {
-  fetchCategories();
+  fetchServices();
 });
 </script>
+
