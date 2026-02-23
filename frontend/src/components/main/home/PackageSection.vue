@@ -133,7 +133,7 @@ export default {
     };
 
     const whatsappLink = (title) => {
-      const phone = "628123456789"; // GANTI dengan nomor asli
+      const phone = "6285802956931"; // GANTI dengan nomor asli
       const message = `Halo Gaharu Outbound, saya tertarik dengan paket ${title}`;
       return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     };
@@ -334,7 +334,7 @@ export default {
 .btn-book {
   display: block;
   text-align: center;
-  background: #159f27;
+  background: linear-gradient(90deg, #41b83f, #2c7f31);
   color: white;
   padding: 7px;
   border-radius: 5px;
@@ -345,8 +345,10 @@ export default {
 }
 
 .btn-book:hover {
-  background: #000000;
-  transform: scale(1.02);
+  background: #ffffff;
+  transform: translateY(-3px);
+  color: #2c7f31;
+  box-shadow: 0 8px 20px rgba(44, 127, 49, 0.35);
 }
 
 @media (max-width: 767px) {

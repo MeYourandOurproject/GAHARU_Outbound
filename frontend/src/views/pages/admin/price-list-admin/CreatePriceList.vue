@@ -231,14 +231,11 @@ const handleSubmit = async () => {
     formData.append("image", form.value.image);
   }
 
-  const response = await fetch(
-    `${API_BASE_URL}/api/price-lists/admin`,
-    {
-      method: "POST",
-      body: formData,
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+  const response = await fetch(`${API_BASE_URL}/api/price-lists/admin`, {
+    method: "POST",
+    body: formData,
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
   if (response.ok) {
     toastMessage.value = "Price List berhasil dibuat";
@@ -259,4 +256,3 @@ onMounted(() => {
   fetchServices();
 });
 </script>
-

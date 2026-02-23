@@ -1,159 +1,136 @@
 <template>
+  <!-- HEADER -->
   <div class="container">
     <div class="row justify-content-start">
       <div class="col-3">
         <router-link to="/admin/galery/create">
           <div class="btn btn-success pt-1 pb-1">
-            <i class="bi bi-plus fs-5"></i></div></router-link
-        ><span class="fw-bold ms-2">TAMBAH GALERY</span>
+            <i class="bi bi-plus fs-5"></i>
+          </div>
+        </router-link>
+        <span class="fw-bold ms-2">TAMBAH GALERY</span>
       </div>
     </div>
   </div>
-  <div class="container-fluid">
-    <div class="container">
-      <div class="row align-items-center justify-content-center">
-        <div class="col-lg-6">
-          <!-- Success Alert -->
-          <transition name="fade">
-            <div
-              v-if="showSuccessAlert"
-              class="alert alert-success d-flex align-items-center"
-              role="alert"
-            >
-              <i class="bi bi-check-circle-fill me-3 ms-3"></i>
-              <div>Delete Paket Tour Successfully</div>
-            </div>
-          </transition>
 
-          <!-- Error Alert -->
-          <transition name="fade">
-            <div
-              v-if="showErrorAlert"
-              class="alert alert-danger d-flex align-items-center"
-              role="alert"
-            >
-              <i class="bi bi-x-circle-fill me-3 ms-3"></i>
-              <div>Delete Paket Tour failed! Please check the form.</div>
-            </div>
-          </transition>
-        </div>
+  <!-- ALERT -->
+  <div class="container mt-3">
+    <transition name="fade">
+      <div
+        v-if="showSuccessAlert"
+        class="alert alert-success d-flex align-items-center"
+      >
+        <i class="bi bi-check-circle-fill me-2"></i>
+        Galery deleted successfully
       </div>
-    </div>
+    </transition>
+
+    <transition name="fade">
+      <div
+        v-if="showErrorAlert"
+        class="alert alert-danger d-flex align-items-center"
+      >
+        <i class="bi bi-x-circle-fill me-2"></i>
+        Failed to delete galery
+      </div>
+    </transition>
   </div>
+
+  <!-- TABLE -->
   <div class="container mb-5">
-    <div>
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Picture</th>
-            <th>Title</th>
-            <th>Costumer</th>
-            <th @click="toggleSortOrder" style="cursor: pointer">
-              Created At
-              <i
-                :class="{
-                  'bi bi-arrow-down': sortOrder === 'desc',
-                  'bi bi-arrow-up': sortOrder === 'asc',
-                }"
-              ></i>
-            </th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, index) in paginatedData" :key="item.id">
-            <td>{{ index + 1 + (currentPage - 1) * itemsPerPage }}</td>
-            <td class="text-start">
-              <img :src="item.picture" alt="Image" style="max-width: 150px" />
-            </td>
-            <td class="text-start align-items-center">{{ item.title }}</td>
-            <td class="text-start">{{ item.costumer }}</td>
-            <td>{{ formatDate(item.createdAt) }}</td>
-            <td>
-              <div
-                class="d-flex gap-2 align-items-center justify-content-center"
-              >
-                <router-link :to="`/admin/galery/read/${item.id}`">
-                  <div class="btn btn-info pt-1 pb-1 m-0 p-0">
-                    <span><i class="bi bi-eye p-2 rounded-2"></i></span>
-                  </div>
-                </router-link>
-                <router-link :to="`/admin/galery/edit/${item.id}`">
-                  <div class="btn btn-warning pt-1 pb-1 m-0 p-0">
-                    <span
-                      ><i class="bi bi-pencil-square p-2 rounded-2"></i
-                    ></span>
-                  </div>
-                </router-link>
-                <button
-                  @click="deleteData(item.id)"
-                  class="btn btn-danger pt-1 pb-1 m-0 p-0"
-                >
-                  <span><i class="bi bi-x-circle p-2 rounded-2"></i></span>
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <table class="table table-striped table-hover align-middle">
+      <thead class="text-center">
+        <tr>
+          <th>No</th>
+          <th>Thumbnail</th>
+          <th>Title</th>
+          <th @click="toggleSortOrder" style="cursor: pointer">
+            Date
+            <i
+              :class="{
+                'bi bi-arrow-down': sortOrder === 'desc',
+                'bi bi-arrow-up': sortOrder === 'asc',
+              }"
+            ></i>
+          </th>
+          <th>Action</th>
+        </tr>
+      </thead>
 
-      <div class="input-group input-group-sm">
-        <div class="input-group mb-3">
-          <span class="input-group-text" id="inputGroup-sizing-default">
-            Items Per Page:
-          </span>
-          <input
-            type="number"
-            class="form-control"
-            v-model.number="itemsPerPage"
-            @input="updatePagination"
-            aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-lg"
-          />
-        </div>
+      <tbody>
+        <tr v-for="(item, index) in sortedData" :key="item.id">
+          <td>{{ index + 1 + (currentPage - 1) * itemsPerPage }}</td>
+
+          <td>
+            <img :src="getFirstImage(item.img_url)" class="thumb-img" />
+          </td>
+
+          <td class="text-start">{{ item.title }}</td>
+          <td>{{ formatDate(item.createdAt) }}</td>
+
+          <td>
+            <div class="d-flex gap-2 justify-content-center">
+              <router-link
+                :to="`/admin/galery/read/${item.id}`"
+                class="btn btn-info p-0"
+              >
+                <i class="bi bi-eye p-2"></i>
+              </router-link>
+
+              <router-link
+                :to="`/admin/galery/edit/${item.id}`"
+                class="btn btn-warning p-0"
+              >
+                <i class="bi bi-pencil-square p-2"></i>
+              </router-link>
+
+              <button @click="deleteData(item.id)" class="btn btn-danger p-0">
+                <i class="bi bi-x-circle p-2"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- LIMIT -->
+    <div class="mb-3">
+      <select v-model="itemsPerPage" class="form-select w-auto" @change="changeLimit">
+        <option :value="5">5</option>
+        <option :value="10">10</option>
+        <option :value="20">20</option>
+      </select>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <div>
+        <button
+          @click="prevPage"
+          :disabled="currentPage === 1"
+          class="btn btn-secondary me-2"
+        >
+          Previous
+        </button>
       </div>
 
-      <div class="pagination">
-        <div class="justify-content-start gap-2">
-          <button
-            @click="goToFirstPage"
-            :disabled="currentPage === 1"
-            class="btn btn-secondary me-2"
-          >
-            First Page
-          </button>
-          <button
-            @click="prevPage"
-            :disabled="currentPage === 1"
-            class="btn btn-secondary ms-2"
-          >
-            Previous
-          </button>
-        </div>
-        <span>Page {{ currentPage }} of {{ totalPages }}</span>
-        <div class="justify-content-end">
-          <button
-            @click="nextPage"
-            :disabled="currentPage === totalPages"
-            class="btn btn-secondary me-2"
-          >
-            Next</button
-          ><button
-            @click="goToLastPage"
-            :disabled="currentPage === totalPages"
-            class="btn btn-secondary ms-1"
-          >
-            Last Page
-          </button>
-        </div>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+      <div>
+        <button
+          @click="nextPage"
+          :disabled="currentPage === totalPages"
+          class="btn btn-secondary"
+        >
+          Next
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, onMounted, watch, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 
 export default {
   setup() {
@@ -164,128 +141,112 @@ export default {
     const sortOrder = ref("desc");
     const showSuccessAlert = ref(false);
     const showErrorAlert = ref(false);
-    // const image = ref("");
 
+    const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
+    const token = localStorage.getItem("token");
+
+    /* ================= FETCH (UPDATED) ================= */
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://api.gaharuoutbound.com/api/galery"
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        let data = await response.json();
-        datas.value = data;
-        totalPages.value = Math.ceil(data.length / itemsPerPage.value);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    const deleteData = async (id) => {
-      const token = localStorage.getItem("token");
-      // console.log({ id, token });
-
-      const confirmation = confirm(
-        "Are you sure you want to delete this item?"
-      );
-      if (!confirmation) return;
-      // const token = localStorage.getItem("token");
-      try {
-        const response = await fetch(
-          `https://api.gaharuoutbound.com/api/paket-tour/${id}`,
+          `${API_BASE_URL}/api/galeries?page=${currentPage.value}&limit=${itemsPerPage.value}`,
           {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            headers: { Authorization: `Bearer ${token}` },
           }
         );
-        if (!response.ok) {
-          throw new Error("Failed to delete data");
-        }
 
-        showSuccessAlert.value = true;
-        showErrorAlert.value = false;
+        const result = await response.json();
 
-        setTimeout(() => {
-          fetchData();
-          showSuccessAlert.value = false;
-          showErrorAlert.value = false;
-        }, 2000);
+        datas.value = result.data || [];
+        totalPages.value = result.totalPage || 1;
       } catch (error) {
-        console.error("Error deleting data:", error);
+        console.error(error);
+        datas.value = [];
       }
     };
 
-    const sortData = () => {
-      return [...datas.value].sort((a, b) => {
-        if (sortOrder.value === "asc") {
-          return new Date(a.createdAt) - new Date(b.createdAt);
-        } else {
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        }
-      });
+    /* ================= DELETE ================= */
+    const deleteData = async (id) => {
+      if (!confirm("Delete this galery?")) return;
+
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/api/galeries/admin/${id}`,
+          {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        if (!response.ok) throw new Error();
+
+        showSuccessAlert.value = true;
+        fetchData();
+
+        setTimeout(() => {
+          showSuccessAlert.value = false;
+        }, 1500);
+      } catch (error) {
+        showErrorAlert.value = true;
+      }
     };
 
-    const paginatedData = computed(() => {
-      const start = (currentPage.value - 1) * itemsPerPage.value;
-      const end = start + itemsPerPage.value;
-      return sortData().slice(start, end);
+    /* ================= IMG PARSE ================= */
+    const getFirstImage = (imgUrlString) => {
+      if (!imgUrlString) return "";
+      try {
+        const parsed = JSON.parse(imgUrlString);
+        return parsed[0];
+      } catch {
+        return "";
+      }
+    };
+
+    /* ================= SORT (FRONTEND ONLY) ================= */
+    const sortedData = computed(() => {
+      return [...datas.value].sort((a, b) => {
+        return sortOrder.value === "asc"
+          ? new Date(a.createdAt) - new Date(b.createdAt)
+          : new Date(b.createdAt) - new Date(a.createdAt);
+      });
     });
 
-    const goToFirstPage = () => {
-      currentPage.value = 1;
+    const toggleSortOrder = () => {
+      sortOrder.value = sortOrder.value === "asc" ? "desc" : "asc";
     };
 
+    /* ================= PAGINATION ================= */
     const prevPage = () => {
       if (currentPage.value > 1) {
         currentPage.value--;
+        fetchData();
       }
     };
 
     const nextPage = () => {
       if (currentPage.value < totalPages.value) {
         currentPage.value++;
+        fetchData();
       }
     };
 
-    const goToLastPage = () => {
-      currentPage.value = totalPages.value;
+    const changeLimit = () => {
+      currentPage.value = 1;
+      fetchData();
     };
 
+    /* ================= FORMAT DATE ================= */
     const formatDate = (dateString) => {
-      const options = {
-        year: "numeric",
-        month: "2-digit",
+      return new Date(dateString).toLocaleDateString("id-ID", {
         day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
         hour: "2-digit",
         minute: "2-digit",
-      };
-      const date = new Date(dateString);
-      return date.toLocaleDateString("id-ID", options);
+      });
     };
 
-    const updatePagination = () => {
-      currentPage.value = 1;
-      totalPages.value = Math.ceil(datas.value.length / itemsPerPage.value);
-    };
-
-    const updateSortOrder = () => {
-      currentPage.value = 1;
-      sortData();
-    };
-
-    const toggleSortOrder = () => {
-      sortOrder.value = sortOrder.value === "asc" ? "desc" : "asc";
-    };
-
-    onMounted(() => {
-      fetchData();
-    });
-
-    watch(sortOrder, updateSortOrder);
-    watch(itemsPerPage, updatePagination);
+    onMounted(fetchData);
 
     return {
       datas,
@@ -293,33 +254,27 @@ export default {
       totalPages,
       itemsPerPage,
       sortOrder,
-      paginatedData,
-      goToFirstPage,
+      sortedData,
+      toggleSortOrder,
       prevPage,
       nextPage,
-      goToLastPage,
-      formatDate,
-      updatePagination,
-      updateSortOrder,
-      toggleSortOrder,
+      changeLimit,
       deleteData,
       showSuccessAlert,
       showErrorAlert,
+      formatDate,
+      getFirstImage,
     };
   },
 };
 </script>
 
-<style>
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  text-align: center;
-  padding: 8px;
+<style scoped>
+.thumb-img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .pagination {
@@ -327,11 +282,6 @@ td {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.pagination button {
-  padding: 5px 10px;
-  cursor: pointer;
 }
 
 .bi-arrow-up,
