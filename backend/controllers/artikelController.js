@@ -90,6 +90,7 @@ class ArtikelController {
           "id",
           "title",
           "slug",
+          "views",
           "thumbnail",
           "createdAt",
           "updatedAt",

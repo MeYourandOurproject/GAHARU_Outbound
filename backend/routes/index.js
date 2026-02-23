@@ -15,6 +15,6 @@ router.use("/artikels", artikelRouter);
 router.use("/services", serviceRouter);
 router.use("/categories", categoryRouter);
 router.use("/price-lists", pricelistRouter);
-router.use("/uploads", uploadRouter);
+router.use("/upload", uploadRouter);
 
 module.exports = router;
