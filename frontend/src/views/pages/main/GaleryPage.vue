@@ -1,152 +1,211 @@
 <template>
   <div class="gallery-page">
-
     <!-- HERO -->
-    <section class="gallery-hero text-center d-flex align-items-end pb-5 justify-content-center">
+    <section
+      class="gallery-hero text-center d-flex align-items-end pb-5 justify-content-center"
+    >
       <div>
         <h1 class="fw-bold title-page">Galeri Kegiatan Gaharu Outbound</h1>
         <p class="lead-page text-success">Momen seru dan penuh kebersamaan</p>
       </div>
     </section>
 
-    <!-- GALLERY GRID -->
+    <!-- CONTENT -->
     <div class="container py-5">
+      <!-- SORT -->
+      <div class="d-flex justify-content-end mb-4">
+        <select
+          v-model="sortOrder"
+          @change="handleSortChange"
+          class="form-select w-auto"
+        >
+          <option value="newest">Terbaru</option>
+          <option value="oldest">Terlama</option>
+        </select>
+      </div>
 
-      <!-- Loading -->
+      <!-- LOADING -->
       <div v-if="loading" class="text-center py-5">
         <div class="spinner-border text-warning"></div>
         <p class="mt-3">Memuat galeri...</p>
       </div>
 
-      <!-- Error -->
+      <!-- ERROR -->
       <div v-if="error" class="text-center text-danger py-5">
         {{ error }}
       </div>
 
+      <!-- GRID -->
       <div v-if="!loading && galleryImages.length" class="row g-4">
-        <!-- Loop tiap foto -->
-        <div 
-          v-for="(imgObj, idx) in galleryImages" 
+        <div
+          v-for="(imgObj, idx) in galleryImages"
           :key="idx"
           class="col-6 col-md-4 col-lg-3"
         >
-          <div class="gallery-item" @click="openModal(imgObj.gallery, imgObj.index)">
-            <img 
-              :src="imgObj.src"
-              class="img-fluid"
-              loading="lazy"
-            />
+          <div
+            class="gallery-item"
+            @click="openModal(imgObj.gallery, imgObj.index)"
+          >
+            <img :src="imgObj.src" class="img-fluid" loading="lazy" />
             <div class="gallery-overlay">
               <h6>{{ imgObj.gallery.title }}</h6>
-              <small>{{ imgObj.gallery.location }}, <br>{{ imgObj.gallery.date }}</small>
+              <small>
+                {{ imgObj.gallery.location }},
+                <br />
+                {{ formatDate(imgObj.gallery.date) }}
+              </small>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Kosong -->
+      <!-- EMPTY -->
       <div v-if="!loading && !galleryImages.length" class="text-center py-5">
         Belum ada galeri tersedia.
       </div>
 
+      <!-- PAGINATION -->
+      <div v-if="totalPage > 1" class="custom-pagination">
+        <button
+          class="nav-btn"
+          :disabled="currentPage === 1"
+          @click="changePage(currentPage - 1)"
+        >
+          ‹
+        </button>
+
+        <button
+          v-for="page in totalPage"
+          :key="page"
+          class="page-number"
+          :class="{ active: currentPage === page }"
+          @click="changePage(page)"
+        >
+          {{ page }}
+        </button>
+
+        <button
+          class="nav-btn"
+          :disabled="currentPage === totalPage"
+          @click="changePage(currentPage + 1)"
+        >
+          ›
+        </button>
+      </div>
     </div>
 
     <!-- MODAL -->
-    <!-- <div 
-      class="modal fade"
-      id="imageModal"
-      tabindex="-1"
-      ref="modal"
-    >
+    <div class="modal fade" tabindex="-1" ref="modalRef">
       <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content bg-dark border-0">
+        <div class="modal-content border-0">
           <div class="modal-body p-0 text-center">
-            <img 
-              :src="selectedImage?.images[selectedIndex]" 
-              class="img-fluid w-100"
+            <img
+              v-if="selectedImage"
+              :src="selectedImage.images[selectedIndex]"
+              class="img-fluid w-100 rounded-top"
             />
-            <div class="p-3 text-white">
-              <h5>{{ selectedImage?.title }}</h5>
-              <p class="mb-1">{{ selectedImage?.description }}</p>
-              <small>{{ selectedImage?.location }} • {{ formatDate(selectedImage?.date) }}</small>
-            </div>
           </div>
         </div>
       </div>
-    </div> -->
-
+    </div>
   </div>
 </template>
 
 <script>
-import { ref, onMounted, nextTick } from "vue"
-import { Modal } from "bootstrap"
+import { ref, onMounted, nextTick } from "vue";
+import { Modal } from "bootstrap";
 
 export default {
   setup() {
-    const galleries = ref([])
-    const galleryImages = ref([]) // semua foto dari semua galeri
-    const loading = ref(false)
-    const error = ref(null)
-    const selectedImage = ref(null)
-    const selectedIndex = ref(0)
-    const modalRef = ref(null)
-    let modalInstance = null
+    const galleries = ref([]);
+    const galleryImages = ref([]);
+    const loading = ref(false);
+    const error = ref(null);
 
-    const API_BASE_URL = process.env.VUE_APP_API_BASE_URL
+    const selectedImage = ref(null);
+    const selectedIndex = ref(0);
+    const modalRef = ref(null);
+    let modalInstance = null;
+
+    const currentPage = ref(1);
+    const totalPage = ref(1);
+    const limit = 8;
+    const sortOrder = ref("newest");
+
+    const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
 
     const fetchGallery = async () => {
       try {
-        loading.value = true
-        const response = await fetch(`${API_BASE_URL}/api/galeries`)
-        const result = await response.json()
+        loading.value = true;
 
-        galleries.value = result.map(item => {
-          let images = []
+        const response = await fetch(
+          `${API_BASE_URL}/api/galeries?page=${currentPage.value}&limit=${limit}&sort=${sortOrder.value}`,
+        );
+
+        const result = await response.json();
+
+        totalPage.value = result.totalPage;
+
+        galleries.value = result.data.map((item) => {
+          let images = [];
           try {
-            images = JSON.parse(item.img_url) // ambil semua foto
-          } catch (e) {
-            images = []
+            images = JSON.parse(item.img_url);
+          } catch {
+            images = [];
           }
-          return { ...item, images }
-        })
+          return { ...item, images };
+        });
 
-        // flatten semua foto untuk grid
-        galleryImages.value = []
-        galleries.value.forEach(gallery => {
+        galleryImages.value = [];
+
+        galleries.value.forEach((gallery) => {
           gallery.images.forEach((img, idx) => {
             galleryImages.value.push({
               src: img,
               gallery,
-              index: idx
-            })
-          })
-        })
-
+              index: idx,
+            });
+          });
+        });
       } catch (err) {
-        console.error(err)
-        error.value = "Gagal memuat galeri."
+        console.error(err);
+        error.value = "Gagal memuat galeri.";
       } finally {
-        loading.value = false
+        loading.value = false;
       }
-    }
+    };
+
+    const handleSortChange = () => {
+      currentPage.value = 1;
+      fetchGallery();
+    };
+
+    const changePage = (page) => {
+      if (page < 1 || page > totalPage.value) return;
+      currentPage.value = page;
+      fetchGallery();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
 
     const openModal = async (gallery, index) => {
-      selectedImage.value = gallery
-      selectedIndex.value = index
-      await nextTick()
+      selectedImage.value = gallery;
+      selectedIndex.value = index;
+
+      await nextTick();
+
       if (!modalInstance) {
-        modalInstance = new Modal(modalRef.value, { backdrop: true })
+        modalInstance = new Modal(modalRef.value);
       }
-      modalInstance.show()
-    }
+
+      modalInstance.show();
+    };
 
     const formatDate = (date) => {
-      if (!date) return ""
-      return new Date(date).toLocaleDateString("id-ID")
-    }
+      if (!date) return "";
+      return new Date(date).toLocaleDateString("id-ID");
+    };
 
-    onMounted(fetchGallery)
+    onMounted(fetchGallery);
 
     return {
       galleries,
@@ -157,17 +216,21 @@ export default {
       selectedIndex,
       modalRef,
       openModal,
-      formatDate
-    }
-  }
-}
+      formatDate,
+      currentPage,
+      totalPage,
+      changePage,
+      sortOrder,
+      handleSortChange,
+    };
+  },
+};
 </script>
 
 <style scoped>
 .gallery-hero {
   height: 300px;
-  background: url('../../../assets/bg-home.webp') center/cover no-repeat;
-  position: relative;
+  background: url("../../../assets/bg-home.webp") center/cover no-repeat;
 }
 
 .title-page {
@@ -177,20 +240,7 @@ export default {
 .lead-page {
   font-size: 20px;
 }
-/* .gallery-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-} */
 
-.gallery-hero > div {
-  position: relative;
-  z-index: 2;
-  /* color: white; */
-}
-
-/* GALLERY CARD */
 .gallery-item {
   position: relative;
   overflow: hidden;
@@ -209,13 +259,12 @@ export default {
   transform: scale(1.1);
 }
 
-/* OVERLAY */
 .gallery-overlay {
   position: absolute;
   bottom: 0;
   width: 100%;
   padding: 15px;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
   color: white;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -226,19 +275,56 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .contact-hero {
+  .gallery-hero {
     height: 200px;
-    /* font-size: smaller; */
   }
 
   .title-page {
-    /* background-color: #198754; */
-    /* margin-top: 50px; */
     font-size: 25px;
   }
 
   .lead-page {
-    font-size: 9px;
+    font-size: 12px;
   }
+}
+
+/* PAGINATION MODERN */
+.custom-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.page-number,
+.nav-btn {
+  border: none;
+  background: #f1f1f1;
+  color: #333;
+  min-width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.page-number:hover,
+.nav-btn:hover {
+  background: #198754;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.page-number.active {
+  background: #198754;
+  color: white;
+  box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
+}
+
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #e0e0e0;
 }
 </style>

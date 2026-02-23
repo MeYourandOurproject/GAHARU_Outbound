@@ -7,7 +7,9 @@
       <div class="container-xxl">
         <div>
           <h1 class="fw-bold title-page">Pilihan Paket Gaharu Outbound</h1>
-          <p class="lead-page text-success">Pilih paket terbaik sesuai kebutuhan Anda</p>
+          <p class="lead-page text-success">
+            Pilih paket terbaik sesuai kebutuhan Anda
+          </p>
         </div>
       </div>
     </section>
@@ -80,10 +82,13 @@
               <div class="price-footer">
                 <div class="price-info">
                   <strong class="fs-5">
-                    <small v-if="pricelist.description"> <i class="bi bi-person-bounding-box me-2"></i> {{ pricelist.description }}</small> <br>
+                    <small v-if="pricelist.description">
+                      <i class="bi bi-person-bounding-box me-2"></i>
+                      {{ pricelist.description }}</small
+                    >
+                    <br />
                     IDR {{ formatPrice(pricelist.price) }}
                     <small v-if="pricelist.unit"> / {{ pricelist.unit }}</small>
-                    
                   </strong>
                 </div>
 
@@ -197,6 +202,7 @@ export default {
 /* CARD */
 .price-card {
   background: #fff;
+  
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
@@ -323,7 +329,7 @@ export default {
 /* FOOTER */
 .price-footer {
   margin-top: auto;
-  background-color: #eeebeb;
+  background-color: #ebeeeb;
   padding: 10px;
   border-radius: 5px;
 }
@@ -357,7 +363,7 @@ export default {
 .btn-book {
   display: block;
   text-align: center;
-  background: #159f27;
+  background: linear-gradient(90deg, #41b83f, #2c7f31);
   color: white;
   padding: 7px;
   border-radius: 5px;
@@ -368,15 +374,18 @@ export default {
 }
 
 .btn-book:hover {
-  background: #000000;
-  transform: scale(1.02);
+  background: #ffffff;
+  transform: translateY(-3px);
+  color: #2c7f31;
+  box-shadow: 0 8px 20px rgba(44, 127, 49, 0.35);
+  /* transform: scale(1.02); */
 }
 
 @media (max-width: 767px) {
   .price-hero {
     height: 250px;
   }
-  .lead{
+  .lead {
     font-size: medium;
   }
   .contact-hero {

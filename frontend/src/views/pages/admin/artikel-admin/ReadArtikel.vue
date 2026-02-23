@@ -65,7 +65,11 @@
         <!-- ARTIKEL LAINYA -->
         <div class="col-12 col-md-3 order-2 text-start">
           <div class="related-wrapper">
-            <h5 class="fw-bold mb-4 text-center mt-4 bg-success py-3 rounded-2 mt-2 text-white">Artikel Lainnya</h5>
+            <h5
+              class="fw-bold mb-4 text-center mt-4 bg-success py-3 rounded-2 mt-2 text-white"
+            >
+              Artikel Lainnya
+            </h5>
 
             <div
               v-for="(artikel, index) in filteredArticles"
@@ -119,6 +123,7 @@ export default {
     const loading = ref(false);
 
     const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
+    const token = localStorage.getItem("token");
 
     // ========================
     // FIX PATH WINDOWS "\"
@@ -161,7 +166,13 @@ export default {
       article.value = null;
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/artikels/${slug}`);
+        const response = await fetch(
+          `${API_BASE_URL}/api/artikels/slug/${slug}`,
+          {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
         const data = await response.json();
         article.value = data;
       } catch (error) {
@@ -257,7 +268,16 @@ export default {
   font-size: 15px;
   line-height: 1.8;
   margin-top: 15px;
-  text-align: justify;
+  text-align: justify; /* tetap justify */
+}
+
+.artikel-content img {
+  width: 70%;
+  max-width: 800px;
+  height: auto;
+  display: block;        /* WAJIB */
+  margin: 20px auto;     /* ini bikin center */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* RELATED */
@@ -304,7 +324,7 @@ export default {
 
 .related-card-horizontal:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
 }
 
 .related-thumb {
@@ -357,5 +377,4 @@ export default {
   font-size: 12px;
   color: #777;
 }
-
 </style>

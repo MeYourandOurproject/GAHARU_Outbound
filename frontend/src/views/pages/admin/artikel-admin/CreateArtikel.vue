@@ -1,244 +1,360 @@
 <template>
   <div class="container-fluid">
     <div class="container text-start">
-      <h3 class="mt-4 mb-4">Create ARTIKEL</h3>
+      <h3 class="mt-4 mb-4 fw-bold">Create Artikel</h3>
 
       <form @submit.prevent="handleSubmit">
-
-        <!-- TITLE & CATEGORY -->
+        <!-- TITLE & AUTHOR -->
         <div class="row mb-3">
           <div class="col-md-8">
-            <label class="form-label">Title</label>
+            <label class="form-label">Judul</label>
             <input
+              v-model="form.title"
               type="text"
               class="form-control"
-              v-model="form.title"
+              placeholder="Masukkan judul artikel"
               required
             />
           </div>
 
           <div class="col-md-4">
-            <label class="form-label">Category</label>
-            <select
-              class="form-select"
-              v-model="form.category_id"
-              required
-            >
-              <option value="">-- Pilih Category --</option>
-              <option
-                v-for="cat in categories"
-                :key="cat.id"
-                :value="cat.id"
-              >
-                {{ cat.name }}
+            <label class="form-label">Penulis</label>
+
+            <select v-model="form.author_id" class="form-select" required>
+              <option disabled value="">Pilih Penulis</option>
+
+              <option v-for="user in users" :key="user.id" :value="user.id">
+                {{ user.name }}
               </option>
             </select>
           </div>
         </div>
 
-        <!-- EXCERPT -->
-        <div class="mb-3">
-          <label class="form-label">Excerpt</label>
-          <textarea
-            class="form-control"
-            rows="3"
-            v-model="form.excerpt"
-          ></textarea>
-        </div>
+        <!-- CATEGORY & STATUS -->
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label class="form-label">Excerpt</label>
+            <textarea
+              v-model="form.excerpt"
+              class="form-control"
+              rows="2"
+            ></textarea>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Category</label>
 
-        <!-- CONTENT -->
-        <div class="mb-3">
-          <label class="form-label">Content</label>
-          <textarea
-            class="form-control"
-            rows="6"
-            v-model="form.content"
-          ></textarea>
+            <select v-model="form.category_id" class="form-select" required>
+              <option disabled value="">Pilih Kategori</option>
+
+              <option v-for="cat in categories" :key="cat.id" :value="cat.id">
+                {{ cat.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Status</label>
+
+            <select v-model="form.status" class="form-select">
+              <option value="idea">Idea</option>
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+            </select>
+          </div>
         </div>
 
         <!-- THUMBNAIL -->
-        <div class="row mb-3">
+        <div class="row mb-4">
           <div class="col-md-4">
-            <label class="form-label">Preview Image</label>
+            <label class="form-label">Preview Thumbnail</label>
             <div v-if="previewImage">
-              <img :src="previewImage" class="img-thumbnail" />
+              <img
+                :src="previewImage"
+                class="img-thumbnail rounded shadow-sm"
+              />
             </div>
           </div>
 
           <div class="col-md-4">
             <label class="form-label">Upload Thumbnail</label>
             <input
-              ref="fileInput"
+              ref="thumbnailInput"
               type="file"
               class="form-control"
               accept="image/*"
-              @change="handleFileChange"
+              @change="handleThumbnailChange"
             />
           </div>
         </div>
 
-        <!-- STATUS -->
-        <div class="mb-4">
-          <div class="form-check">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              v-model="form.is_featured"
-            />
-            <label class="form-check-label">Featured</label>
-          </div>
-
-          <div class="form-check">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              v-model="form.is_active"
-            />
-            <label class="form-check-label">Active</label>
-          </div>
-        </div>
-
-        <!-- SEO -->
+        <!-- CONTENT -->
         <div class="mb-3">
-          <label class="form-label">Meta Title</label>
+          <label class="form-label">Konten</label>
+          <div ref="quillEditor" class="border rounded"></div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">Tambahkan Gambar ke Konten</label>
           <input
-            type="text"
+            ref="imageInput"
+            type="file"
             class="form-control"
-            v-model="form.meta_title"
+            accept="image/*"
+            @change="insertImage"
           />
         </div>
 
-        <div class="mb-3">
-          <label class="form-label">Meta Description</label>
-          <textarea
-            class="form-control"
-            rows="2"
-            v-model="form.meta_description"
-          ></textarea>
+        <!-- SEO -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">Meta Title</label>
+            <input v-model="form.meta_title" type="text" class="form-control" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Meta Description</label>
+            <textarea
+              v-model="form.meta_description"
+              class="form-control"
+              rows="2"
+            ></textarea>
+          </div>
         </div>
 
         <!-- SUBMIT -->
-        <button type="submit" class="btn btn-success">
-          Create Artikel
-        </button>
-      </form>
-    </div>
+        <div class="row mt-4">
+          <div class="col-md-3">
+            <button type="submit" class="btn btn-success btn-lg w-100">
+              Simpan Artikel
+            </button>
+          </div>
 
-    <!-- TOAST -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div
-        v-if="showToast"
-        class="toast show align-items-center text-bg-success border-0"
-      >
-        <div class="toast-body">
-          {{ toastMessage }}
+          <div class="col-md-9">
+            <transition name="fade">
+              <div
+                v-if="showSuccessAlert"
+                class="alert alert-success d-flex align-items-center"
+              >
+                <i class="bi bi-check-circle-fill me-3"></i>
+                Artikel berhasil dibuat
+              </div>
+            </transition>
+
+            <transition name="fade">
+              <div
+                v-if="showErrorAlert"
+                class="alert alert-danger d-flex align-items-center"
+              >
+                <i class="bi bi-x-circle-fill me-3"></i>
+                Gagal membuat artikel
+              </div>
+            </transition>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, watch } from "vue";
+import Quill from "quill";
+import "quill/dist/quill.snow.css";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 const token = localStorage.getItem("token");
 const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
 
-/* STATE */
+/* ================= STATE ================= */
 
 const form = ref({
   title: "",
-  slug: "",
   excerpt: "",
+  slug: "",
+  author_id: null,
   content: "",
-  category_id: "",
+  category_id: null,
   meta_title: "",
   meta_description: "",
-  is_featured: false,
-  is_active: true,
-  image: null,
+  status: "idea",
 });
 
 const categories = ref([]);
+const users = ref([]);
+
 const previewImage = ref(null);
-const fileInput = ref(null);
+const thumbnailFile = ref(null);
+const contentImages = ref([]);
 
-const showToast = ref(false);
-const toastMessage = ref("");
+const quillEditor = ref(null);
+const imageInput = ref(null);
+const thumbnailInput = ref(null);
 
-/* AUTO SLUG */
+const showSuccessAlert = ref(false);
+const showErrorAlert = ref(false);
 
-watch(() => form.value.title, (val) => {
-  form.value.slug = val
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^\w-]+/g, "");
-});
+/* ================= AUTO SLUG ================= */
 
-/* FETCH CATEGORY */
+watch(
+  () => form.value.title,
+  (val) => {
+    form.value.slug = val
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "");
+  }
+);
 
-const fetchCategories = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/categories`);
-  const data = await response.json();
-  categories.value = data;
+/* ================= FETCH CATEGORY ================= */
+
+const fetchCategory = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/categories/admin`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  categories.value = await response.json();
 };
 
-/* HANDLE IMAGE */
+/* ================= FETCH USERS ================= */
 
-const handleFileChange = () => {
-  const file = fileInput.value.files[0];
+const fetchUsers = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/users`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    users.value = await response.json();
+  } catch (error) {
+    console.error("Fetch users error:", error);
+  }
+};
+
+/* ================= THUMBNAIL ================= */
+
+const handleThumbnailChange = () => {
+  const file = thumbnailInput.value.files[0];
   if (!file) return;
 
-  form.value.image = file;
+  thumbnailFile.value = file;
   previewImage.value = URL.createObjectURL(file);
 };
 
-/* HANDLE SUBMIT */
+/* ================= INSERT IMAGE TO QUILL ================= */
+
+const insertImage = async () => {
+  const file = imageInput.value.files[0];
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append("image", file);
+
+  const response = await fetch(`${API_BASE_URL}/api/upload`, {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+  const imageUrl = data.url;
+
+  const editor = quillEditor.value.__quill;
+  const range = editor.getSelection(true);
+  editor.insertEmbed(range.index, "image", imageUrl);
+
+  contentImages.value.push(file);
+  imageInput.value.value = null;
+};
+
+/* ================= SUBMIT ================= */
 
 const handleSubmit = async () => {
+  const editor = quillEditor.value.__quill;
+  form.value.content = editor.root.innerHTML;
+
   const formData = new FormData();
+  Object.keys(form.value).forEach((key) => {
+    formData.append(key, form.value[key]);
+  });
 
-  formData.append("title", form.value.title);
-  formData.append("slug", form.value.slug);
-  formData.append("excerpt", form.value.excerpt);
-  formData.append("content", form.value.content);
-  formData.append("category_id", form.value.category_id);
-  formData.append("meta_title", form.value.meta_title);
-  formData.append("meta_description", form.value.meta_description);
-  formData.append("is_featured", form.value.is_featured ? 1 : 0);
-  formData.append("is_active", form.value.is_active ? 1 : 0);
-
-  if (form.value.image) {
-    formData.append("image", form.value.image);
+  if (thumbnailFile.value) {
+    formData.append("thumbnail", thumbnailFile.value);
   }
 
-  const response = await fetch(
-    `${API_BASE_URL}/api/artikels/admin`,
-    {
+  contentImages.value.forEach((file) => {
+    formData.append("pictures", file);
+  });
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/artikels/admin`, {
       method: "POST",
       body: formData,
       headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (response.ok) {
+      showSuccessAlert.value = true;
+      showErrorAlert.value = false;
+
+      setTimeout(() => {
+        router.push("/admin/artikel");
+      }, 2000);
+    } else {
+      showErrorAlert.value = true;
     }
-  );
-
-  if (response.ok) {
-    toastMessage.value = "Artikel berhasil dibuat";
-    showToast.value = true;
-
-    setTimeout(() => {
-      showToast.value = false;
-      router.push("/admin/artikel");
-    }, 1500);
-  } else {
-    alert("Create gagal");
+  } catch (error) {
+    console.error(error);
+    showErrorAlert.value = true;
   }
 };
 
-/* INIT */
+/* ================= INIT ================= */
 
 onMounted(() => {
-  fetchCategories();
+  fetchCategory();
+  fetchUsers();
+
+  const editor = new Quill(quillEditor.value, {
+    theme: "snow",
+    placeholder: "Tulis konten artikel di sini...",
+    modules: {
+      toolbar: [
+        [{ header: [1, 2, 3, false] }],
+        ["bold", "italic", "underline"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        ["link"],
+        ["clean"],
+      ],
+    },
+  });
+
+  quillEditor.value.__quill = editor;
+
+  /* ================= FITUR HAPUS GAMBAR ================= */
+
+  editor.root.addEventListener("click", (event) => {
+    if (event.target.tagName === "IMG") {
+      const confirmDelete = confirm("Hapus gambar ini?");
+      if (confirmDelete) {
+        event.target.remove();
+      }
+    }
+  });
 });
 </script>
+
+<style>
+.ql-container {
+  min-height: 250px;
+}
+
+.form-label {
+  font-weight: 600;
+  background: linear-gradient(90deg, #41b83f, #2c7f31); 
+  padding: 2px 20px;
+  border-radius: 5px;
+  color: white;
+}
+
+.img-thumbnail {
+  max-height: 200px;
+  object-fit: cover;
+}
+</style>

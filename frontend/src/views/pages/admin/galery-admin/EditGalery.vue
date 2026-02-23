@@ -1,227 +1,245 @@
 <template>
-  <div class="container-fluid">
-    <div class="container pb-5">
-      <form @submit.prevent="handleSubmit">
-        <div class="row g-3 text-center">
-          <div class="col-md-6">
-            <label for="inputTitle" class="form-label">Title</label>
-            <input
-              type="text"
-              class="form-control"
-              id="inputTitle1"
-              v-model="title"
-            />
-          </div>
-          <div class="col-md-6">
-            <label for="formFile" class="form-label">Picture</label>
-            <input
-              class="form-control"
-              type="file"
-              id="paketTourPicture"
-              ref="PaketTourPicture"
-              @change="handleFileUpload"
-              accept=".jpg, .jpeg, .png, .bmp"
-            />
-          </div>
+  <div class="container py-5">
+    <div class="row">
+      
+      <!-- ================= IMAGE COL ================= -->
+      <div class="col-lg-6">
 
-          <!-- Image preview -->
-          <div class="col-md-12" v-if="imagePreview">
-            <div class="row">
-              <label class="form-label">Image Preview</label>
-              <img
-                :src="imagePreview"
-                alt="Image Preview"
-                style="max-width: 100%"
-              />
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <label for="inputCostumer" class="form-label">Costumer</label>
-            <input
-              type="text"
-              class="form-control"
-              id="inputCostumer"
-              v-model="costumer"
-            />
-          </div>
-
-          <div class="col-md-6">
-            <label for="inputDestinasi" class="form-label">Destinasi</label>
-            <select class="form-select" id="inputDestinasi" v-model="destinasi">
-              <option selected disabled>Choose a destination</option>
-              <option
-                v-for="destination in destinations"
-                :key="destination.id"
-                :value="destination.id"
-              >
-                {{ destination.nama }}
-              </option>
-            </select>
-          </div>
+        <!-- EXISTING IMAGES -->
+        <div
+          v-for="(img, index) in existingImages"
+          :key="'old-'+index"
+          class="mb-3 position-relative"
+        >
+          <img :src="img" class="img-fluid rounded shadow-sm" />
+          <button
+            class="btn btn-danger btn-sm position-absolute top-0 end-0"
+            @click="removeExistingImage(index)"
+          >
+            ✕
+          </button>
         </div>
 
-        <div class="col-sm-12 mt-3">
-          <label for="inputDeskripsi" class="form-label">Deskripsi</label>
-          <quillEditor v-model:value="state.content" />
+        <!-- NEW PREVIEW IMAGES -->
+        <div
+          v-for="(img, index) in previewImages"
+          :key="'new-'+index"
+          class="mb-3 position-relative"
+        >
+          <img :src="img" class="img-fluid rounded shadow-sm" />
+          <button
+            class="btn btn-danger btn-sm position-absolute top-0 end-0"
+            @click="removeNewImage(index)"
+          >
+            ✕
+          </button>
         </div>
-        <div class="col-md-12 mt-3">
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-        <div class="container-fluid">
-          <div class="container">
-            <div class="row align-items-center justify-content-center">
-              <div class="col-lg-6">
-                <!-- Success Alert -->
-                <transition name="fade">
-                  <div
-                    v-if="showSuccessAlert"
-                    class="alert alert-success d-flex align-items-center"
-                    role="alert"
+
+        <!-- FILE INPUT -->
+        <input
+          type="file"
+          class="form-control mt-3"
+          multiple
+          accept="image/*"
+          @change="handleFileUpload"
+        />
+      </div>
+
+      <!-- ================= FORM COL ================= -->
+      <div class="col-lg-6">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <th width="35%">Title</th>
+              <td><input v-model="form.title" class="form-control" /></td>
+            </tr>
+            <tr>
+              <th>Description</th>
+              <td>
+                <textarea v-model="form.description" class="form-control"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <th>Location</th>
+              <td><input v-model="form.location" class="form-control" /></td>
+            </tr>
+            <tr>
+              <th>Date</th>
+              <td>
+                <input type="date" v-model="form.date" class="form-control" />
+              </td>
+            </tr>
+            <tr>
+              <th>Service</th>
+              <td>
+                <select v-model="form.service_id" class="form-select">
+                  <option value="">-- Select Service --</option>
+                  <option
+                    v-for="service in services"
+                    :key="service.id"
+                    :value="service.id"
                   >
-                    <i class="bi bi-check-circle-fill me-3 ms-3"></i>
-                    <div>Galery was Added</div>
-                  </div>
-                </transition>
+                    {{ service.name }}
+                  </option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-                <!-- Error Alert -->
-                <transition name="fade">
-                  <div
-                    v-if="showErrorAlert"
-                    class="alert alert-danger d-flex align-items-center"
-                    role="alert"
-                  >
-                    <i class="bi bi-x-circle-fill me-3 ms-3"></i>
-                    <div>Create Galery failed! Please check the form.</div>
-                  </div>
-                </transition>
-              </div>
-            </div>
-          </div>
+        <div class="text-end mt-3">
+          <button class="btn btn-success" @click="updateGalery">
+            Update Galery
+          </button>
         </div>
-      </form>
+      </div>
     </div>
+
+    <!-- TOAST -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        v-if="showToast"
+        class="toast show align-items-center text-bg-success border-0"
+      >
+        <div class="toast-body">
+          {{ toastMessage }}
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
-<script>
-import { quillEditor } from "vue3-quill";
-import { reactive, ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
+<script setup>
+import { ref, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
-export default {
-  props: {
-    galery: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup() {
-    const title = ref("");
-    const selectedFile = ref(null);
-    const costumer = ref("");
-    const destinasi = ref(null);
-    // const deskripsi = ref("");
-    const imagePreview = ref(null);
-    const destinations = ref([]);
-    const showSuccessAlert = ref(false);
-    const showErrorAlert = ref(false);
-    const router = useRouter();
-    const state = reactive({
-      _content: "",
-    });
+const route = useRoute();
+const router = useRouter();
 
-    const token = localStorage.getItem("token");
+const API_BASE_URL = "http://localhost:3001";
+const token = localStorage.getItem("token");
 
-    const handleFileUpload = (event) => {
-      selectedFile.value = event.target.files[0];
-      if (selectedFile.value) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          imagePreview.value = e.target.result;
-        };
-        reader.readAsDataURL(selectedFile.value);
-      }
-    };
+const form = ref({
+  id: "",
+  title: "",
+  description: "",
+  location: "",
+  date: "",
+  service_id: "",
+});
 
-    const fetchDestinations = async () => {
-      try {
-        const response = await fetch(
-          "https://api.gaharuoutbound.com/api/destination/",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const result = await response.json();
-        // console.log("Fetched destinations:", result);
-        destinations.value = result.data || result;
-      } catch (error) {
-        console.error("Error fetching destinations:", error);
-      }
-    };
+const services = ref([]);
+const existingImages = ref([]);
+const selectedFiles = ref([]);
+const previewImages = ref([]);
 
-    onMounted(() => {
-      fetchDestinations(); // Memanggil API saat komponen di-mount
-    });
+const showToast = ref(false);
+const toastMessage = ref("");
 
-    const handleSubmit = async () => {
-      const formData = new FormData();
-      formData.append("title", title.value);
-      formData.append("picture", selectedFile.value);
-      formData.append("costumer", costumer.value);
-      formData.append("destination_id", destinasi.value);
-      formData.append("description", state.content);
+/* ================= FETCH GALERY ================= */
 
-      // for (let pair of formData.entries()) {
-      //   console.log(pair[0] + ": " + pair[1]);
-      // }
+const fetchGalery = async () => {
+  const id = route.params.id;
 
-      try {
-        const response = await fetch(
-          "https://api.gaharuoutbound.com/api/galery/create",
-          {
-            method: "POST",
-            body: formData,
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+  const res = await fetch(`${API_BASE_URL}/api/galeries/${id}`);
+  const data = await res.json();
 
-        const result = await response.json();
-        if (response.ok) {
-          showSuccessAlert.value = true;
-          showErrorAlert.value = false;
+  form.value = { ...data };
 
-          // Redirect to the desired page after success
-          setTimeout(() => {
-            router.push("/admin/galery");
-          }, 2000);
-        } else {
-          throw new Error(result.message);
-        }
-      } catch (error) {
-        showSuccessAlert.value = false;
-        showErrorAlert.value = true;
-        console.error("Error submitting form:", error);
-      }
-    };
-
-    return {
-      state,
-      title,
-      selectedFile,
-      costumer,
-      destinasi,
-      // deskripsi,
-      imagePreview,
-      destinations,
-      handleFileUpload,
-      handleSubmit,
-    };
-  },
-  components: { quillEditor },
+  // pastikan array
+  try {
+    existingImages.value =
+      typeof data.img_url === "string"
+        ? JSON.parse(data.img_url)
+        : data.img_url || [];
+  } catch {
+    existingImages.value = [];
+  }
 };
+
+/* ================= FETCH SERVICES ================= */
+
+const fetchServices = async () => {
+  const res = await fetch(`${API_BASE_URL}/api/services`);
+  services.value = await res.json();
+};
+
+/* ================= HANDLE IMAGE ================= */
+
+const handleFileUpload = (event) => {
+  const files = Array.from(event.target.files);
+
+  files.forEach((file) => {
+    selectedFiles.value.push(file);
+    previewImages.value.push(URL.createObjectURL(file));
+  });
+};
+
+const removeExistingImage = (index) => {
+  existingImages.value.splice(index, 1);
+};
+
+const removeNewImage = (index) => {
+  selectedFiles.value.splice(index, 1);
+  previewImages.value.splice(index, 1);
+};
+
+/* ================= UPDATE ================= */
+
+const updateGalery = async () => {
+  const formData = new FormData();
+
+  formData.append("title", form.value.title);
+  formData.append("description", form.value.description);
+  formData.append("location", form.value.location);
+  formData.append("date", form.value.date);
+  formData.append("service_id", form.value.service_id);
+
+  // jika ada gambar baru
+  if (selectedFiles.value.length > 0) {
+    selectedFiles.value.forEach((file) => {
+      formData.append("img_url", file);
+    });
+  } else {
+    // kirim gambar lama sebagai JSON string
+    formData.append("existingImages", JSON.stringify(existingImages.value));
+  }
+
+  const response = await fetch(
+    `${API_BASE_URL}/api/galeries/admin/${form.value.id}`,
+    {
+      method: "PUT",
+      body: formData,
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+  if (response.ok) {
+    toastMessage.value = "Galery berhasil diupdate";
+    showToast.value = true;
+
+    setTimeout(() => {
+      router.push("/admin/galery");
+    }, 1500);
+  } else {
+    alert("Update gagal");
+  }
+};
+
+/* INIT */
+
+onMounted(() => {
+  fetchGalery();
+  fetchServices();
+});
 </script>
+
+<style scoped>
+.position-relative img {
+  width: 100%;
+}
+.position-absolute {
+  margin: 10px;
+}
+</style>
