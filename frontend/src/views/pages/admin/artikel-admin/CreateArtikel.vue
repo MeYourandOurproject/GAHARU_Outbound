@@ -185,7 +185,7 @@ const users = ref([]);
 
 const previewImage = ref(null);
 const thumbnailFile = ref(null);
-const contentImages = ref([]);
+// const contentImages = ref([]);
 
 const quillEditor = ref(null);
 const imageInput = ref(null);
@@ -259,7 +259,7 @@ const insertImage = async () => {
   const range = editor.getSelection(true);
   editor.insertEmbed(range.index, "image", imageUrl);
 
-  contentImages.value.push(file);
+  // contentImages.value.push(file);
   imageInput.value.value = null;
 };
 
@@ -278,9 +278,9 @@ const handleSubmit = async () => {
     formData.append("thumbnail", thumbnailFile.value);
   }
 
-  contentImages.value.forEach((file) => {
-    formData.append("pictures", file);
-  });
+  // contentImages.value.forEach((file) => {
+  //   formData.append("pictures", file);
+  // });
 
   try {
     const response = await fetch(`${API_BASE_URL}/api/artikels/admin`, {

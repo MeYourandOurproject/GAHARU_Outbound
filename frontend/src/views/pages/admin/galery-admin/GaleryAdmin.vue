@@ -62,7 +62,7 @@
           <td>{{ index + 1 + (currentPage - 1) * itemsPerPage }}</td>
 
           <td>
-            <img :src="getFirstImage(item.img_url)" class="thumb-img" />
+            <img :src="getFirstImage(item.images)" class="thumb-img" />
           </td>
 
           <td class="text-start">{{ item.title }}</td>
@@ -95,7 +95,11 @@
 
     <!-- LIMIT -->
     <div class="mb-3">
-      <select v-model="itemsPerPage" class="form-select w-auto" @change="changeLimit">
+      <select
+        v-model="itemsPerPage"
+        class="form-select w-auto"
+        @change="changeLimit"
+      >
         <option :value="5">5</option>
         <option :value="10">10</option>
         <option :value="20">20</option>
@@ -148,17 +152,13 @@ export default {
     /* ================= FETCH (UPDATED) ================= */
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `${API_BASE_URL}/api/galeries?page=${currentPage.value}&limit=${itemsPerPage.value}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const response = await fetch(`${API_BASE_URL}/api/galeries`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
         const result = await response.json();
 
-        datas.value = result.data || [];
-        totalPages.value = result.totalPage || 1;
+        datas.value = Array.isArray(result) ? result : [];
       } catch (error) {
         console.error(error);
         datas.value = [];
@@ -175,7 +175,7 @@ export default {
           {
             method: "DELETE",
             headers: { Authorization: `Bearer ${token}` },
-          }
+          },
         );
 
         if (!response.ok) throw new Error();
@@ -192,14 +192,12 @@ export default {
     };
 
     /* ================= IMG PARSE ================= */
-    const getFirstImage = (imgUrlString) => {
-      if (!imgUrlString) return "";
-      try {
-        const parsed = JSON.parse(imgUrlString);
-        return parsed[0];
-      } catch {
-        return "";
-      }
+    const getFirstImage = (images) => {
+      if (!images || images.length === 0) return "";
+      const cover = images.find((img) => img.is_cover);
+      if (cover) return cover.img_url;
+
+      return images[0].img_url;
     };
 
     /* ================= SORT (FRONTEND ONLY) ================= */

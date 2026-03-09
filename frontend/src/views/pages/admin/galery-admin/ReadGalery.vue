@@ -128,12 +128,12 @@ export default {
 
     /* ================= PARSE IMAGE ARRAY ================= */
     const imagesArray = computed(() => {
-      if (!galery.value?.img_url) return [];
-      try {
-        return JSON.parse(galery.value.img_url);
-      } catch {
-        return [];
-      }
+      if (!galery.value?.images) return [];
+
+      // Urutkan: cover dulu, lalu yang lain
+      return [...galery.value.images]
+        .sort((a, b) => b.is_cover - a.is_cover)
+        .map((img) => img.img_url);
     });
 
     const formatDate = (date) => {
@@ -166,7 +166,7 @@ table th {
   background: #f8f9fa;
 }
 
-table td{
+table td {
   text-align: start;
 }
 </style>

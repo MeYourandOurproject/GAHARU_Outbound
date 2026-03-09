@@ -44,11 +44,11 @@
         >
           <div
             class="gallery-item"
-            @click="openModal(imgObj.gallery, imgObj.index)"
+            @click="openModal(imgObj)"
           >
             <img :src="imgObj.src" class="img-fluid" loading="lazy" />
             <div class="gallery-overlay">
-              <h6>{{ imgObj.gallery.title }}</h6>
+              <h5>{{ imgObj.gallery.title }}</h5>
               <small>
                 {{ imgObj.gallery.location }},
                 <br />
@@ -101,7 +101,7 @@
           <div class="modal-body p-0 text-center">
             <img
               v-if="selectedImage"
-              :src="selectedImage.images[selectedIndex]"
+              :src="selectedImage"
               class="img-fluid w-100 rounded-top"
             />
           </div>
@@ -129,7 +129,7 @@ export default {
 
     const currentPage = ref(1);
     const totalPage = ref(1);
-    const limit = 8;
+    const limit = 12;
     const sortOrder = ref("newest");
 
     const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
@@ -139,34 +139,18 @@ export default {
         loading.value = true;
 
         const response = await fetch(
-          `${API_BASE_URL}/api/galeries?page=${currentPage.value}&limit=${limit}&sort=${sortOrder.value}`,
+          `${API_BASE_URL}/api/galeries/images?page=${currentPage.value}&limit=${limit}&sort=${sortOrder.value}`,
         );
 
         const result = await response.json();
 
         totalPage.value = result.totalPage;
 
-        galleries.value = result.data.map((item) => {
-          let images = [];
-          try {
-            images = JSON.parse(item.img_url);
-          } catch {
-            images = [];
-          }
-          return { ...item, images };
-        });
-
-        galleryImages.value = [];
-
-        galleries.value.forEach((gallery) => {
-          gallery.images.forEach((img, idx) => {
-            galleryImages.value.push({
-              src: img,
-              gallery,
-              index: idx,
-            });
-          });
-        });
+        // langsung pakai img_url
+        galleryImages.value = result.data.map((item) => ({
+          src: item.img_url,
+          gallery: item.galery,
+        }));
       } catch (err) {
         console.error(err);
         error.value = "Gagal memuat galeri.";
@@ -187,9 +171,8 @@ export default {
       window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
-    const openModal = async (gallery, index) => {
-      selectedImage.value = gallery;
-      selectedIndex.value = index;
+    const openModal = async (imgObj) => {
+      selectedImage.value = imgObj.src;
 
       await nextTick();
 

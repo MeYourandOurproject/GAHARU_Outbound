@@ -115,11 +115,12 @@
 <script>
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import imageCompression from "browser-image-compression";
 
 export default {
   setup() {
     const router = useRouter();
-    const API_BASE_URL = "http://localhost:3001";
+    const API_BASE_URL = process.env.VUE_APP_API_BASE_URL;
     const token = localStorage.getItem("token");
 
     const services = ref([]);
@@ -138,18 +139,43 @@ export default {
 
     /* ================= FETCH SERVICES ================= */
     const fetchServices = async () => {
-      const res = await fetch(`${API_BASE_URL}/api/services`);
+      const res = await fetch(`${API_BASE_URL}/api/services/admin`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       services.value = await res.json();
     };
 
     /* ================= HANDLE FILE UPLOAD ================= */
-    const handleFileUpload = (event) => {
+    const handleFileUpload = async (event) => {
       const files = Array.from(event.target.files);
 
-      files.forEach((file) => {
-        selectedFiles.value.push(file);
-        previewImages.value.push(URL.createObjectURL(file));
-      });
+      for (let file of files) {
+        const options = {
+          maxSizeMB: 0.5, // target 500KB
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+          fileType: "image/webp", // 🔥 convert ke webp
+          initialQuality: 0.8,
+        };
+
+        try {
+          const compressedFile = await imageCompression(file, options);
+
+          // rename file ke .webp
+          const webpFile = new File(
+            [compressedFile],
+            file.name.replace(/\.\w+$/, ".webp"),
+            {
+              type: "image/webp",
+            },
+          );
+
+          selectedFiles.value.push(webpFile);
+          previewImages.value.push(URL.createObjectURL(webpFile));
+        } catch (error) {
+          console.error("Compression error:", error);
+        }
+      }
     };
 
     const removeImage = (index) => {
